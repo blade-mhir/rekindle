@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shotgun
+  - Eight
+  - Coffee
+  - Fire
+  - HP
   layers:
   - Default
   - TransparentFX
