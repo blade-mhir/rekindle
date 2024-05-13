@@ -9,6 +9,7 @@ TagManager:
   - Coffee
   - Fire
   - HP
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
-  - 
+  - Power Up
+  - Enemy
   - 
   - 
   - 
