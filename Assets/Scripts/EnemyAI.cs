@@ -15,7 +15,6 @@ public class EnemyAI : MonoBehaviour
   {
     playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     rb = GetComponent<Rigidbody2D>();
-    InvokeRepeating("DealDamage", 0f, 1f); // Adjust delay and interval (seconds)
   }
 
   private void FixedUpdate()
@@ -28,6 +27,8 @@ public class EnemyAI : MonoBehaviour
       direction.Normalize();
       rb.MovePosition(rb.position + direction * moveSpeed * Time.deltaTime);
 
+      // Deal damage to player on collision
+      OnCollisionEnter2D(null); // Simulate collision for damage
     }
   }
 
@@ -43,16 +44,5 @@ public class EnemyAI : MonoBehaviour
         }
     }
     }
-
-    private void DealDamage() {
-  // Check if player is still in range before dealing damage
-  if (Vector2.Distance(transform.position, playerTransform.position) <= attackRange) {
-    var playerHealth = playerTransform.GetComponent<HealthController>();
-    if (playerHealth != null) {
-      playerHealth.TakeDamage(damageAmount);
-    }
-  }
-}
-
 
 }
