@@ -17,6 +17,8 @@ public class EnemySpawner : MonoBehaviour
     public Vector2 startPoint; // Starting position where the enemies will enter
     public Vector2 endPoint; // Ending position where the enemies will move to
 
+    private List<GameObject> spawnedEnemies = new List<GameObject>(); // Track spawned enemies
+
     private void Start()
     {
         foreach (var spawnDetails in spawnDetailsList)
@@ -41,6 +43,7 @@ public class EnemySpawner : MonoBehaviour
             // Instantiate the enemy at the specified start point
             Vector3 spawnPosition = new Vector3(startPoint.x, startPoint.y, 0);
             GameObject enemy = Instantiate(details.enemyPrefab, spawnPosition, Quaternion.identity);
+            spawnedEnemies.Add(enemy); // Add the spawned enemy to the list
 
             // Move the enemy to the end point
             StartCoroutine(MoveEnemyToPosition(enemy, new Vector3(endPoint.x, endPoint.y, 0)));
@@ -64,5 +67,18 @@ public class EnemySpawner : MonoBehaviour
         }
 
         enemy.transform.position = endPosition;
+    }
+
+    public bool HasRemainingEnemies()
+    {
+        // Check if there are any active enemies in the spawnedEnemies list
+        foreach (var enemy in spawnedEnemies)
+        {
+            if (enemy != null)
+            {
+                return true; // If at least one enemy is alive, return true
+            }
+        }
+        return false; // If no enemies are alive, return false
     }
 }
