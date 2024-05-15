@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,8 +10,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fireDuration = 5f; // Duration of Fire powerup effect (customizable in inspector)
     [SerializeField] private float increasedFireRate = 0.5f; // Desired fire rate during Fire powerup (adjustable)
     [SerializeField] private float increasedBulletForce = 2.0f; // Desired bullet force during Fire powerup (adjustable)
+    [SerializeField] private GameObject firePowerUpObject;
     [SerializeField] private float coffeeMoveSpeed = 2f; // Movement speed during Coffee powerup
     [SerializeField] private float coffeeDuration = 5f; // Duration of Coffee powerup effect (customizable in inspector)
+    [SerializeField] private GameObject coffeePowerUpObject;
 
     private PlayerControls playerControls;
     private Vector2 movement;
@@ -118,20 +121,35 @@ public class PlayerController : MonoBehaviour
 
     private void ActivatePowerUp(PowerUpType powerUpType)
     {
-        if (!isPowerUpActive || activePowerUp != powerUpType)
+        if (isPowerUpActive && activePowerUp != powerUpType)
         {
-            isPowerUpActive = true;
-            activePowerUp = powerUpType;
-            powerUpStartTime = Time.time;
+            DeactivatePowerUp(); // Deactivate previous power-up if different
+        }
 
-            if (powerUpType == PowerUpType.Fire)
-            {
+        isPowerUpActive = true;
+        activePowerUp = powerUpType;
+        powerUpStartTime = Time.time;
+
+        if (powerUpType == PowerUpType.Fire)
+        {
             Shooting shootingScript = GetComponent<Shooting>();
             if (shootingScript != null)
             {
                 shootingScript.SetFirePowerUpValues(increasedFireRate, increasedBulletForce);
             }
-            }
+        }
+    
+        // Enable corresponding power-up object
+        switch (powerUpType)
+        {
+            case PowerUpType.Coffee:
+                coffeePowerUpObject.SetActive(true);
+                firePowerUpObject.SetActive(false); // Deactivate Fire power-up object
+                break;
+            case PowerUpType.Fire:
+                firePowerUpObject.SetActive(true);
+                coffeePowerUpObject.SetActive(false); // Deactivate Coffee power-up object
+                break;
         }
     }
 
@@ -172,5 +190,9 @@ public class PlayerController : MonoBehaviour
         {
             shootingScript.ResetFirePowerUpValues();
         }
+
+        // Disable all power-up objects
+        coffeePowerUpObject.SetActive(false);
+        firePowerUpObject.SetActive(false);
     }
 }

@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class HealthController : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController; // Assign the PlayerController script
+    [SerializeField] private GameObject gameOverObject; // Assign the game over GameObject in the Inspector
+    [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private Image healthBarImage; // Assign the health bar image in the Inspector
     [SerializeField] private float maxHealth = 100f; // Now a float for smoother damage
-    [SerializeField] private GameObject gameOverObject; // Assign the game over GameObject in the Inspector
+    
     [SerializeField] private float healthPowerUpAmount = 20f; // Amount of health restored by power-up (modify in Inspector)
 
     [SerializeField] private Image shieldBarImage; // Assign the shield bar image in the Inspector
@@ -52,6 +54,8 @@ public class HealthController : MonoBehaviour
             gameOverObject.SetActive(true);
             // Trigger isDead animation
             GetComponent<Animator>().SetBool("isDead", true);
+             // Destroy all enemies when the player dies
+            enemyManager.DestroyAllEnemies();
         }
         else
         {

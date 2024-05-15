@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shooting : MonoBehaviour
 {
@@ -7,7 +10,9 @@ public class Shooting : MonoBehaviour
     [SerializeField] private float bulletForce = 10f; // Bullet force (customizable in inspector)
     [SerializeField] private float fireRate = 0.5f; // Fire rate (customizable in inspector)
     [SerializeField] private float shotgunDuration = 5f; // Duration of shotgun powerup (customizable in inspector)
+    [SerializeField] private GameObject shotgunPowerUpObject;
     [SerializeField] private float eightPowerUpDuration = 5f; // Duration of eight powerup (customizable in inspector)
+    [SerializeField] private GameObject eightPowerUpObject;
 
     private float nextFireTime = 0f;
      private bool isPowerUpActive = false; // Flag for any active powerup
@@ -184,12 +189,27 @@ public class Shooting : MonoBehaviour
         isPowerUpActive = true;
         activePowerUp = powerUpName;
         powerUpStartTime = Time.time;
+
+        // Enable corresponding power-up object
+        switch (powerUpName)
+        {
+            case "Shotgun":
+                shotgunPowerUpObject.SetActive(true);
+                break;
+            case "Eight":
+                eightPowerUpObject.SetActive(true);
+                break;
+        }
     }
 
     private void DeactivatePowerUp()
     {
         isPowerUpActive = false;
         activePowerUp = "";
+
+        // Disable all power-up objects
+        shotgunPowerUpObject.SetActive(false);
+        eightPowerUpObject.SetActive(false);
     }
 
     private float GetPowerUpDuration(string powerUpName)
