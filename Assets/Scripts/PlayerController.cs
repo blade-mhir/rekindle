@@ -20,11 +20,8 @@ public class PlayerController : MonoBehaviour
 
     private float minX = -6.25f;
     private float maxX = 6.92f;
-    private float minY = -6.95f;
+    private float minY = -7.11f;
     private float maxY = 5.93f;
-
-    [SerializeField] private HealthController healthController;
-
     private bool isPowerUpActive = false; // Flag for active powerup
     private PowerUpType activePowerUp; // Type of active powerup (Coffee or Fire)
     private float powerUpStartTime; // Time when the powerup was activated

@@ -23,13 +23,13 @@ public class BulletController : MonoBehaviour
     transform.Translate(GetComponent<Rigidbody2D>().velocity * Time.deltaTime);
 
     // Check if bullet goes beyond X position and destroy
-    if (transform.position.x < -6.25f || transform.position.x > 6.92f)
+    if (transform.position.x < -6.52f || transform.position.x > 7.20f)
     {
       Destroy(gameObject);
     }
 
     // Check if bullet goes beyond Y position and destroy
-    if (transform.position.y < -6.95f || transform.position.y > 5.93f)
+    if (transform.position.y < -7.5f || transform.position.y > 6.17f)
     {
       Destroy(gameObject);
     }

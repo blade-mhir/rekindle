@@ -19,9 +19,42 @@ public class EnemyHealth : MonoBehaviour
     // Handle enemy death (optional)
     if (currentHealth <= 0)
     {
-      // Destroy the enemy gameObject (or play a death animation)
-      Destroy(gameObject);
+      // Get the Animator component
+      Animator animator = GetComponent<Animator>();
+
+      // If Animator exists, trigger "isDead" animation
+      if (animator != null)
+      {
+        animator.SetTrigger("isDead");
+
+        // Destroy the object after the animation finishes (optional)
+        StartCoroutine(DestroyAfterAnimation());
+      }
+      else
+      {
+        // Destroy immediately if no Animator
+        Destroy(gameObject);
+      }
+    }
+    else
+    {
+      // Trigger the isHurting animation
+      Animator animator = GetComponent<Animator>();
+      if (animator != null)
+      {
+        animator.SetTrigger("isHurting");
+      }
     }
   }
+
+  IEnumerator DestroyAfterAnimation()
+  {
+    // Wait for the animation to finish (replace with your animation duration logic)
+    yield return new WaitForSeconds(0.5f); // Adjust this time based on your animation length
+
+    // Destroy the enemy GameObject
+    Destroy(gameObject);
+  }
+
 }
 

@@ -5,38 +5,46 @@ using UnityEngine.UI;
 
 public class HealthController : MonoBehaviour
 {
-    [SerializeField] private PlayerController playerController; // Assign the PlayerController script
-    [SerializeField] private Image healthBarImage; // Assign the health bar image in the Inspector
-    [SerializeField] private int maxHealth = 100; // Initial health value (adjustable in the Inspector)
-    [SerializeField] private GameObject gameOverObject; // Assign the game over GameObject in the Inspector
+  [SerializeField] private PlayerController playerController; // Assign the PlayerController script
+  [SerializeField] private Image healthBarImage; // Assign the health bar image in the Inspector
+  [SerializeField] private float maxHealth = 100f; // Now a float for smoother damage
 
-    private int currentHealth;
+  [SerializeField] private GameObject gameOverObject; // Assign the game over GameObject in the Inspector
+  [SerializeField] private float healthPowerUpAmount = 20f; // Amount of health restored by power-up (modify in Inspector)
 
-    void Start()
-    {
-        currentHealth = maxHealth;
-    }
+  private float currentHealth;
 
-public void TakeDamage(int damage)
-{
+  void Start()
+  {
+    currentHealth = maxHealth;
+  }
+
+  public void TakeDamage(float damage)
+  {
     currentHealth -= damage;
 
     if (currentHealth <= 0)
     {
-        currentHealth = 0;
-        playerController.Die(); // Call player death logic
-
-        // Show game over screen using a reference to the game over GameObject
-        gameOverObject.SetActive(true);
+      currentHealth = 0;
+      playerController.Die(); // Call player death logic
+      gameOverObject.SetActive(true);
     }
 
     UpdateHealthBar();
-}
+  }
 
+  private void UpdateHealthBar()
+  {
+    healthBarImage.fillAmount = currentHealth / maxHealth;
+  }
 
-    private void UpdateHealthBar()
+  void OnCollisionEnter2D(Collision2D collision) // Use OnCollisionEnter2D for collision detection
+  {
+    if (collision.gameObject.tag == "HP" && currentHealth < maxHealth) // Check for HP tag and not full health
     {
-        // Update health bar fill amount based on current health
-        healthBarImage.fillAmount = (float)currentHealth / maxHealth;
+      currentHealth = Mathf.Clamp(currentHealth + healthPowerUpAmount, 0f, maxHealth); // Add health, clamp between 0 and max
+      Destroy(collision.gameObject); // Destroy the health power-up object
+      UpdateHealthBar();
     }
+  }
 }
