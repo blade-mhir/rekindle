@@ -5,12 +5,13 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI; // Reference to the pause menu UI GameObject
     public AudioSource PauseMenuSound; // Reference to the audio manager AudioSource
+    public GameObject gameOverMenuUI; // Reference to the Game Over menu UI GameObject
 
     private bool isPaused = false;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !gameOverMenuUI.activeInHierarchy)
         {
             if (isPaused)
             {
@@ -51,15 +52,12 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        // Add functionality to quit the game (optional)
-        // You can use SceneManager.LoadScene or Application.Quit() here
         Debug.Log("Quitting the game...");
-        Application.Quit(); // Example: Quit the application
+        Application.Quit(); // Quit the application
     }
 
     public void MainMenu()
     {
-        // Load the main menu scene
         SceneManager.LoadScene("MainMenuSceneName"); // Replace with your main menu scene name
         Time.timeScale = 1f; // Ensure time is unpaused even if paused before
 
@@ -68,5 +66,21 @@ public class PauseMenu : MonoBehaviour
         {
             PauseMenuSound.mute = false;
         }
+    }
+
+    public void DisablePauseMenu()
+    {
+        if (isPaused)
+        {
+            ResumeGame();
+        }
+        pauseMenuUI.SetActive(false); // Ensure pause menu is hidden
+    }
+
+    public void ActivateGameOverMenu()
+    {
+        DisablePauseMenu(); // Disable the pause menu
+        gameOverMenuUI.SetActive(true); // Activate the Game Over menu
+        Time.timeScale = 0f; // Freeze time if needed for Game Over state
     }
 }

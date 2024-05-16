@@ -49,7 +49,7 @@ public class GameOverMenu : MonoBehaviour
         Time.timeScale = 1f;
 
         // Reload Scene 1
-        SceneManager.LoadScene("Scene1");
+        SceneManager.LoadScene("Scene 1");
     }
 
     public void MainMenu()

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; // Add this line to use SceneManager
 using UnityEngine.UI;
 
 public class LinearTimer : MonoBehaviour
@@ -61,24 +60,12 @@ public class LinearTimer : MonoBehaviour
                 else
                 {
                     victoryText.SetActive(true);
+                    // Assuming you want to show the continue button here
+                    victoryText.GetComponentInChildren<VictoryContinueMenu>().victoryContinueUI.SetActive(true);
                 }
             }
 
             timerImage.fillAmount = currentTime / maxTime;
         }
-    }
-
-    // Method to handle Continue button click
-    public void OnContinueButtonClick()
-    {
-        // Load Scene 2
-        SceneManager.LoadScene(2);
-    }
-
-    // Method to handle Main Menu button click
-    public void OnMainMenuButtonClick()
-    {
-        // Load Main Menu Scene (assuming it's Scene 0)
-        SceneManager.LoadScene(0);
     }
 }
