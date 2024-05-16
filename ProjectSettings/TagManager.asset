@@ -11,6 +11,9 @@ TagManager:
   - HP
   - Enemy
   - Coin
+  - HPCard
+  - SipCard
+  - VampCard
   layers:
   - Default
   - TransparentFX
@@ -21,7 +24,7 @@ TagManager:
   - Player
   - Power Up
   - Enemy
-  - 
+  - Card
   - 
   - 
   - 

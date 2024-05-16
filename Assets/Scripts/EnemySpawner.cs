@@ -17,11 +17,19 @@ public class EnemySpawner : MonoBehaviour
     public List<SpawnDetails> spawnDetailsList; // List of spawn details
     public Vector2 startPoint; // Starting position where the enemies will enter
     public Vector2 endPoint; // Ending position where the enemies will move to
+    [SerializeField] private float startDelay = 0f; // Delay before spawning starts
 
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // Track spawned enemies
 
     private void Start()
     {
+        StartCoroutine(SpawnAllEnemiesWithDelay());
+    }
+
+    private IEnumerator SpawnAllEnemiesWithDelay()
+    {
+        yield return new WaitForSeconds(startDelay);
+
         foreach (var spawnDetails in spawnDetailsList)
         {
             StartCoroutine(SpawnEnemies(spawnDetails));

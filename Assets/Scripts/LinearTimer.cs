@@ -8,29 +8,36 @@ public class LinearTimer : MonoBehaviour
     [SerializeField] private Image timerImage;
     [SerializeField] private GameObject gameOverText;
     [SerializeField] private GameObject victoryText;
-
-    // Reference to all EnemySpawner instances
-    [SerializeField] private List<EnemySpawner> enemySpawners = new List<EnemySpawner>();
-
     [SerializeField] private float maxTime = 60f;
+    [SerializeField] private float startDelay = 0f; // Delay before the timer starts
+    private bool timerStarted = false; // Flag to indicate if the timer has started
     private float currentTime;
     private bool isGameOver = false;
+    private List<EnemySpawner> enemySpawners = new List<EnemySpawner>();
 
     private void Start()
     {
-        currentTime = maxTime;
-
         // Populate enemySpawners list by finding all EnemySpawner instances in the scene
         EnemySpawner[] spawners = FindObjectsOfType<EnemySpawner>();
         foreach (EnemySpawner spawner in spawners)
         {
             enemySpawners.Add(spawner);
         }
+
+        // Start the timer after the delay
+        StartCoroutine(StartTimerWithDelay());
+    }
+
+    private IEnumerator StartTimerWithDelay()
+    {
+        yield return new WaitForSeconds(startDelay);
+        timerStarted = true;
+        currentTime = maxTime;
     }
 
     private void Update()
     {
-        if (!isGameOver)
+        if (timerStarted && !isGameOver)
         {
             currentTime -= Time.deltaTime;
 

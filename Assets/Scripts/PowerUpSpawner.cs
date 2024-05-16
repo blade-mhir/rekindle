@@ -9,6 +9,7 @@ public class PowerUpSpawner : MonoBehaviour
     [SerializeField] private Vector2[] spawnPositions; // Array of spawn positions (x, y)
     [SerializeField] private float powerUpDuration = 8f; // Duration of power up
     [SerializeField] private float spawnInterval = 15f; // Interval for respawning power-ups
+    [SerializeField] private float startDelay = 0f; // Delay before spawning starts
 
     private Dictionary<Vector2, GameObject> occupiedSpawnPositions = new Dictionary<Vector2, GameObject>();
     private bool isSpawning = false;
@@ -34,15 +35,20 @@ public class PowerUpSpawner : MonoBehaviour
             spawnProbabilities[i] /= totalProbability;
         }
 
-        // Start spawning power-ups
+        // Start spawning power-ups after delay
+        StartCoroutine(StartSpawningWithDelay());
+    }
+
+    private IEnumerator StartSpawningWithDelay()
+    {
+        yield return new WaitForSeconds(startDelay);
+        isSpawning = true;
         StartCoroutine(SpawnPowerUps());
     }
 
     private IEnumerator SpawnPowerUps()
     {
-        isSpawning = true;
-
-        while (true)
+        while (isSpawning)
         {
             // Spawn two power-ups
             for (int i = 0; i < 2; i++)
@@ -108,6 +114,6 @@ public class PowerUpSpawner : MonoBehaviour
     public void StartSpawning()
     {
         if (!isSpawning)
-            StartCoroutine(SpawnPowerUps());
+            StartCoroutine(StartSpawningWithDelay());
     }
 }
