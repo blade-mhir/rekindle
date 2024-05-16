@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI; // Reference to the pause menu UI GameObject
-    public AudioSource audioManager; // Reference to the audio manager AudioSource
+    public AudioSource PauseMenuSound; // Reference to the audio manager AudioSource
 
     private bool isPaused = false;
 
@@ -30,9 +30,9 @@ public class PauseMenu : MonoBehaviour
         isPaused = true;
 
         // Mute audio (optional)
-        if (audioManager != null)
+        if (PauseMenuSound != null)
         {
-            audioManager.mute = true;
+            PauseMenuSound.mute = true;
         }
     }
 
@@ -43,9 +43,9 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
 
         // Unmute audio (optional)
-        if (audioManager != null)
+        if (PauseMenuSound != null)
         {
-            audioManager.mute = false;
+            PauseMenuSound.mute = false;
         }
     }
 
@@ -55,5 +55,18 @@ public class PauseMenu : MonoBehaviour
         // You can use SceneManager.LoadScene or Application.Quit() here
         Debug.Log("Quitting the game...");
         Application.Quit(); // Example: Quit the application
+    }
+
+    public void MainMenu()
+    {
+        // Load the main menu scene
+        SceneManager.LoadScene("MainMenuSceneName"); // Replace with your main menu scene name
+        Time.timeScale = 1f; // Ensure time is unpaused even if paused before
+
+        // Unmute audio (optional)
+        if (PauseMenuSound != null)
+        {
+            PauseMenuSound.mute = false;
+        }
     }
 }

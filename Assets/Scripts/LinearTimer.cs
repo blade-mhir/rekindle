@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // Add this line to use SceneManager
 using UnityEngine.UI;
 
 public class LinearTimer : MonoBehaviour
@@ -8,7 +9,7 @@ public class LinearTimer : MonoBehaviour
     [SerializeField] private Image timerImage;
     [SerializeField] private GameObject gameOverText;
     [SerializeField] private GameObject victoryText;
-    
+
     // Reference to all EnemySpawner instances
     [SerializeField] private List<EnemySpawner> enemySpawners = new List<EnemySpawner>();
 
@@ -41,7 +42,7 @@ public class LinearTimer : MonoBehaviour
                 isGameOver = true;
 
                 bool anyRemainingEnemies = false;
-                
+
                 // Check each EnemySpawner for remaining enemies
                 foreach (EnemySpawner spawner in enemySpawners)
                 {
@@ -65,5 +66,19 @@ public class LinearTimer : MonoBehaviour
 
             timerImage.fillAmount = currentTime / maxTime;
         }
+    }
+
+    // Method to handle Continue button click
+    public void OnContinueButtonClick()
+    {
+        // Load Scene 2
+        SceneManager.LoadScene(2);
+    }
+
+    // Method to handle Main Menu button click
+    public void OnMainMenuButtonClick()
+    {
+        // Load Main Menu Scene (assuming it's Scene 0)
+        SceneManager.LoadScene(0);
     }
 }

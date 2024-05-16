@@ -54,8 +54,11 @@ public class HealthController : MonoBehaviour
             gameOverObject.SetActive(true);
             // Trigger isDead animation
             GetComponent<Animator>().SetBool("isDead", true);
-             // Destroy all enemies when the player dies
+            // Destroy all enemies when the player dies
             enemyManager.DestroyAllEnemies();
+
+            // Freeze the game
+            Time.timeScale = 0f;
         }
         else
         {
