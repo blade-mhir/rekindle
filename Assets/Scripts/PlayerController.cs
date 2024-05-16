@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float coffeeMoveSpeed = 2f; // Movement speed during Coffee powerup
     [SerializeField] private float coffeeDuration = 5f; // Duration of Coffee powerup effect (customizable in inspector)
     [SerializeField] private GameObject coffeePowerUpObject;
+    [SerializeField] private CoinManager coinManager; // Reference to the Coin Manager
 
     private PlayerControls playerControls;
     private Vector2 movement;
@@ -117,6 +118,11 @@ public class PlayerController : MonoBehaviour
             ActivatePowerUp(PowerUpType.Fire);
             Destroy(collision.gameObject); // Destroy the powerup on collision
         }
+        else if (collision.gameObject.CompareTag("Coin"))
+        {
+            CollectCoin(collision.gameObject);
+            Destroy(collision.gameObject); // Destroy the powerup on collision
+        }
     }
 
     private void ActivatePowerUp(PowerUpType powerUpType)
@@ -153,7 +159,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-      public void Die()
+    private void CollectCoin(GameObject coin)
+    {
+        coinManager.AddCoins(10); // Add 10 points for each coin
+        Destroy(coin); // Destroy the coin object
+    }
+
+    public void Die()
     {
         // Implement your player death logic here
         Debug.Log("Player Died!"); // Placeholder for now
@@ -179,12 +191,13 @@ public class PlayerController : MonoBehaviour
                 return 0f; // No duration for inactive powerup
         }
     }
+
     private void DeactivatePowerUp()
     {
         isPowerUpActive = false;
         activePowerUp = PowerUpType.None;
 
-         // Reset Shooting script to default values
+        // Reset Shooting script to default values
         Shooting shootingScript = GetComponent<Shooting>();
         if (shootingScript != null)
         {

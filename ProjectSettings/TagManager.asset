@@ -10,6 +10,7 @@ TagManager:
   - Fire
   - HP
   - Enemy
+  - Coin
   layers:
   - Default
   - TransparentFX

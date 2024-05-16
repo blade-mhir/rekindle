@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6059520577679917911}
   - component: {fileID: 6059520577679917910}
   - component: {fileID: 6021732700542068911}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: slime
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -200,5 +200,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootItems:
-  - itemPrefab: {fileID: 305966934531185353, guid: 89248f113bdbf2c4a8171b584626e7f8, type: 3}
-    dropChance: 1
+  - itemPrefab: {fileID: 3873582752853666729, guid: 0ae45def7ecdec344a0e6ec5f287e7db, type: 3}
+    dropChance: 0.5

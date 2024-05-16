@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6020392789389970703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6020392789389970704}
+  - component: {fileID: 6020392789389970705}
+  m_Layer: 0
+  m_Name: EnemySpawner4
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6020392789389970704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020392789389970703}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3, y: 8.54, z: -0.0169567}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6020392789389970705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020392789389970703}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d130228563e459498a9ddfa255c80f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnDetailsList:
+  - enemyPrefab: {fileID: 6059520577679917916, guid: 2442617d80f50fc43b90cc53e79098b3, type: 3}
+    startTime: 1
+    endTime: 15
+    spawnCount: 3
+  - enemyPrefab: {fileID: 7698500479958914667, guid: fd8e39e118e6ea3429d7b275940a2021, type: 3}
+    startTime: 16
+    endTime: 30
+    spawnCount: 3
+  - enemyPrefab: {fileID: 7698500479958914667, guid: fd8e39e118e6ea3429d7b275940a2021, type: 3}
+    startTime: 31
+    endTime: 50
+    spawnCount: 4
+  - enemyPrefab: {fileID: 4917447724482716792, guid: af86c7c5c4e35174096d20952aef3538, type: 3}
+    startTime: 86.25
+    endTime: 86.25
+    spawnCount: 4
+  - enemyPrefab: {fileID: 5159732373919076113, guid: d4d14f4b98ba77e4db3c6546dd0a8806, type: 3}
+    startTime: 86.5
+    endTime: 86.5
+    spawnCount: 1
+  startPoint: {x: 0.31, y: 6.85}
+  endPoint: {x: 0.31, y: 5.92}
