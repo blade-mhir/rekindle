@@ -4324,6 +4324,26 @@ PrefabInstance:
       propertyPath: m_TagString
       value: SipCard
       objectReference: {fileID: 0}
+    - target: {fileID: 8868522765904738653, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
+      propertyPath: m_Size.x
+      value: 1.3721583
+      objectReference: {fileID: 0}
+    - target: {fileID: 8868522765904738653, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
+      propertyPath: m_Size.y
+      value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 8868522765904738653, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.013920903
+      objectReference: {fileID: 0}
+    - target: {fileID: 8868522765904738653, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8868522765904738653, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.92
+      objectReference: {fileID: 0}
     - target: {fileID: 8868522765904738654, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -4346,11 +4366,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8868522765904738655, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.9
+      value: -4.71
       objectReference: {fileID: 0}
     - target: {fileID: 8868522765904738655, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.83
+      value: 3.75
       objectReference: {fileID: 0}
     - target: {fileID: 8868522765904738655, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4403,7 +4423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827d542f834363542af8db9b127fe743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 3
+  duration: 5
 --- !u!1 &1729865438
 GameObject:
   m_ObjectHideFlags: 0
@@ -5727,6 +5747,10 @@ PrefabInstance:
       propertyPath: firePowerUpObject
       value: 
       objectReference: {fileID: 60378643}
+    - target: {fileID: 6408590904953596065, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
+      propertyPath: sipUpCardMoveSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6408590904953596065, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
       propertyPath: coffeePowerUpObject
       value: 

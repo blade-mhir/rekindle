@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float coffeeMoveSpeed = 2f; // Movement speed during Coffee powerup
     [SerializeField] private float coffeeDuration = 5f; // Duration of Coffee powerup effect (customizable in inspector)
     [SerializeField] private GameObject coffeePowerUpObject;
+    [SerializeField] private float sipUpCardMoveSpeed = 1.5f; // Movement speed during SipUpCard powerup
+    [SerializeField] private GameObject sipUpCardPowerUpObject;
+    private LootBag lootBag;
+
     [SerializeField] private CoinManager coinManager; // Reference to the Coin Manager
 
     private PlayerControls playerControls;
@@ -29,8 +33,9 @@ public class PlayerController : MonoBehaviour
     private bool isPowerUpActive = false; // Flag for active powerup
     private PowerUpType activePowerUp; // Type of active powerup (Coffee or Fire)
     private float powerUpStartTime; // Time when the powerup was activated
+    private bool sipUpCardActive = false; // Flag to check if SipUpCard is active
 
-    private enum PowerUpType { None, Coffee, Fire } // Enum for powerup types
+    private enum PowerUpType { None, Coffee, Fire, SipUpCard } // Enum for powerup types
 
     private void Awake()
     {
@@ -38,6 +43,9 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         mySpriteRender = GetComponent<SpriteRenderer>();
+
+        // Find LootBag script in the scene
+        lootBag = FindObjectOfType<LootBag>();
     }
 
     private void OnEnable()
@@ -80,14 +88,25 @@ public class PlayerController : MonoBehaviour
 
     private float GetMovementSpeed()
     {
-        switch (activePowerUp)
+        if (isPowerUpActive)
         {
-            case PowerUpType.Coffee:
-                return coffeeMoveSpeed;
-            case PowerUpType.Fire:
-                return fireMoveSpeed;
-            default:
-                return moveSpeed;
+            switch (activePowerUp)
+            {
+                case PowerUpType.Coffee:
+                    return coffeeMoveSpeed;
+                case PowerUpType.Fire:
+                    return fireMoveSpeed;
+                default:
+                    return moveSpeed;
+            }
+        }
+        else if (sipUpCardActive)
+        {
+            return sipUpCardMoveSpeed;
+        }
+        else
+        {
+            return moveSpeed;
         }
     }
 
@@ -118,10 +137,28 @@ public class PlayerController : MonoBehaviour
             ActivatePowerUp(PowerUpType.Fire);
             Destroy(collision.gameObject); // Destroy the powerup on collision
         }
+        else if (collision.gameObject.CompareTag("SipCard"))
+        {
+            ActivateSipUpCard();
+            Destroy(collision.gameObject); // Destroy the powerup on collision
+        }
         else if (collision.gameObject.CompareTag("Coin"))
         {
             CollectCoin(collision.gameObject);
             Destroy(collision.gameObject); // Destroy the powerup on collision
+        }
+        else if (collision.gameObject.CompareTag("VampCard"))
+        {
+            ActivateVampCard();
+            Destroy(collision.gameObject); // Destroy the VampCard on collision
+        }
+    }
+
+     private void ActivateVampCard()
+    {
+        if (lootBag != null)
+        {
+            lootBag.ActivateVampCard();
         }
     }
 
@@ -144,19 +181,45 @@ public class PlayerController : MonoBehaviour
                 shootingScript.SetFirePowerUpValues(increasedFireRate, increasedBulletForce);
             }
         }
-    
+
         // Enable corresponding power-up object
         switch (powerUpType)
         {
             case PowerUpType.Coffee:
-                coffeePowerUpObject.SetActive(true);
-                firePowerUpObject.SetActive(false); // Deactivate Fire power-up object
+                if (coffeePowerUpObject != null)
+                {
+                    coffeePowerUpObject.SetActive(true);
+                }
+                if (firePowerUpObject != null)
+                {
+                    firePowerUpObject.SetActive(false); // Deactivate Fire power-up object
+                }
+                if (sipUpCardPowerUpObject != null)
+                {
+                    sipUpCardPowerUpObject.SetActive(false);
+                }
                 break;
             case PowerUpType.Fire:
-                firePowerUpObject.SetActive(true);
-                coffeePowerUpObject.SetActive(false); // Deactivate Coffee power-up object
+                if (firePowerUpObject != null)
+                {
+                    firePowerUpObject.SetActive(true);
+                }
+                if (coffeePowerUpObject != null)
+                {
+                    coffeePowerUpObject.SetActive(false); // Deactivate Coffee power-up object
+                }
+                if (sipUpCardPowerUpObject != null)
+                {
+                    sipUpCardPowerUpObject.SetActive(false);
+                }
                 break;
         }
+    }
+
+    private void ActivateSipUpCard()
+    {
+        sipUpCardActive = true;
+        moveSpeed = sipUpCardMoveSpeed;
     }
 
     private void CollectCoin(GameObject coin)
@@ -205,7 +268,19 @@ public class PlayerController : MonoBehaviour
         }
 
         // Disable all power-up objects
-        coffeePowerUpObject.SetActive(false);
-        firePowerUpObject.SetActive(false);
+        if (coffeePowerUpObject != null)
+        {
+            coffeePowerUpObject.SetActive(false);
+        }
+        if (firePowerUpObject != null)
+        {
+            firePowerUpObject.SetActive(false);
+        }
+
+        // If SipUpCard is active, keep its speed
+        if (sipUpCardActive)
+        {
+            moveSpeed = sipUpCardMoveSpeed;
+        }
     }
 }
