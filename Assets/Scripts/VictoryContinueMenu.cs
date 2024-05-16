@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class VictoryContinueMenu : MonoBehaviour
 {
     public GameObject victoryContinueUI; // Change this to public
+    public CoinManager coinManager; // Reference to the CoinManager script
+    public TMP_Text totalScoreText; // Reference to a TextMesh Pro TMP_Text component to display the total score
 
     private void Start()
     {
@@ -12,6 +15,18 @@ public class VictoryContinueMenu : MonoBehaviour
         {
             Debug.LogError("Victory Continue UI is not assigned.");
         }
+
+        // Display the total score when the menu starts
+        DisplayTotalScore();
+    }
+
+    void DisplayTotalScore()
+    {
+        // Get the total score from the CoinManager
+        int totalScore = coinManager.coinScore;
+
+        // Display the total score
+        totalScoreText.text = "Score: " + totalScore.ToString();
     }
 
     public void OnContinueButtonClick()

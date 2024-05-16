@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameOverMenu : MonoBehaviour
 {
     public GameObject gameOverUI; // Reference to the Game Over UI object
     public AudioSource gameOverSound; // Reference to the AudioSource for the Game Over sound
+    public CoinManager coinManager; // Reference to the CoinManager script
+    public TMP_Text finalScoreText; // Reference to a TextMesh Pro TMP_Text component to display the final score
 
     private bool isGameOver = false;
 
@@ -21,6 +24,9 @@ public class GameOverMenu : MonoBehaviour
             // Show Game Over menu
             ShowGameOverMenu();
 
+            // Display final score
+            DisplayFinalScore();
+
             // Play Game Over sound
             if (gameOverSound != null)
             {
@@ -34,13 +40,22 @@ public class GameOverMenu : MonoBehaviour
         // Implement your game over condition here
         // For example, if player's health reaches zero
         // or if time runs out, etc.
-        return false;
+        return false; // Placeholder, replace with actual condition
     }
 
     void ShowGameOverMenu()
     {
         // Activate the Game Over menu UI
         gameOverUI.SetActive(true);
+    }
+
+    void DisplayFinalScore()
+    {
+        // Get the final score from the CoinManager
+        int finalScore = coinManager.coinScore;
+
+        // Display the final score
+        finalScoreText.text = "Score: " + finalScore.ToString();
     }
 
     public void Retry()
