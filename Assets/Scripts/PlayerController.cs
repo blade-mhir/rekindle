@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject coffeePowerUpObject;
     [SerializeField] private float sipUpCardMoveSpeed = 1.5f; // Movement speed during SipUpCard powerup
     [SerializeField] private GameObject sipUpCardPowerUpObject;
-    private LootBag lootBag;
-
     [SerializeField] private CoinManager coinManager; // Reference to the Coin Manager
 
     private PlayerControls playerControls;
@@ -43,9 +41,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         mySpriteRender = GetComponent<SpriteRenderer>();
-
-        // Find LootBag script in the scene
-        lootBag = FindObjectOfType<LootBag>();
     }
 
     private void OnEnable()
@@ -146,19 +141,6 @@ public class PlayerController : MonoBehaviour
         {
             CollectCoin(collision.gameObject);
             Destroy(collision.gameObject); // Destroy the powerup on collision
-        }
-        else if (collision.gameObject.CompareTag("VampCard"))
-        {
-            ActivateVampCard();
-            Destroy(collision.gameObject); // Destroy the VampCard on collision
-        }
-    }
-
-     private void ActivateVampCard()
-    {
-        if (lootBag != null)
-        {
-            lootBag.ActivateVampCard();
         }
     }
 

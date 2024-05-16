@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
+  coinValue: 10
 --- !u!114 &6021732700542068911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,4 +202,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootItems:
   - itemPrefab: {fileID: 3873582752853666729, guid: 0ae45def7ecdec344a0e6ec5f287e7db, type: 3}
-    dropChance: 0.5
+    baseDropChance: 0.5
+    vampCardDropChance: 0.5
+  - itemPrefab: {fileID: 305966934531185353, guid: 89248f113bdbf2c4a8171b584626e7f8, type: 3}
+    baseDropChance: 0.2
+    vampCardDropChance: 0.5
