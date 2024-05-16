@@ -6,10 +6,9 @@ public class PowerUpSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] powerUpPrefabs; // Array of power up prefabs
     [SerializeField] private float[] spawnProbabilities; // Array of spawn probabilities
-    [SerializeField] private int numberOfSpawns; // Number of power ups to spawn
     [SerializeField] private Vector2[] spawnPositions; // Array of spawn positions (x, y)
     [SerializeField] private float powerUpDuration = 8f; // Duration of power up
-    [SerializeField] private float respawnDelay = 1f; // Delay before respawning a power-up in the same position
+    [SerializeField] private float spawnInterval = 15f; // Interval for respawning power-ups
 
     private Dictionary<Vector2, GameObject> occupiedSpawnPositions = new Dictionary<Vector2, GameObject>();
     private bool isSpawning = false;
@@ -35,36 +34,44 @@ public class PowerUpSpawner : MonoBehaviour
             spawnProbabilities[i] /= totalProbability;
         }
 
-        // Spawn initial power ups
+        // Start spawning power-ups
         StartCoroutine(SpawnPowerUps());
     }
 
     private IEnumerator SpawnPowerUps()
     {
         isSpawning = true;
-        for (int i = 0; i < numberOfSpawns; i++)
+
+        while (true)
         {
-            // Choose a random spawn position
-            Vector2 spawnPoint = GetRandomSpawnPoint();
-
-            // Choose a random power up prefab based on probabilities
-            GameObject powerUp = Instantiate(ChoosePowerUpPrefab(), spawnPoint, Quaternion.identity);
-            occupiedSpawnPositions.Add(spawnPoint, powerUp);
-
-            // Wait for power-up duration or activation
-            yield return new WaitForSeconds(powerUpDuration);
-
-            // Destroy power up after duration
-            if (occupiedSpawnPositions.ContainsKey(spawnPoint))
+            // Spawn two power-ups
+            for (int i = 0; i < 2; i++)
             {
-                Destroy(occupiedSpawnPositions[spawnPoint]);
-                occupiedSpawnPositions.Remove(spawnPoint);
+                // Choose a random spawn position
+                Vector2 spawnPoint = GetRandomSpawnPoint();
+
+                // Choose a random power up prefab based on probabilities
+                GameObject powerUp = Instantiate(ChoosePowerUpPrefab(), spawnPoint, Quaternion.identity);
+                occupiedSpawnPositions.Add(spawnPoint, powerUp);
+
+                // Destroy power up after duration
+                StartCoroutine(DestroyPowerUpAfterDuration(spawnPoint, powerUpDuration));
             }
 
-            // Wait before respawning
-            yield return new WaitForSeconds(respawnDelay);
+            // Wait for the spawn interval before spawning again
+            yield return new WaitForSeconds(spawnInterval);
         }
-        isSpawning = false;
+    }
+
+    private IEnumerator DestroyPowerUpAfterDuration(Vector2 spawnPoint, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        if (occupiedSpawnPositions.ContainsKey(spawnPoint))
+        {
+            Destroy(occupiedSpawnPositions[spawnPoint]);
+            occupiedSpawnPositions.Remove(spawnPoint);
+        }
     }
 
     private Vector2 GetRandomSpawnPoint()
@@ -104,31 +111,3 @@ public class PowerUpSpawner : MonoBehaviour
             StartCoroutine(SpawnPowerUps());
     }
 }
-
-
-//ALL 4 positions occupied
-// private IEnumerator SpawnPowerUps()
-// {
-//     isSpawning = true;
-//     for (int i = 0; i < spawnPositions.Length; i++)
-//     {
-//         // Choose a random power up prefab based on probabilities
-//         GameObject powerUp = Instantiate(ChoosePowerUpPrefab(), spawnPositions[i], Quaternion.identity);
-//         occupiedSpawnPositions.Add(spawnPositions[i], powerUp);
-
-//         // Wait for power-up duration or activation
-//         yield return new WaitForSeconds(powerUpDuration);
-
-//         // Destroy power up after duration
-//         if (occupiedSpawnPositions.ContainsKey(spawnPositions[i]))
-//         {
-//             Destroy(occupiedSpawnPositions[spawnPositions[i]]);
-//             occupiedSpawnPositions.Remove(spawnPositions[i]);
-//         }
-
-//         // Wait before respawning
-//         yield return new WaitForSeconds(respawnDelay);
-//     }
-//     isSpawning = false;
-// }
-
