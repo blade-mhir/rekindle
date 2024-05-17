@@ -16,6 +16,7 @@ TagManager:
   - VampCard
   - HPotionCard
   - ShieldCard
+  - DashCard
   layers:
   - Default
   - TransparentFX

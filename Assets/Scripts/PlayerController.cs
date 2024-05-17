@@ -105,6 +105,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public Vector2 GetMovementDirection()
+    {
+    return movement;
+    }
+
+
     private void AdjustPlayerFacingDirection()
     {
         Vector3 mousePos = Input.mousePosition;
