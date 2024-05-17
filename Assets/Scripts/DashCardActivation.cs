@@ -60,35 +60,25 @@ public class DashCardActivation : MonoBehaviour
                 Vector2 targetPosition = originalPosition + dashDirection * dashDistance;
 
                 float distanceRemaining = Vector2.Distance(originalPosition, targetPosition);
-                float startTime = Time.time; // Record the start time of the dash
-
+                float elapsedTime = 0f;
                 while (distanceRemaining > 0f)
                 {
                     float moveDistance = dashSpeed * Time.deltaTime;
                     transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveDistance);
                     distanceRemaining = Vector2.Distance(transform.position, targetPosition);
-
-                    // Calculate the elapsed time since the start of the dash
-                    float elapsedTime = Time.time - startTime;
-
-                    // Calculate how much time has passed since the last iteration of the loop
-                    float deltaTime = Time.deltaTime;
-
-                    // Decrease power-up duration based on the time passed in this iteration
-                    powerUpDuration -= deltaTime;
-
+                    elapsedTime += Time.deltaTime;
                     yield return null;
                 }
 
                 transform.position = targetPosition; // Ensure the player reaches the target position
                 lastDashTime = Time.time;
+                powerUpDuration -= dashDuration; // Decrease power-up duration by dash duration
             }
         }
 
         // Power-up duration reached 0, initiate cooldown
         StartCoroutine(DashCooldown());
     }
-
 
     private IEnumerator DashCooldown()
     {

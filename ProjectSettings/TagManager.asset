@@ -17,6 +17,7 @@ TagManager:
   - HPotionCard
   - ShieldCard
   - DashCard
+  - InviCard
   layers:
   - Default
   - TransparentFX
