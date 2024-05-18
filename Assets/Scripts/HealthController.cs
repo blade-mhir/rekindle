@@ -116,6 +116,12 @@ public class HealthController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision) // Use OnCollisionEnter2D for collision detection
     {
+        if (CardCollectionManager.Instance.IsCardLimitReached())
+        {
+        // Optionally: Add logic to disable collision with specific tags or give feedback
+        return;
+        }
+
         if (collision.gameObject.tag == "HP")
         {
             if (currentShield == 0 && currentHealth < maxHealth)
@@ -126,20 +132,32 @@ public class HealthController : MonoBehaviour
             }
         }
         else if (collision.gameObject.tag == "HPotionCard")
+    {
+        if (CardCollectionManager.Instance.CanCollectCard("HPotionCard"))
         {
             hasHealthPotion = true; // Player now has a health potion
+            CardCollectionManager.Instance.CollectCard("HPotionCard");
             Destroy(collision.gameObject); // Destroy the health potion object
         }
-        else if (collision.gameObject.tag == "HPCard")
+    }
+    else if (collision.gameObject.tag == "HPCard")
+    {
+        if (CardCollectionManager.Instance.CanCollectCard("HPCard"))
         {
             IncreaseBaseMaxHealth();
+            CardCollectionManager.Instance.CollectCard("HPCard");
             Destroy(collision.gameObject); // Destroy the HP Card object
         }
-        else if (collision.gameObject.tag == "ShieldCard")
+    }
+    else if (collision.gameObject.tag == "ShieldCard")
+    {
+        if (CardCollectionManager.Instance.CanCollectCard("ShieldCard"))
         {
             IncreaseBaseMaxShield();
+            CardCollectionManager.Instance.CollectCard("ShieldCard");
             Destroy(collision.gameObject); // Destroy the Shield Card object
         }
+    }
     }
 
     private void UseHealthPotion()

@@ -134,6 +134,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+         if (CardCollectionManager.Instance.IsCardLimitReached())
+        {
+            // Optionally: Add logic to disable collision with specific tags or give feedback
+            return;
+        }
+        
         if (collision.gameObject.CompareTag("Coffee"))
         {
             ActivatePowerUp(PowerUpType.Coffee);
@@ -146,8 +152,12 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("SipCard"))
         {
-            ActivateSipUpCard();
-            Destroy(collision.gameObject); // Destroy the powerup on collision
+            if (CardCollectionManager.Instance.CanCollectCard("SipCard"))
+            {
+                // Activate SipCard effect here
+                CardCollectionManager.Instance.CollectCard("SipCard");
+                Destroy(collision.gameObject); // Destroy the SipCard object
+            }
         }
         else if (collision.gameObject.CompareTag("Coin"))
         {
