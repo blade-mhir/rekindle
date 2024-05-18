@@ -5,6 +5,8 @@ public class InviCardActivation : MonoBehaviour
 {
     [SerializeField] private float inviDuration = 5f; // Duration of the invisibility effect
     [SerializeField] private float cooldownDuration = 10f; // Cooldown duration for invisibility
+    [SerializeField] private GameObject inviPowerUpObject; // Reference to the invisibility power-up object
+    [SerializeField] private GameObject cooldownObject; // Reference to the cooldown indicator object
     private bool isCooldown = false;
     private float inviStartTime;
     private PlayerController playerController;
@@ -30,6 +32,20 @@ public class InviCardActivation : MonoBehaviour
             CardManager.instance.ActivateInviCard();
             playerController.SetInvisible(true);
             inviStartTime = Time.time;
+            isCooldown = true;
+
+            // Enable the invisibility power-up object
+            if (inviPowerUpObject != null)
+            {
+                inviPowerUpObject.SetActive(true);
+            }
+
+            // Enable the cooldown indicator object
+            if (cooldownObject != null)
+            {
+                cooldownObject.SetActive(true);
+            }
+
             StartCoroutine(InvisibilityCooldown());
         }
     }
@@ -38,8 +54,21 @@ public class InviCardActivation : MonoBehaviour
     {
         yield return new WaitForSeconds(inviDuration);
         playerController.SetInvisible(false);
+
+        // Disable the invisibility power-up object
+        if (inviPowerUpObject != null)
+        {
+            inviPowerUpObject.SetActive(false);
+        }
+
         yield return new WaitForSeconds(cooldownDuration);
         isCooldown = false;
+
+        // Disable the cooldown indicator object
+        if (cooldownObject != null)
+        {
+            cooldownObject.SetActive(false);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

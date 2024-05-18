@@ -15,10 +15,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float coffeeDuration = 5f; // Duration of Coffee powerup effect (customizable in inspector)
     [SerializeField] private GameObject coffeePowerUpObject;
     [SerializeField] private float sipUpCardMoveSpeed = 1.5f; // Movement speed during SipUpCard powerup
-    [SerializeField] private GameObject sipUpCardPowerUpObject;
     [SerializeField] private CoinManager coinManager; // Reference to the Coin Manager
-
-    [SerializeField] private GameObject inviCardPowerUpObject;
+    [SerializeField] private GameObject sipCardPowerUpObject;
+    
     private bool isInvisible = false;
     private float inviDuration = 5f; // Duration of Invisibility powerup (customizable in inspector)
     private float inviStartTime; // Time when the invisibility was activated
@@ -139,7 +138,7 @@ public class PlayerController : MonoBehaviour
             // Optionally: Add logic to disable collision with specific tags or give feedback
             return;
         }
-        
+
         if (collision.gameObject.CompareTag("Coffee"))
         {
             ActivatePowerUp(PowerUpType.Coffee);
@@ -150,28 +149,28 @@ public class PlayerController : MonoBehaviour
             ActivatePowerUp(PowerUpType.Fire);
             Destroy(collision.gameObject); // Destroy the powerup on collision
         }
-        else if (collision.gameObject.CompareTag("SipCard"))
+         else if (collision.gameObject.CompareTag("SipCard"))
         {
             if (CardCollectionManager.Instance.CanCollectCard("SipCard"))
             {
-                // Activate SipCard effect here
+                ActivateSipUpCard();
                 CardCollectionManager.Instance.CollectCard("SipCard");
                 Destroy(collision.gameObject); // Destroy the SipCard object
+            }
+        }
+        else if (collision.gameObject.CompareTag("InviCard"))
+        {
+            if (!CardManager.instance.IsDashCardActivated() && !CardManager.instance.IsLaserCardActivated())
+            {
+                ActivateInvisibility();
+                CardManager.instance.ActivateInviCard();
+                Destroy(collision.gameObject); // Destroy the InviCard object
             }
         }
         else if (collision.gameObject.CompareTag("Coin"))
         {
             CollectCoin(collision.gameObject);
             Destroy(collision.gameObject); // Destroy the powerup on collision
-        }
-        else if (collision.gameObject.CompareTag("InviCard"))
-        {
-            if (!CardManager.instance.IsDashCardActivated() && !CardManager.instance.IsLaserCardActivated())
-            {
-                CardManager.instance.ActivateInviCard();
-                ActivateInvisibility();
-                Destroy(collision.gameObject); // Destroy the powerup on collision
-            }
         }
     }
 
@@ -207,10 +206,6 @@ public class PlayerController : MonoBehaviour
                 {
                     firePowerUpObject.SetActive(false); // Deactivate Fire power-up object
                 }
-                if (sipUpCardPowerUpObject != null)
-                {
-                    sipUpCardPowerUpObject.SetActive(false);
-                }
                 break;
             case PowerUpType.Fire:
                 if (firePowerUpObject != null)
@@ -221,26 +216,21 @@ public class PlayerController : MonoBehaviour
                 {
                     coffeePowerUpObject.SetActive(false); // Deactivate Coffee power-up object
                 }
-                if (sipUpCardPowerUpObject != null)
-                {
-                    sipUpCardPowerUpObject.SetActive(false);
-                }
                 break;
         }
     }
+
     private void ActivateInvisibility()
     {
         isInvisible = true;
         inviStartTime = Time.time;
-        inviCardPowerUpObject.SetActive(true);
         StartCoroutine(InvisibilityTimer());
     }
 
-    private IEnumerator InvisibilityTimer()
+   private IEnumerator InvisibilityTimer()
     {
         yield return new WaitForSeconds(inviDuration);
         isInvisible = false;
-        inviCardPowerUpObject.SetActive(false);
         CardManager.instance.DeactivateAllCards();
     }
 
@@ -256,6 +246,7 @@ public class PlayerController : MonoBehaviour
 
     private void ActivateSipUpCard()
     {
+        sipCardPowerUpObject.SetActive(true);
         sipUpCardActive = true;
         moveSpeed = sipUpCardMoveSpeed;
     }
@@ -321,6 +312,20 @@ public class PlayerController : MonoBehaviour
             moveSpeed = sipUpCardMoveSpeed;
         }
     }
+
+public void ResetState()
+{
+    // Reset any parameters or flags controlling the player's state
+    isInvisible = false; // Reset invisibility state if applicable
+    isPowerUpActive = false; // Reset power-up state if applicable
+    activePowerUp = PowerUpType.None; // Reset active power-up type
+    sipUpCardActive = false; // Reset SipUpCard state if applicable
+
+    // Reset animation parameters
+    myAnimator.SetBool("isDead", false); // Ensure isDead animation is set to false
+    // Reset any other animation parameters if necessary
+}
+
 
     
 }

@@ -25,7 +25,10 @@ public class LootBag : MonoBehaviour
             if (randomValue <= effectiveDropChance)
             {
                 Instantiate(lootItem.itemPrefab, transform.position, Quaternion.identity);
+                break; // Break out of the loop after dropping one item
             }
         }
     }
+
+
 }

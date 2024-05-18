@@ -6,7 +6,8 @@ public class LaserCardActivation : MonoBehaviour
     [SerializeField] private GameObject laserBulletPrefab; // Reference to the laser bullet prefab
     [SerializeField] private float laserDuration = 10f; // Duration of laser powerup (customizable in inspector)
     [SerializeField] private float cooldownDuration = 30f; // Cooldown duration for laser powerup (customizable in inspector)
-    [SerializeField] private GameObject laserPowerUpObject;
+    [SerializeField] private GameObject laserPowerUpObject; // Reference to the laser power-up object
+    [SerializeField] private GameObject cooldownObject; // Reference to the cooldown indicator object
 
     private bool isLaserActive = false; // Flag for laser powerup state
     private float laserStartTime;
@@ -38,6 +39,10 @@ public class LaserCardActivation : MonoBehaviour
         if (isCooldownActive && Time.time >= cooldownStartTime + cooldownDuration)
         {
             isCooldownActive = false;
+            if (cooldownObject != null)
+            {
+                cooldownObject.SetActive(false);
+            }
         }
     }
 
@@ -57,6 +62,12 @@ public class LaserCardActivation : MonoBehaviour
         // Start cooldown
         isCooldownActive = true;
         cooldownStartTime = Time.time;
+
+        // Enable the cooldown indicator object
+        if (cooldownObject != null)
+        {
+            cooldownObject.SetActive(true);
+        }
     }
 
     private void DeactivateLaserPowerUp()

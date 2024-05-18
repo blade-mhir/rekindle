@@ -44,10 +44,10 @@ GameObject:
   - component: {fileID: 6408590904953596092}
   - component: {fileID: 6408590904953596064}
   - component: {fileID: 6408590904953596071}
-  - component: {fileID: 5979424525617461184}
   - component: {fileID: 6408590904953596065}
   - component: {fileID: 6408590904953596070}
   - component: {fileID: 6408590904953596069}
+  - component: {fileID: 5979424525617461184}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -191,19 +191,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5979424525617461184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6408590904953596093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98b4d391f006cba469616e6551da9bae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxCards: 3
 --- !u!114 &6408590904953596065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,9 +213,8 @@ MonoBehaviour:
   coffeeDuration: 8
   coffeePowerUpObject: {fileID: 0}
   sipUpCardMoveSpeed: 1.5
-  sipUpCardPowerUpObject: {fileID: 0}
   coinManager: {fileID: 0}
-  inviCardPowerUpObject: {fileID: 0}
+  sipCardPowerUpObject: {fileID: 0}
 --- !u!114 &6408590904953596070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,3 +261,18 @@ MonoBehaviour:
   newHealthBarImage: {fileID: 0}
   newShieldBarGameObject: {fileID: 0}
   newShieldBarImage: {fileID: 0}
+  hPotionCardGameObject: {fileID: 0}
+  hPCardGameObject: {fileID: 0}
+  shieldCardGameObject: {fileID: 0}
+--- !u!114 &5979424525617461184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6408590904953596093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98b4d391f006cba469616e6551da9bae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

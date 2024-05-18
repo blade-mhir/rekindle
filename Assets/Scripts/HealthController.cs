@@ -20,6 +20,10 @@ public class HealthController : MonoBehaviour
     [SerializeField] private GameObject newShieldBarGameObject; // Assign the new ShieldBar GameObject in the Inspector
     [SerializeField] private Image newShieldBarImage; // Assign the new ShieldBar Image in the Inspector
 
+    [SerializeField] private GameObject hPotionCardGameObject; // Assign the Health Potion Card GameObject in the Inspector
+    [SerializeField] private GameObject hPCardGameObject; // Assign the HP Card GameObject in the Inspector
+    [SerializeField] private GameObject shieldCardGameObject; // Assign the Shield Card GameObject in the Inspector
+
     private float currentHealth;
     private float currentShield;
     private bool hasHealthPotion = false; // Variable to track if the player has a health potion
@@ -132,38 +136,54 @@ public class HealthController : MonoBehaviour
             }
         }
         else if (collision.gameObject.tag == "HPotionCard")
-    {
-        if (CardCollectionManager.Instance.CanCollectCard("HPotionCard"))
         {
-            hasHealthPotion = true; // Player now has a health potion
-            CardCollectionManager.Instance.CollectCard("HPotionCard");
-            Destroy(collision.gameObject); // Destroy the health potion object
+            if (CardCollectionManager.Instance.CanCollectCard("HPotionCard"))
+            {
+                hasHealthPotion = true; // Player now has a health potion
+                CardCollectionManager.Instance.CollectCard("HPotionCard");
+                Destroy(collision.gameObject); // Destroy the health potion object
+                if (hPotionCardGameObject != null)
+                {
+                    hPotionCardGameObject.SetActive(true); // Activate health potion card game object
+                }
+            }
         }
-    }
-    else if (collision.gameObject.tag == "HPCard")
-    {
-        if (CardCollectionManager.Instance.CanCollectCard("HPCard"))
+        else if (collision.gameObject.tag == "HPCard")
         {
-            IncreaseBaseMaxHealth();
-            CardCollectionManager.Instance.CollectCard("HPCard");
-            Destroy(collision.gameObject); // Destroy the HP Card object
+            if (CardCollectionManager.Instance.CanCollectCard("HPCard"))
+            {
+                IncreaseBaseMaxHealth();
+                CardCollectionManager.Instance.CollectCard("HPCard");
+                Destroy(collision.gameObject); // Destroy the HP Card object
+                if (hPCardGameObject != null)
+                {
+                    hPCardGameObject.SetActive(true); // Activate HP card game object
+                }
+            }
         }
-    }
-    else if (collision.gameObject.tag == "ShieldCard")
-    {
-        if (CardCollectionManager.Instance.CanCollectCard("ShieldCard"))
+        else if (collision.gameObject.tag == "ShieldCard")
         {
-            IncreaseBaseMaxShield();
-            CardCollectionManager.Instance.CollectCard("ShieldCard");
-            Destroy(collision.gameObject); // Destroy the Shield Card object
+            if (CardCollectionManager.Instance.CanCollectCard("ShieldCard"))
+            {
+                IncreaseBaseMaxShield();
+                CardCollectionManager.Instance.CollectCard("ShieldCard");
+                Destroy(collision.gameObject); // Destroy the Shield Card object
+                if (shieldCardGameObject != null)
+                {
+                    shieldCardGameObject.SetActive(true); // Activate shield card game object
+                }
+            }
         }
-    }
     }
 
     private void UseHealthPotion()
     {
         currentHealth = maxHealth; // Fully replenish health
         hasHealthPotion = false; // Use up the potion
+        if (hPotionCardGameObject != null)
+        {
+            hPotionCardGameObject.SetActive(false); // Deactivate the health potion card game object
+        }
         UpdateHealthBar();
     }
 

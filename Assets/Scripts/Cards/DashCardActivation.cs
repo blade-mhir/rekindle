@@ -7,6 +7,8 @@ public class DashCardActivation : MonoBehaviour
     [SerializeField] private float dashSpeed = 20f; // Speed of the player when dashing (customizable in inspector)
     [SerializeField] private float dashDuration = 0.2f; // Duration of the dash effect (customizable in inspector)
     [SerializeField] private float dashCooldown = 30f; // Cooldown period after using the Dash Card (customizable in inspector)
+    [SerializeField] private GameObject dashPowerUpObject; // Reference to the dash power-up object
+    [SerializeField] private GameObject cooldownObject; // Reference to the cooldown indicator object
 
     private PlayerController playerController;
     private bool canDash = false; // Flag to check if the player can dash
@@ -39,6 +41,12 @@ public class DashCardActivation : MonoBehaviour
     private void ActivateDashCard()
     {
         canDash = true;
+
+        // Enable the dash power-up object
+        if (dashPowerUpObject != null)
+        {
+            dashPowerUpObject.SetActive(true);
+        }
     }
 
     private IEnumerator Dash()
@@ -67,12 +75,31 @@ public class DashCardActivation : MonoBehaviour
         // Dash completed, initiate cooldown
         canDash = false;
         StartCoroutine(DashCooldown());
+
+        // Disable the dash power-up object
+        if (dashPowerUpObject != null)
+        {
+            dashPowerUpObject.SetActive(false);
+        }
+
         isDashing = false;
     }
 
     private IEnumerator DashCooldown()
     {
+        // Enable the cooldown indicator object
+        if (cooldownObject != null)
+        {
+            cooldownObject.SetActive(true);
+        }
+
         yield return new WaitForSeconds(dashCooldown);
         canDash = true; // Reactivate Dash after cooldown
+
+        // Disable the cooldown indicator object
+        if (cooldownObject != null)
+        {
+            cooldownObject.SetActive(false);
+        }
     }
 }
