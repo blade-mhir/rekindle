@@ -1,10 +1,10 @@
 using UnityEngine;
-using TMPro; // Import the TextMesh Pro namespace
+using TMPro;
 
 public class CoinManager : MonoBehaviour
 {
     public int coinScore = 0;
-    public TMP_Text coinScoreText; // Reference to a TextMesh Pro TMP_Text component to display the score
+    public TMP_Text coinScoreText;
 
     private void Start()
     {
@@ -20,5 +20,21 @@ public class CoinManager : MonoBehaviour
     private void UpdateScoreText()
     {
         coinScoreText.text = "x " + coinScore.ToString();
+    }
+
+    public void ResetCoinScore()
+    {
+        coinScore = 0;
+        UpdateScoreText();
+    }
+
+    private void OnEnable()
+    {
+        GameManager.OnGameOver += ResetCoinScore;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameOver -= ResetCoinScore;
     }
 }

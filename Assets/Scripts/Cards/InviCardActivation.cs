@@ -16,6 +16,16 @@ public class InviCardActivation : MonoBehaviour
         playerController = GetComponent<PlayerController>();
     }
 
+    private void OnEnable()
+    {
+        GameManager.OnGameOver += ResetInvisibilityState;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameOver -= ResetInvisibilityState;
+    }
+
     private void Update()
     {
         // Activate invisibility card only if it's not already active and not on cooldown
@@ -78,6 +88,24 @@ public class InviCardActivation : MonoBehaviour
             CardManager.instance.ActivateInviCard();
             ActivateInvisibility();
             Destroy(collision.gameObject); // Destroy the power-up on collision
+        }
+    }
+
+    private void ResetInvisibilityState()
+    {
+        // Reset invisibility-related states and properties to their initial values
+        isCooldown = false;
+
+        // Disable invisibility power-up object
+        if (inviPowerUpObject != null)
+        {
+            inviPowerUpObject.SetActive(false);
+        }
+
+        // Disable cooldown indicator object
+        if (cooldownObject != null)
+        {
+            cooldownObject.SetActive(false);
         }
     }
 }

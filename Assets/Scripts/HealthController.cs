@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class HealthController : MonoBehaviour
 {
-    [SerializeField] private PlayerController playerController; // Assign the PlayerController script
+   [SerializeField] private PlayerController playerController; // Assign the PlayerController script
     [SerializeField] private GameObject gameOverObject; // Assign the game over GameObject in the Inspector
-    
-    [SerializeField] private float maxHealth = 100f; // Now a float for smoother damage
+
+    [SerializeField] private float baseMaxHealth = 100f; // Base maximum health
+    [SerializeField] private float baseMaxShield = 50f; // Base maximum shield
     [SerializeField] private float healthPowerUpAmount = 20f; // Amount of health restored by power-up (modify in Inspector)
-    [SerializeField] private float maxShield = 50f; // Maximum shield value
     [SerializeField] private GameObject healthBarGameObject; // Assign the HealthBar GameObject in the Inspector
     [SerializeField] private Image healthBarImage; // Assign the health bar image in the Inspector
     [SerializeField] private GameObject shieldBarGameObject; // Assign the ShieldBar GameObject in the Inspector
@@ -24,9 +24,59 @@ public class HealthController : MonoBehaviour
     [SerializeField] private GameObject hPCardGameObject; // Assign the HP Card GameObject in the Inspector
     [SerializeField] private GameObject shieldCardGameObject; // Assign the Shield Card GameObject in the Inspector
 
+    private float maxHealth;
+    private float maxShield;
     private float currentHealth;
     private float currentShield;
     private bool hasHealthPotion = false; // Variable to track if the player has a health potion
+
+    private void OnEnable()
+    {
+        GameManager.OnGameOver += ResetHealthState; // Subscribe to the GameManager's OnGameOver event
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameOver -= ResetHealthState; // Unsubscribe from the GameManager's OnGameOver event
+    }
+
+    private void Awake()
+    {
+        ResetHealthState();
+    }
+
+    private void ResetHealthState()
+    {
+        maxHealth = baseMaxHealth;
+        maxShield = baseMaxShield;
+        currentHealth = maxHealth;
+        currentShield = maxShield;
+        hasHealthPotion = false;
+
+        // Reset UI elements
+        UpdateHealthBar();
+        UpdateShieldBar();
+
+        // Activate health bar and shield bar game objects
+        if (healthBarGameObject != null)
+        {
+            healthBarGameObject.SetActive(true);
+        }
+        if (shieldBarGameObject != null)
+        {
+            shieldBarGameObject.SetActive(true);
+        }
+
+        // Activate health bar and shield bar images
+        if (healthBarImage != null)
+        {
+            healthBarImage.gameObject.SetActive(true);
+        }
+        if (shieldBarImage != null)
+        {
+            shieldBarImage.gameObject.SetActive(true);
+        }
+    }
 
     void Start()
     {
@@ -237,4 +287,5 @@ public class HealthController : MonoBehaviour
 
         UpdateShieldBar(); // Update the shield bar to reflect the new max shield
     }
+    
 }

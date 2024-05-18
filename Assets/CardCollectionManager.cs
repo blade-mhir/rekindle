@@ -9,7 +9,7 @@ public class CardCollectionManager : MonoBehaviour
     [SerializeField] private int cardLimit = 3;
     private HashSet<string> collectedCards = new HashSet<string>();
 
-    void Awake()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -38,5 +38,21 @@ public class CardCollectionManager : MonoBehaviour
     public bool IsCardLimitReached()
     {
         return collectedCards.Count >= cardLimit;
+    }
+
+    public void ResetCardCollection()
+    {
+        // Reset collected cards to empty
+        collectedCards.Clear();
+    }
+
+    private void OnEnable()
+    {
+        GameManager.OnGameOver += ResetCardCollection;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameOver -= ResetCardCollection;
     }
 }

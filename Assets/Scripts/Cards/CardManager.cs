@@ -48,4 +48,9 @@ public class CardManager : MonoBehaviour
         inviCardActivated = false;
         laserCardActivated = false;
     }
+    
+    public void ResetCardState()
+    {
+        DeactivateAllCards();
+    }
 }

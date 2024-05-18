@@ -4568,7 +4568,7 @@ MonoBehaviour:
   timerImage: {fileID: 394402410}
   gameOverText: {fileID: 1554246146}
   victoryText: {fileID: 1853875643}
-  maxTime: 120
+  maxTime: 10
   startDelay: 10
 --- !u!4 &1408952734
 Transform:

@@ -14,16 +14,15 @@ public class Shooting : MonoBehaviour
     [SerializeField] private float eightPowerUpDuration = 5f; // Duration of eight powerup (customizable in inspector)
     [SerializeField] private GameObject eightPowerUpObject;
     [SerializeField] private GameObject laserBulletPrefab; // Reference to the laser bullet prefab
-     private GameObject currentBulletPrefab; // Reference to the current bullet prefab
+    private GameObject currentBulletPrefab; // Reference to the current bullet prefab
 
     private float nextFireTime = 0f;
-     private bool isPowerUpActive = false; // Flag for any active powerup
+    private bool isPowerUpActive = false; // Flag for any active powerup
     private string activePowerUp; // Name of the currently active powerup
     private float powerUpStartTime;
 
     private float baseFireRate; // Store the default fire rate
     private float baseBulletForce; // Store the default bullet force
-
 
     void Start()
     {
@@ -31,7 +30,17 @@ public class Shooting : MonoBehaviour
         baseBulletForce = bulletForce; // Store the default bullet force
         currentBulletPrefab = bulletPrefab; // Set the default bullet prefab
     }
-        
+
+    private void OnEnable()
+    {
+        GameManager.OnGameOver += ResetShootingState;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameOver -= ResetShootingState;
+    }
+
     private void Update()
     {
         if (isPowerUpActive && Time.time >= nextFireTime)
@@ -72,30 +81,29 @@ public class Shooting : MonoBehaviour
     {
         currentBulletPrefab = bulletPrefab;
     }
-    
+
     private void Shoot()
     {
-   // Calculate firing direction relative to the fire point
-   Vector3 mousePos = Input.mousePosition;
-   Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, -Camera.main.transform.position.z));
-   Vector3 firingDirection = mouseWorldPos - firePoint.position;
-   firingDirection.Normalize();
-    // Get the current movement direction (optional)
-    Vector3 movementDirection = transform.right; // Replace with your movement calculation
+        // Calculate firing direction relative to the fire point
+        Vector3 mousePos = Input.mousePosition;
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, -Camera.main.transform.position.z));
+        Vector3 firingDirection = mouseWorldPos - firePoint.position;
+        firingDirection.Normalize();
+        // Get the current movement direction (optional)
+        Vector3 movementDirection = transform.right; // Replace with your movement calculation
 
-    // Combine firing direction and movement (optional)
-    // Vector3 combinedDirection = firingDirection + movementDirection; // Uncomment for combined movement
+        // Combine firing direction and movement (optional)
+        // Vector3 combinedDirection = firingDirection + movementDirection; // Uncomment for combined movement
 
-    // Instantiate and apply force with consistent speed
-    GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-    Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
-    if (bulletRb != null)
-    {
-        // Adjust bulletForce to achieve desired speed
-        bulletRb.AddForce(firingDirection.normalized * bulletForce, ForceMode2D.Impulse);
+        // Instantiate and apply force with consistent speed
+        GameObject bullet = Instantiate(currentBulletPrefab, firePoint.position, firePoint.rotation);
+        Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+        if (bulletRb != null)
+        {
+            // Adjust bulletForce to achieve desired speed
+            bulletRb.AddForce(firingDirection.normalized * bulletForce, ForceMode2D.Impulse);
+        }
     }
-    }
-
 
     private void ShootShotgun()
     {
@@ -103,7 +111,7 @@ public class Shooting : MonoBehaviour
         Vector3 mousePos = Input.mousePosition;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, -Camera.main.transform.position.z));
         Vector3 firingDirection = mouseWorldPos - firePoint.position;
-        firingDirection.Normalize(); 
+        firingDirection.Normalize();
 
         // Define spread angle for the cone (adjust as needed)
         float spreadAngle = 20f; // Adjust this value to control the cone spread
@@ -120,25 +128,18 @@ public class Shooting : MonoBehaviour
             // Rotate the base direction
             Vector3 bulletDirection = Quaternion.Euler(0f, 0f, currentAngle) * firingDirection;
 
-            // Get the current movement direction (optional)
-            Vector3 movementDirection = transform.right; // Replace with your movement calculation
-
-            // Combine firing direction and movement (optional)
-            // Vector3 combinedDirection = firingDirection + movementDirection; // Uncomment for combined movement
-
             // Instantiate and apply force with consistent speed
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            GameObject bullet = Instantiate(currentBulletPrefab, firePoint.position, firePoint.rotation);
             Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
             if (bulletRb != null)
             {
-            // Adjust bulletForce to achieve desired speed
-            bulletRb.AddForce(bulletDirection.normalized * bulletForce, ForceMode2D.Impulse);
+                // Adjust bulletForce to achieve desired speed
+                bulletRb.AddForce(bulletDirection.normalized * bulletForce, ForceMode2D.Impulse);
             }
         }
-        
     }
 
-     private void ShootEight()
+    private void ShootEight()
     {
         // Calculate firing direction relative to the fire point
         Vector3 mousePos = Input.mousePosition;
@@ -161,14 +162,8 @@ public class Shooting : MonoBehaviour
             // Rotate the base direction
             Vector3 bulletDirection = Quaternion.Euler(0f, 0f, currentAngle) * firingDirection;
 
-            // Get the current movement direction (optional)
-            // Vector3 movementDirection = transform.right; // Replace with your movement calculation
-
-            // Combine firing direction and movement (optional)
-            // Vector3 combinedDirection = firingDirection + movementDirection; // Uncomment for combined movement
-
             // Instantiate and apply force with consistent speed
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            GameObject bullet = Instantiate(currentBulletPrefab, firePoint.position, firePoint.rotation);
             Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
             if (bulletRb != null)
             {
@@ -178,7 +173,7 @@ public class Shooting : MonoBehaviour
         }
     }
 
-       private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Shotgun"))
         {
@@ -246,11 +241,23 @@ public class Shooting : MonoBehaviour
         bulletForce = increasedBulletForce;
     }
 
-
     public void ResetFirePowerUpValues()
     {
         // Reset to default values when "Fire" power-up ends
         fireRate = baseFireRate;
         bulletForce = baseBulletForce;
     }
+
+    private void ResetShootingState()
+    {
+        // Reset all shooting-related states and properties to their initial values
+        isPowerUpActive = false;
+        activePowerUp = "";
+        nextFireTime = 0f;
+
+        // Deactivate all power-up objects
+        shotgunPowerUpObject.SetActive(false);
+        eightPowerUpObject.SetActive(false);
+    }
 }
+

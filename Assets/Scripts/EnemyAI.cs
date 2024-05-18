@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 2f; // Configure movement speed in the inspector
+    [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float attackRange = 1f;
-    [SerializeField] private float damagePerInterval = 1f; // Configure damage per interval in the inspector
-    [SerializeField] private float damageInterval = 1f; // Configure damage interval in seconds (e.g., 1 for every second)
-    
-    // Define static boundaries for all enemies
-    public static float minX = -6.25f; // Minimum x coordinate
-    public static float maxX = 6.92f; // Maximum x coordinate
-    public static float minY = -7.11f; // Minimum y coordinate
-    public static float maxY = 5.93f; // Maximum y coordinate
+    [SerializeField] private float damagePerInterval = 1f;
+    [SerializeField] private float damageInterval = 1f;
+
+    public static float minX = -6.25f;
+    public static float maxX = 6.92f;
+    public static float minY = -7.11f;
+    public static float maxY = 5.93f;
 
     private Transform playerTransform;
     private Rigidbody2D rb;
-    private bool isPlayerColliding = false; // Flag to track player collision
-    private float timeSinceLastDamage = 0f; // Tracks time since last damage application
+    private bool isPlayerColliding = false;
+    private float timeSinceLastDamage = 0f;
 
     private PlayerController playerController;
     private Vector2 randomDirection;
@@ -59,7 +58,7 @@ public class EnemyAI : MonoBehaviour
         if (distanceToPlayer > attackRange)
         {
             isPlayerColliding = false;
-            timeSinceLastDamage = 0f; // Reset timer when out of range
+            timeSinceLastDamage = 0f;
         }
 
         if (isPlayerColliding)
@@ -72,7 +71,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     playerHealth.TakeDamage(damagePerInterval);
                 }
-                timeSinceLastDamage = 0f; // Reset timer after damage application
+                timeSinceLastDamage = 0f;
             }
         }
     }
@@ -109,7 +108,24 @@ public class EnemyAI : MonoBehaviour
         if (collision != null && collision.gameObject.CompareTag("Player"))
         {
             isPlayerColliding = false;
-            timeSinceLastDamage = 0f; // Reset timer on exit
+            timeSinceLastDamage = 0f;
         }
+    }
+
+    public void ResetEnemyAI()
+    {
+        // Reset all enemy AI-related states and properties to their initial values
+        isPlayerColliding = false;
+        timeSinceLastDamage = 0f;
+    }
+
+    private void OnEnable()
+    {
+        GameManager.OnGameOver += ResetEnemyAI;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameOver -= ResetEnemyAI;
     }
 }

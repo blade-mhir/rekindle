@@ -6,16 +6,17 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 100;
     private int currentHealth;
-    [SerializeField] private int coinValue = 10; // Coin value of this enemy
-    private CoinManager coinManager; // Reference to the Coin Manager
-
+    [SerializeField] private int coinValue = 10;
+    private CoinManager coinManager;
     private LootBag lootBag;
+    private Animator animator;
 
     private void Awake()
     {
         currentHealth = maxHealth;
+        coinManager = FindObjectOfType<CoinManager>();
         lootBag = GetComponent<LootBag>();
-        coinManager = FindObjectOfType<CoinManager>(); // Find the Coin Manager in the scene
+        animator = GetComponent<Animator>();
     }
 
     public void TakeDamage(int damageAmount)
@@ -24,34 +25,10 @@ public class EnemyHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Animator animator = GetComponent<Animator>();
-            if (animator != null)
-            {
-                animator.SetTrigger("isDead");
-                if (lootBag != null)
-                {
-                    lootBag.DropLoot();
-                }
-                StartCoroutine(DestroyAfterAnimation());
-            }
-            else
-            {
-                if (lootBag != null)
-                {
-                    lootBag.DropLoot();
-                }
-                Destroy(gameObject);
-            }
-
-            // Add coin value to the Coin Manager
-            if (coinManager != null)
-            {
-                coinManager.AddCoins(coinValue);
-            }
+            Die();
         }
         else
         {
-            Animator animator = GetComponent<Animator>();
             if (animator != null)
             {
                 animator.SetTrigger("isHurting");
@@ -59,7 +36,33 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    IEnumerator DestroyAfterAnimation()
+    private void Die()
+    {
+        if (animator != null)
+        {
+            animator.SetTrigger("isDead");
+            if (lootBag != null)
+            {
+                lootBag.DropLoot();
+            }
+            StartCoroutine(DestroyAfterAnimation());
+        }
+        else
+        {
+            if (lootBag != null)
+            {
+                lootBag.DropLoot();
+            }
+            Destroy(gameObject);
+        }
+
+        if (coinManager != null)
+        {
+            coinManager.AddCoins(coinValue);
+        }
+    }
+
+    private IEnumerator DestroyAfterAnimation()
     {
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
@@ -68,5 +71,21 @@ public class EnemyHealth : MonoBehaviour
     public int GetCoinValue()
     {
         return coinValue;
+    }
+
+    // Method to reset enemy health
+    public void ResetEnemyHealth()
+    {
+        currentHealth = maxHealth;
+    }
+
+    private void OnEnable()
+    {
+        GameManager.OnGameOver += ResetEnemyHealth; // Subscribe to the GameManager's OnGameOver event
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameOver -= ResetEnemyHealth; // Unsubscribe from the GameManager's OnGameOver event
     }
 }

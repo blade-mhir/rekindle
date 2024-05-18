@@ -20,6 +20,16 @@ public class DashCardActivation : MonoBehaviour
         playerController = GetComponent<PlayerController>();
     }
 
+    private void OnEnable()
+    {
+        GameManager.OnGameOver += ResetDashState;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameOver -= ResetDashState;
+    }
+
     private void Update()
     {
         if (canDash && Input.GetMouseButtonDown(1) && !isDashing && Time.time >= lastDashTime + dashCooldown) // Right-click to dash
@@ -97,6 +107,26 @@ public class DashCardActivation : MonoBehaviour
         canDash = true; // Reactivate Dash after cooldown
 
         // Disable the cooldown indicator object
+        if (cooldownObject != null)
+        {
+            cooldownObject.SetActive(false);
+        }
+    }
+
+    private void ResetDashState()
+    {
+        // Reset dash-related states and properties to their initial values
+        canDash = false;
+        lastDashTime = -30f;
+        isDashing = false;
+
+        // Disable dash power-up object
+        if (dashPowerUpObject != null)
+        {
+            dashPowerUpObject.SetActive(false);
+        }
+
+        // Disable cooldown indicator object
         if (cooldownObject != null)
         {
             cooldownObject.SetActive(false);

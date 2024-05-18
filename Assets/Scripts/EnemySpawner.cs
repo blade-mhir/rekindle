@@ -6,20 +6,20 @@ using UnityEngine.UI;
 [System.Serializable]
 public class SpawnDetails
 {
-    public GameObject enemyPrefab; // The enemy prefab to spawn
-    public float startTime; // Time when spawning starts
-    public float endTime; // Time when spawning ends
-    public int spawnCount; // Number of enemies to spawn in the given interval
+    public GameObject enemyPrefab;
+    public float startTime;
+    public float endTime;
+    public int spawnCount;
 }
 
 public class EnemySpawner : MonoBehaviour
 {
-    public List<SpawnDetails> spawnDetailsList; // List of spawn details
-    public Vector2 startPoint; // Starting position where the enemies will enter
-    public Vector2 endPoint; // Ending position where the enemies will move to
-    [SerializeField] private float startDelay = 0f; // Delay before spawning starts
+    public List<SpawnDetails> spawnDetailsList;
+    public Vector2 startPoint;
+    public Vector2 endPoint;
+    [SerializeField] private float startDelay = 0f;
 
-    private List<GameObject> spawnedEnemies = new List<GameObject>(); // Track spawned enemies
+    private List<GameObject> spawnedEnemies = new List<GameObject>();
 
     private void Start()
     {
@@ -41,7 +41,6 @@ public class EnemySpawner : MonoBehaviour
         float spawnWindow = details.endTime - details.startTime;
         int spawnedCount = 0;
 
-        // Wait until the start time
         yield return new WaitForSeconds(details.startTime);
 
         while (spawnedCount < details.spawnCount)
@@ -49,12 +48,10 @@ public class EnemySpawner : MonoBehaviour
             float randomDelay = Random.Range(0f, spawnWindow);
             spawnWindow -= randomDelay;
 
-            // Instantiate the enemy at the specified start point
             Vector3 spawnPosition = new Vector3(startPoint.x, startPoint.y, 0);
             GameObject enemy = Instantiate(details.enemyPrefab, spawnPosition, Quaternion.identity);
-            spawnedEnemies.Add(enemy); // Add the spawned enemy to the list
+            spawnedEnemies.Add(enemy);
 
-            // Move the enemy to the end point
             StartCoroutine(MoveEnemyToPosition(enemy, new Vector3(endPoint.x, endPoint.y, 0)));
 
             spawnedCount++;
@@ -64,7 +61,7 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator MoveEnemyToPosition(GameObject enemy, Vector3 endPosition)
     {
-        float duration = 1.0f; // Adjust the duration as needed
+        float duration = 1.0f;
         float elapsedTime = 0;
         Vector3 startingPosition = enemy.transform.position;
 
@@ -80,14 +77,34 @@ public class EnemySpawner : MonoBehaviour
 
     public bool HasRemainingEnemies()
     {
-        // Check if there are any active enemies in the spawnedEnemies list
         foreach (var enemy in spawnedEnemies)
         {
             if (enemy != null)
             {
-                return true; // If at least one enemy is alive, return true
+                return true;
             }
         }
-        return false; // If no enemies are alive, return false
+        return false;
+    }
+
+    // Method to reset the spawner
+    public void ResetSpawner()
+    {
+        // Destroy all spawned enemies
+        foreach (var enemy in spawnedEnemies)
+        {
+            Destroy(enemy);
+        }
+        spawnedEnemies.Clear(); // Clear the list of spawned enemies
+    }
+
+    private void OnEnable()
+    {
+        GameManager.OnGameOver += ResetSpawner; // Subscribe to the GameManager's OnGameOver event
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameOver -= ResetSpawner; // Unsubscribe from the GameManager's OnGameOver event
     }
 }

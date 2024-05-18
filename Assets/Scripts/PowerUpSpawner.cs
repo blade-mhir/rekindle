@@ -4,38 +4,18 @@ using System.Collections.Generic;
 
 public class PowerUpSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] powerUpPrefabs; // Array of power up prefabs
-    [SerializeField] private float[] spawnProbabilities; // Array of spawn probabilities
-    [SerializeField] private Vector2[] spawnPositions; // Array of spawn positions (x, y)
-    [SerializeField] private float powerUpDuration = 8f; // Duration of power up
-    [SerializeField] private float spawnInterval = 15f; // Interval for respawning power-ups
-    [SerializeField] private float startDelay = 0f; // Delay before spawning starts
+    [SerializeField] private GameObject[] powerUpPrefabs;
+    [SerializeField] private float[] spawnProbabilities;
+    [SerializeField] private Vector2[] spawnPositions;
+    [SerializeField] private float powerUpDuration = 8f;
+    [SerializeField] private float spawnInterval = 15f;
+    [SerializeField] private float startDelay = 0f;
 
     private Dictionary<Vector2, GameObject> occupiedSpawnPositions = new Dictionary<Vector2, GameObject>();
     private bool isSpawning = false;
 
     private void Start()
     {
-        // Validate probabilities array
-        if (spawnProbabilities.Length != powerUpPrefabs.Length)
-        {
-            Debug.LogError("Spawn probabilities array length must match power up prefabs array length.");
-            return;
-        }
-
-        // Normalize probabilities
-        float totalProbability = 0f;
-        foreach (float prob in spawnProbabilities)
-        {
-            totalProbability += prob;
-        }
-
-        for (int i = 0; i < spawnProbabilities.Length; i++)
-        {
-            spawnProbabilities[i] /= totalProbability;
-        }
-
-        // Start spawning power-ups after delay
         StartCoroutine(StartSpawningWithDelay());
     }
 
@@ -50,21 +30,14 @@ public class PowerUpSpawner : MonoBehaviour
     {
         while (isSpawning)
         {
-            // Spawn two power-ups
             for (int i = 0; i < 2; i++)
             {
-                // Choose a random spawn position
                 Vector2 spawnPoint = GetRandomSpawnPoint();
-
-                // Choose a random power up prefab based on probabilities
                 GameObject powerUp = Instantiate(ChoosePowerUpPrefab(), spawnPoint, Quaternion.identity);
                 occupiedSpawnPositions.Add(spawnPoint, powerUp);
-
-                // Destroy power up after duration
                 StartCoroutine(DestroyPowerUpAfterDuration(spawnPoint, powerUpDuration));
             }
 
-            // Wait for the spawn interval before spawning again
             yield return new WaitForSeconds(spawnInterval);
         }
     }
@@ -94,7 +67,7 @@ public class PowerUpSpawner : MonoBehaviour
 
     private GameObject ChoosePowerUpPrefab()
     {
-        float randomValue = Random.value; // Random value between 0 and 1
+        float randomValue = Random.value;
         float cumulativeProbability = 0f;
 
         for (int i = 0; i < powerUpPrefabs.Length; i++)
@@ -106,14 +79,28 @@ public class PowerUpSpawner : MonoBehaviour
             }
         }
 
-        // Fallback in case of floating point precision issues
         return powerUpPrefabs[powerUpPrefabs.Length - 1];
     }
 
-    // Call this method to manually start spawning power-ups
-    public void StartSpawning()
+    // Method to reset the spawner
+    public void ResetSpawner()
     {
-        if (!isSpawning)
-            StartCoroutine(StartSpawningWithDelay());
+        StopAllCoroutines(); // Stop all spawning coroutines
+        isSpawning = false;
+        foreach (var powerUp in occupiedSpawnPositions.Values)
+        {
+            Destroy(powerUp); // Destroy all spawned power-ups
+        }
+        occupiedSpawnPositions.Clear(); // Clear the dictionary
+    }
+
+    private void OnEnable()
+    {
+        GameManager.OnGameOver += ResetSpawner; // Subscribe to the GameManager's OnGameOver event
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameOver -= ResetSpawner; // Unsubscribe from the GameManager's OnGameOver event
     }
 }

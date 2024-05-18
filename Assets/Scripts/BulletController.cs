@@ -7,6 +7,30 @@ public class BulletController : MonoBehaviour
     public int damage = 1; // Damage value
     private int direction = 1; // Default direction (right)
 
+    private void OnEnable()
+    {
+        GameManager.OnGameOver += ResetBulletController; // Subscribe to the GameManager's OnGameOver event
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameOver -= ResetBulletController; // Unsubscribe from the GameManager's OnGameOver event
+    }
+
+    private void ResetBulletController()
+    {
+        // Reset direction
+        direction = 1;
+        // Reset bullet position
+        transform.position = Vector3.zero;
+        // Reset bullet velocity
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        // Reset bullet rotation
+        transform.rotation = Quaternion.identity;
+        // Enable bullet renderer
+        GetComponent<SpriteRenderer>().enabled = true;
+    }
+
     // Method to set the bullet direction
     public void SetDirection(int newDirection)
     {

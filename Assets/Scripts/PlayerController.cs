@@ -17,11 +17,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float sipUpCardMoveSpeed = 1.5f; // Movement speed during SipUpCard powerup
     [SerializeField] private CoinManager coinManager; // Reference to the Coin Manager
     [SerializeField] private GameObject sipCardPowerUpObject;
-    
+
     private bool isInvisible = false;
     private float inviDuration = 5f; // Duration of Invisibility powerup (customizable in inspector)
     private float inviStartTime; // Time when the invisibility was activated
-
 
     private PlayerControls playerControls;
     private Vector2 movement;
@@ -47,10 +46,17 @@ public class PlayerController : MonoBehaviour
         myAnimator = GetComponent<Animator>();
         mySpriteRender = GetComponent<SpriteRenderer>();
     }
-
-    private void OnEnable()
+    
+     private void OnEnable()
     {
         playerControls.Enable();
+        GameManager.OnGameOver += ResetPlayerState; // Subscribe to the GameManager's OnGameOver event
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
+        GameManager.OnGameOver -= ResetPlayerState; // Unsubscribe from the GameManager's OnGameOver event
     }
 
     private void Update()
@@ -112,9 +118,8 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 GetMovementDirection()
     {
-    return movement;
+        return movement;
     }
-
 
     private void AdjustPlayerFacingDirection()
     {
@@ -133,7 +138,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-         if (CardCollectionManager.Instance.IsCardLimitReached())
+        if (CardCollectionManager.Instance.IsCardLimitReached())
         {
             // Optionally: Add logic to disable collision with specific tags or give feedback
             return;
@@ -149,7 +154,7 @@ public class PlayerController : MonoBehaviour
             ActivatePowerUp(PowerUpType.Fire);
             Destroy(collision.gameObject); // Destroy the powerup on collision
         }
-         else if (collision.gameObject.CompareTag("SipCard"))
+        else if (collision.gameObject.CompareTag("SipCard"))
         {
             if (CardCollectionManager.Instance.CanCollectCard("SipCard"))
             {
@@ -227,7 +232,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(InvisibilityTimer());
     }
 
-   private IEnumerator InvisibilityTimer()
+    private IEnumerator InvisibilityTimer()
     {
         yield return new WaitForSeconds(inviDuration);
         isInvisible = false;
@@ -261,6 +266,7 @@ public class PlayerController : MonoBehaviour
     {
         // Implement your player death logic here
         Debug.Log("Player Died!"); // Placeholder for now
+        ResetPlayerState();
     }
 
     private void UpdatePowerUp()
@@ -291,7 +297,7 @@ public class PlayerController : MonoBehaviour
 
         // Reset Shooting script to default values
         Shooting shootingScript = GetComponent<Shooting>();
-        if (shootingScript != null)
+        if (shootingScript  != null)
         {
             shootingScript.ResetFirePowerUpValues();
         }
@@ -313,7 +319,41 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void ResetPlayerState()
+    {
+        // Reset all player states and properties to their initial values
+        isInvisible = false;
+        isPowerUpActive = false;
+        activePowerUp = PowerUpType.None;
+        sipUpCardActive = false;
 
+        // Deactivate all power-up objects
+        if (coffeePowerUpObject != null)
+        {
+            coffeePowerUpObject.SetActive(false);
+        }
+        if (firePowerUpObject != null)
+        {
+            firePowerUpObject.SetActive(false);
+        }
+        if (sipCardPowerUpObject != null)
+        {
+            sipCardPowerUpObject.SetActive(false);
+        }
 
-    
+        // Reset movement speed
+        moveSpeed = 1f;
+
+        // Reset shooting script values
+        Shooting shootingScript = GetComponent<Shooting>();
+        if (shootingScript != null)
+        {
+            shootingScript.ResetFirePowerUpValues();
+        }
+
+        // Reset animator parameters
+        myAnimator.SetFloat("moveX", 0);
+        myAnimator.SetFloat("moveY", 0);
+    }
 }
+

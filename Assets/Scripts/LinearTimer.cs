@@ -9,8 +9,8 @@ public class LinearTimer : MonoBehaviour
     [SerializeField] private GameObject gameOverText;
     [SerializeField] private GameObject victoryText;
     [SerializeField] private float maxTime = 60f;
-    [SerializeField] private float startDelay = 0f; // Delay before the timer starts
-    private bool timerStarted = false; // Flag to indicate if the timer has started
+    [SerializeField] private float startDelay = 0f;
+    private bool timerStarted = false;
     private float currentTime;
     private bool isGameOver = false;
     private List<EnemySpawner> enemySpawners = new List<EnemySpawner>();
@@ -74,5 +74,29 @@ public class LinearTimer : MonoBehaviour
 
             timerImage.fillAmount = currentTime / maxTime;
         }
+    }
+
+    public void ResetTimer()
+    {
+        // Reset all timer-related states and properties to their initial values
+        timerStarted = false;
+        currentTime = 0f;
+        isGameOver = false;
+        Time.timeScale = 1f;
+
+        // Reset UI elements
+        timerImage.fillAmount = 1f;
+        gameOverText.SetActive(false);
+        victoryText.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        GameManager.OnGameOver += ResetTimer;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameOver -= ResetTimer;
     }
 }
