@@ -18,6 +18,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject sipUpCardPowerUpObject;
     [SerializeField] private CoinManager coinManager; // Reference to the Coin Manager
 
+    [SerializeField] private GameObject inviCardPowerUpObject;
+    private bool isInvisible = false;
+    private float inviDuration = 5f; // Duration of Invisibility powerup (customizable in inspector)
+    private float inviStartTime; // Time when the invisibility was activated
+
+
     private PlayerControls playerControls;
     private Vector2 movement;
     private Rigidbody2D rb;
@@ -148,6 +154,15 @@ public class PlayerController : MonoBehaviour
             CollectCoin(collision.gameObject);
             Destroy(collision.gameObject); // Destroy the powerup on collision
         }
+        else if (collision.gameObject.CompareTag("InviCard"))
+        {
+            if (!CardManager.instance.IsDashCardActivated() && !CardManager.instance.IsLaserCardActivated())
+            {
+                CardManager.instance.ActivateInviCard();
+                ActivateInvisibility();
+                Destroy(collision.gameObject); // Destroy the powerup on collision
+            }
+        }
     }
 
     private void ActivatePowerUp(PowerUpType powerUpType)
@@ -202,6 +217,31 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
         }
+    }
+    private void ActivateInvisibility()
+    {
+        isInvisible = true;
+        inviStartTime = Time.time;
+        inviCardPowerUpObject.SetActive(true);
+        StartCoroutine(InvisibilityTimer());
+    }
+
+    private IEnumerator InvisibilityTimer()
+    {
+        yield return new WaitForSeconds(inviDuration);
+        isInvisible = false;
+        inviCardPowerUpObject.SetActive(false);
+        CardManager.instance.DeactivateAllCards();
+    }
+
+    public void SetInvisible(bool invisible)
+    {
+        isInvisible = invisible;
+    }
+
+    public bool IsInvisible()
+    {
+        return isInvisible;
     }
 
     private void ActivateSipUpCard()
@@ -271,4 +311,6 @@ public class PlayerController : MonoBehaviour
             moveSpeed = sipUpCardMoveSpeed;
         }
     }
+
+    
 }

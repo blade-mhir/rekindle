@@ -13,6 +13,8 @@ public class Shooting : MonoBehaviour
     [SerializeField] private GameObject shotgunPowerUpObject;
     [SerializeField] private float eightPowerUpDuration = 5f; // Duration of eight powerup (customizable in inspector)
     [SerializeField] private GameObject eightPowerUpObject;
+    [SerializeField] private GameObject laserBulletPrefab; // Reference to the laser bullet prefab
+     private GameObject currentBulletPrefab; // Reference to the current bullet prefab
 
     private float nextFireTime = 0f;
      private bool isPowerUpActive = false; // Flag for any active powerup
@@ -27,6 +29,7 @@ public class Shooting : MonoBehaviour
     {
         baseFireRate = fireRate; // Store the default fire rate
         baseBulletForce = bulletForce; // Store the default bullet force
+        currentBulletPrefab = bulletPrefab; // Set the default bullet prefab
     }
         
     private void Update()
@@ -60,6 +63,16 @@ public class Shooting : MonoBehaviour
         }
     }
 
+    public void SetLaserBulletPrefab(GameObject laserPrefab)
+    {
+        currentBulletPrefab = laserPrefab;
+    }
+
+    public void ResetBulletPrefab()
+    {
+        currentBulletPrefab = bulletPrefab;
+    }
+    
     private void Shoot()
     {
    // Calculate firing direction relative to the fire point

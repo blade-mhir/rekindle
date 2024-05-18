@@ -18,6 +18,7 @@ TagManager:
   - ShieldCard
   - DashCard
   - InviCard
+  - LaserCard
   layers:
   - Default
   - TransparentFX

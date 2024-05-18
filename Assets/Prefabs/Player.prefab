@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 6408590904953596092}
   - component: {fileID: 6408590904953596064}
   - component: {fileID: 6408590904953596071}
+  - component: {fileID: 5979424525617461184}
   - component: {fileID: 6408590904953596065}
   - component: {fileID: 6408590904953596070}
   - component: {fileID: 6408590904953596069}
@@ -190,6 +191,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5979424525617461184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6408590904953596093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98b4d391f006cba469616e6551da9bae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCards: 3
 --- !u!114 &6408590904953596065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,7 +225,10 @@ MonoBehaviour:
   coffeeMoveSpeed: 7
   coffeeDuration: 8
   coffeePowerUpObject: {fileID: 0}
+  sipUpCardMoveSpeed: 1.5
+  sipUpCardPowerUpObject: {fileID: 0}
   coinManager: {fileID: 0}
+  inviCardPowerUpObject: {fileID: 0}
 --- !u!114 &6408590904953596070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +249,7 @@ MonoBehaviour:
   shotgunPowerUpObject: {fileID: 0}
   eightPowerUpDuration: 8
   eightPowerUpObject: {fileID: 0}
+  laserBulletPrefab: {fileID: 0}
 --- !u!114 &6408590904953596069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,9 +264,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 6408590904953596065}
   gameOverObject: {fileID: 0}
-  enemyManager: {fileID: 0}
-  healthBarImage: {fileID: 0}
   maxHealth: 10
   healthPowerUpAmount: 1
-  shieldBarImage: {fileID: 0}
   maxShield: 2
+  healthBarGameObject: {fileID: 0}
+  healthBarImage: {fileID: 0}
+  shieldBarGameObject: {fileID: 0}
+  shieldBarImage: {fileID: 0}
+  newHealthBarGameObject: {fileID: 0}
+  newHealthBarImage: {fileID: 0}
+  newShieldBarGameObject: {fileID: 0}
+  newShieldBarImage: {fileID: 0}
