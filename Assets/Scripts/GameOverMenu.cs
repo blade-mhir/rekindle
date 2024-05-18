@@ -63,9 +63,6 @@ public class GameOverMenu : MonoBehaviour
         // Unfreeze the game
         Time.timeScale = 1f;
 
-        // Reset player state
-        ResetPlayerState();
-
         // Reload Scene 1
         SceneManager.LoadScene("Scene 1");
     }
@@ -85,13 +82,4 @@ public class GameOverMenu : MonoBehaviour
         Application.Quit();
     }
 
-    private void ResetPlayerState()
-    {
-        // Find the player object and reset its state
-        PlayerController player = FindObjectOfType<PlayerController>();
-        if (player != null)
-        {
-            player.ResetState(); // Add a method in PlayerController to reset its state
-        }
-    }
 }

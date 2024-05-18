@@ -313,18 +313,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-public void ResetState()
-{
-    // Reset any parameters or flags controlling the player's state
-    isInvisible = false; // Reset invisibility state if applicable
-    isPowerUpActive = false; // Reset power-up state if applicable
-    activePowerUp = PowerUpType.None; // Reset active power-up type
-    sipUpCardActive = false; // Reset SipUpCard state if applicable
-
-    // Reset animation parameters
-    myAnimator.SetBool("isDead", false); // Ensure isDead animation is set to false
-    // Reset any other animation parameters if necessary
-}
 
 
     

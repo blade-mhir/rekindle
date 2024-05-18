@@ -86,9 +86,6 @@ public class HealthController : MonoBehaviour
             currentHealth = 0;
             playerController.Die(); // Call player death logic
             gameOverObject.SetActive(true);
-            // Trigger isDead animation
-            GetComponent<Animator>().SetBool("isDead", true);
-
             // Freeze the game
             Time.timeScale = 0f;
         }
