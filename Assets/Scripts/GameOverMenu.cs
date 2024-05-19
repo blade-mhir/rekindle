@@ -11,27 +11,17 @@ public class GameOverMenu : MonoBehaviour
 
     private bool isGameOver = false;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        gameOverUI.SetActive(false); // Ensure the game over UI is hidden initially
+    }
+
     void Update()
     {
         // Check for game over condition
         if (!isGameOver && IsGameOverConditionMet())
         {
-            // Freeze the game
-            Time.timeScale = 0f;
-            isGameOver = true;
-
-            // Show Game Over menu
             ShowGameOverMenu();
-
-            // Display final score
-            DisplayFinalScore();
-
-            // Play Game Over sound
-            if (gameOverSound != null)
-            {
-                gameOverSound.Play();
-            }
         }
     }
 
@@ -43,10 +33,23 @@ public class GameOverMenu : MonoBehaviour
         return false; // Placeholder, replace with actual condition
     }
 
-    void ShowGameOverMenu()
+    public void ShowGameOverMenu()
     {
-        // Activate the Game Over menu UI
+        // Freeze the game
+        Time.timeScale = 0f;
+        isGameOver = true;
+
+        // Show Game Over menu
         gameOverUI.SetActive(true);
+
+        // Display final score
+        DisplayFinalScore();
+
+        // Play Game Over sound
+        if (gameOverSound != null)
+        {
+            gameOverSound.Play();
+        }
     }
 
     void DisplayFinalScore()
@@ -63,9 +66,29 @@ public class GameOverMenu : MonoBehaviour
         // Unfreeze the game
         Time.timeScale = 1f;
 
-        // Reload Scene 1
-        SceneManager.LoadScene("Scene 1");
+        // Reset game state here
+        ResetGameState();
+
+        // Reload the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    void ResetGameState()
+    {
+        // Reset any game state here
+        // For example, you can reset health, score, etc.
+        // You should also reset any GameObjects or Images that need to be reset
+
+        // Reset health controller
+        HealthController healthController = FindObjectOfType<HealthController>();
+        if (healthController != null)
+        {
+            healthController.ResetHealthState();
+        }
+
+        // Reset any other components or GameObjects as needed
+    }
+
 
     public void MainMenu()
     {
@@ -81,5 +104,4 @@ public class GameOverMenu : MonoBehaviour
         // Quit the application
         Application.Quit();
     }
-
 }

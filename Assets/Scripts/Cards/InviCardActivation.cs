@@ -91,7 +91,7 @@ public class InviCardActivation : MonoBehaviour
         }
     }
 
-    private void ResetInvisibilityState()
+    public void ResetInvisibilityState()
     {
         // Reset invisibility-related states and properties to their initial values
         isCooldown = false;

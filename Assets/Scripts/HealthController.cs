@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 public class HealthController : MonoBehaviour
 {
-   [SerializeField] private PlayerController playerController; // Assign the PlayerController script
-    [SerializeField] private GameObject gameOverObject; // Assign the game over GameObject in the Inspector
-
+    [SerializeField] private PlayerController playerController; // Assign the PlayerController script
+    [SerializeField] private GameOverMenu gameOverMenu; // Assign the GameOverMenu script
     [SerializeField] private float baseMaxHealth = 100f; // Base maximum health
     [SerializeField] private float baseMaxShield = 50f; // Base maximum shield
     [SerializeField] private float healthPowerUpAmount = 20f; // Amount of health restored by power-up (modify in Inspector)
@@ -45,7 +44,7 @@ public class HealthController : MonoBehaviour
         ResetHealthState();
     }
 
-    private void ResetHealthState()
+    public void ResetHealthState()
     {
         maxHealth = baseMaxHealth;
         maxShield = baseMaxShield;
@@ -75,6 +74,30 @@ public class HealthController : MonoBehaviour
         if (shieldBarImage != null)
         {
             shieldBarImage.gameObject.SetActive(true);
+        }
+
+        // Deactivate new health bar and shield bar game objects
+        if (newHealthBarGameObject != null)
+        {
+            newHealthBarGameObject.SetActive(false);
+        }
+        if (newShieldBarGameObject != null)
+        {
+            newShieldBarGameObject.SetActive(false);
+        }
+
+        // Deactivate card game objects
+        if (hPotionCardGameObject != null)
+        {
+            hPotionCardGameObject.SetActive(false);
+        }
+        if (hPCardGameObject != null)
+        {
+            hPCardGameObject.SetActive(false);
+        }
+        if (shieldCardGameObject != null)
+        {
+            shieldCardGameObject.SetActive(false);
         }
     }
 
@@ -135,9 +158,8 @@ public class HealthController : MonoBehaviour
         {
             currentHealth = 0;
             playerController.Die(); // Call player death logic
-            gameOverObject.SetActive(true);
-            // Freeze the game
-            Time.timeScale = 0f;
+            gameOverMenu.ShowGameOverMenu(); // Show Game Over Menu
+            Time.timeScale = 0f; // Freeze the game
         }
         else
         {
@@ -169,8 +191,8 @@ public class HealthController : MonoBehaviour
     {
         if (CardCollectionManager.Instance.IsCardLimitReached())
         {
-        // Optionally: Add logic to disable collision with specific tags or give feedback
-        return;
+            // Optionally: Add logic to disable collision with specific tags or give feedback
+            return;
         }
 
         if (collision.gameObject.tag == "HP")
@@ -256,9 +278,20 @@ public class HealthController : MonoBehaviour
         {
             newHealthBarImage.gameObject.SetActive(true); // Activate the new health bar image
             healthBarImage = newHealthBarImage; // Update the reference to the new health bar image
-        }
 
-        UpdateHealthBar(); // Update the health bar to reflect the new max health
+            // Deactivate old health bar game object and image
+            if (healthBarGameObject != null)
+            {
+                healthBarGameObject.SetActive(false);
+            }
+            if (healthBarImage != null)
+            {
+                healthBarImage.gameObject.SetActive(false);
+            }
+
+            // Update the health bar to reflect the new max health
+            UpdateHealthBar();
+        }
     }
 
     private void IncreaseBaseMaxShield()
@@ -283,9 +316,20 @@ public class HealthController : MonoBehaviour
         {
             newShieldBarImage.gameObject.SetActive(true); // Activate the new shield bar image
             shieldBarImage = newShieldBarImage; // Update the reference to the new shield bar image
-        }
 
-        UpdateShieldBar(); // Update the shield bar to reflect the new max shield
+            // Deactivate old shield bar game object and image
+            if (shieldBarGameObject != null)
+            {
+                shieldBarGameObject.SetActive(false);
+            }
+            if (shieldBarImage != null)
+            {
+                shieldBarImage.gameObject.SetActive(false);
+            }
+
+            // Update the shield bar to reflect the new max shield
+            UpdateShieldBar();
+        }
     }
-    
 }
+

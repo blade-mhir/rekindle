@@ -113,7 +113,7 @@ public class DashCardActivation : MonoBehaviour
         }
     }
 
-    private void ResetDashState()
+    public void ResetDashState()
     {
         // Reset dash-related states and properties to their initial values
         canDash = false;

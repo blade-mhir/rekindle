@@ -103,7 +103,7 @@ public class LaserCardActivation : MonoBehaviour
         }
     }
 
-    private void ResetLaserState()
+    public void ResetLaserState()
     {
         // Reset laser-related states and properties to their initial values
         isLaserActive = false;

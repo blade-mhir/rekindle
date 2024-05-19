@@ -36,7 +36,7 @@ public class VampCardActivation : MonoBehaviour
         }
     }
 
-    private void ResetVampCardState()
+    public void ResetVampCardState()
     {
         // Reset vamp card activation state and related properties
         isVampCardActive = false;

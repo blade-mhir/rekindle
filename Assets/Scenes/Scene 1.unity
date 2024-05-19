@@ -7230,6 +7230,18 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6408590904953596069, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
+      propertyPath: gameOverMenu
+      value: 
+      objectReference: {fileID: 260744879}
+    - target: {fileID: 6408590904953596069, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
+      propertyPath: baseMaxHealth
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408590904953596069, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
+      propertyPath: baseMaxShield
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408590904953596069, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
       propertyPath: gameOverObject
       value: 
       objectReference: {fileID: 1554246146}

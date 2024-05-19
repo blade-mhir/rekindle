@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
         mySpriteRender = GetComponent<SpriteRenderer>();
     }
     
-     private void OnEnable()
+    private void OnEnable()
     {
         playerControls.Enable();
         GameManager.OnGameOver += ResetPlayerState; // Subscribe to the GameManager's OnGameOver event
@@ -292,12 +292,12 @@ public class PlayerController : MonoBehaviour
 
     private void DeactivatePowerUp()
     {
-        isPowerUpActive = false;
+                isPowerUpActive = false;
         activePowerUp = PowerUpType.None;
 
         // Reset Shooting script to default values
         Shooting shootingScript = GetComponent<Shooting>();
-        if (shootingScript  != null)
+        if (shootingScript != null)
         {
             shootingScript.ResetFirePowerUpValues();
         }
@@ -317,15 +317,22 @@ public class PlayerController : MonoBehaviour
         {
             moveSpeed = sipUpCardMoveSpeed;
         }
+        else
+        {
+            moveSpeed = 1f; // Reset to base move speed
+        }
     }
 
-    private void ResetPlayerState()
+    public void ResetPlayerState()
     {
         // Reset all player states and properties to their initial values
         isInvisible = false;
         isPowerUpActive = false;
         activePowerUp = PowerUpType.None;
         sipUpCardActive = false;
+
+        // Reset movement speed to default value
+        moveSpeed = 1f; // Base movement speed
 
         // Deactivate all power-up objects
         if (coffeePowerUpObject != null)
@@ -341,9 +348,6 @@ public class PlayerController : MonoBehaviour
             sipCardPowerUpObject.SetActive(false);
         }
 
-        // Reset movement speed
-        moveSpeed = 1f;
-
         // Reset shooting script values
         Shooting shootingScript = GetComponent<Shooting>();
         if (shootingScript != null)
@@ -354,6 +358,13 @@ public class PlayerController : MonoBehaviour
         // Reset animator parameters
         myAnimator.SetFloat("moveX", 0);
         myAnimator.SetFloat("moveY", 0);
+
+        // Reset player position to initial spawn position (optional, adjust as needed)
+        transform.position = Vector3.zero;
+
+        // Additional state reset logic can be added here
     }
 }
 
+
+       
