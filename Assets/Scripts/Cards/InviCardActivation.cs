@@ -7,7 +7,6 @@ public class InviCardActivation : MonoBehaviour
     [SerializeField] private float inviDuration = 5f; // Duration of the invisibility effect
     [SerializeField] private float cooldownDuration = 10f; // Cooldown duration for invisibility
     [SerializeField] private Image inviCooldownFillImage; // Reference to the fill image for cooldown
-    [SerializeField] private GameObject inviPowerUpObject; // Reference to the invisibility power-up object
     private bool isCooldown = false;
     private bool isEffectActive = false; // Flag to track if the invisibility effect is active
     private float inviStartTime;
@@ -39,12 +38,6 @@ public class InviCardActivation : MonoBehaviour
 
             // Start the effect duration coroutine
             StartCoroutine(InvisibilityEffect());
-
-            // Activate invisibility power-up objects
-            if (inviPowerUpObject!= null)
-            {
-                inviPowerUpObject.SetActive(true);
-            }
         }
     }
 

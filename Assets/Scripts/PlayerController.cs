@@ -183,9 +183,6 @@ public class PlayerController : MonoBehaviour
         {
             if (!CardManager.instance.IsDashCardActivated() && !CardManager.instance.IsLaserCardActivated())
             {
-                // Deactivate Dash Card and Laser Card
-                CardManager.instance.DeactivateAllCards();
-
                 ActivateInvisibility();
                 // Handle activation of invisibility power-up game object here
                 if (inviPowerUpObject != null)

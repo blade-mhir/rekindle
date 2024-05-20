@@ -1,13 +1,15 @@
-using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 public class LaserCardActivation : MonoBehaviour
 {
     [SerializeField] private GameObject laserBulletPrefab; // Reference to the laser bullet prefab
     [SerializeField] private float laserDuration = 10f; // Duration of laser powerup (customizable in inspector)
-    [SerializeField] private float cooldownDuration = 30f; // Cooldown duration for laser powerup (customizable in inspector)
+    [SerializeField] private float cooldownDuration = 15f; // Cooldown duration after laser powerup ends
     [SerializeField] private GameObject laserPowerUpObject; // Reference to the laser power-up object
-    [SerializeField] private GameObject cooldownObject; // Reference to the cooldown indicator object
+    [SerializeField] private Image cooldownFillImage; // Reference to the cooldown fill image
+
 
     private bool isLaserActive = false; // Flag for laser powerup state
     private float laserStartTime;
@@ -23,7 +25,7 @@ public class LaserCardActivation : MonoBehaviour
 
     private void Update()
     {
-        // Activate laser powerup with "E" key and check cooldown
+        // Activate laser powerup with "E" key
         if (Input.GetKeyDown(KeyCode.E) && !isCooldownActive)
         {
             ActivateLaserPowerUp();
@@ -33,16 +35,6 @@ public class LaserCardActivation : MonoBehaviour
         if (isLaserActive && Time.time >= laserStartTime + laserDuration)
         {
             DeactivateLaserPowerUp();
-        }
-
-        // Check for cooldown ending
-        if (isCooldownActive && Time.time >= cooldownStartTime + cooldownDuration)
-        {
-            isCooldownActive = false;
-            if (cooldownObject != null)
-            {
-                cooldownObject.SetActive(false);
-            }
         }
     }
 
@@ -59,15 +51,8 @@ public class LaserCardActivation : MonoBehaviour
             laserPowerUpObject.SetActive(true);
         }
 
-        // Start cooldown
-        isCooldownActive = true;
-        cooldownStartTime = Time.time;
-
-        // Enable the cooldown indicator object
-        if (cooldownObject != null)
-        {
-            cooldownObject.SetActive(true);
-        }
+        // Start cooldown coroutine
+        StartCoroutine(CooldownCoroutine());
     }
 
     private void DeactivateLaserPowerUp()
@@ -75,12 +60,24 @@ public class LaserCardActivation : MonoBehaviour
         isLaserActive = false;
 
         shootingScript.ResetBulletPrefab();
+    }
 
-        // Disable the laser power-up object
-        if (laserPowerUpObject != null)
+    private IEnumerator CooldownCoroutine()
+    {
+        isCooldownActive = true;
+        cooldownStartTime = Time.time;
+
+        while (Time.time < cooldownStartTime + cooldownDuration)
         {
-            laserPowerUpObject.SetActive(false);
+            float timeSinceCooldownStart = Time.time - cooldownStartTime;
+            float cooldownFillAmount = Mathf.Clamp01(timeSinceCooldownStart / cooldownDuration);
+            cooldownFillImage.fillAmount = 1f - cooldownFillAmount;
+
+            yield return null; // Wait for the next frame
         }
+
+        isCooldownActive = false;
+        cooldownFillImage.fillAmount = 0f; // Reset cooldown fill image
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -92,5 +89,4 @@ public class LaserCardActivation : MonoBehaviour
             Destroy(collision.gameObject); // Destroy the power-up on collision
         }
     }
-
 }

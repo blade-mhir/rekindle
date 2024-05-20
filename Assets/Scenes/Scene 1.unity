@@ -2690,7 +2690,7 @@ MonoBehaviour:
   m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 1
+  m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &774431568
@@ -6484,12 +6484,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725c9ac487d4be348a1f3fd3b0aaf08e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashDistance: 3
+  dashDistance: 7
   dashSpeed: 20
   dashDuration: 10
   dashCooldown: 10
   dashPowerUpObject: {fileID: 1691465080}
-  dashPowerUpIcon: {fileID: 1039250236}
   dashCooldownFillImage: {fileID: 1268820850}
 --- !u!114 &1865082035
 MonoBehaviour:
@@ -6506,8 +6505,6 @@ MonoBehaviour:
   inviDuration: 5
   cooldownDuration: 5
   inviCooldownFillImage: {fileID: 1649597375}
-  inviPowerUpObject: {fileID: 1952673596}
-  inviPowerUpIcon: {fileID: 639903974}
 --- !u!114 &1865082044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6524,7 +6521,7 @@ MonoBehaviour:
   laserDuration: 10
   cooldownDuration: 30
   laserPowerUpObject: {fileID: 983292671}
-  cooldownObject: {fileID: 774431565}
+  cooldownFillImage: {fileID: 774431567}
 --- !u!114 &1865082046
 MonoBehaviour:
   m_ObjectHideFlags: 0
