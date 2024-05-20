@@ -29,6 +29,12 @@ public class EnemyAI : MonoBehaviour
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
         playerController = playerTransform.GetComponent<PlayerController>();
+
+         // Debug statement to check if playerTransform is assigned
+        if (playerTransform == null)
+        {
+            Debug.LogError("Player transform not found!");
+        }
     }
 
     private void FixedUpdate()
@@ -110,22 +116,5 @@ public class EnemyAI : MonoBehaviour
             isPlayerColliding = false;
             timeSinceLastDamage = 0f;
         }
-    }
-
-    public void ResetEnemyAI()
-    {
-        // Reset all enemy AI-related states and properties to their initial values
-        isPlayerColliding = false;
-        timeSinceLastDamage = 0f;
-    }
-
-    private void OnEnable()
-    {
-        GameManager.OnGameOver += ResetEnemyAI;
-    }
-
-    private void OnDisable()
-    {
-        GameManager.OnGameOver -= ResetEnemyAI;
     }
 }

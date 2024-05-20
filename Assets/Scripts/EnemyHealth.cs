@@ -73,19 +73,4 @@ public class EnemyHealth : MonoBehaviour
         return coinValue;
     }
 
-    // Method to reset enemy health
-    public void ResetEnemyHealth()
-    {
-        currentHealth = maxHealth;
-    }
-
-    private void OnEnable()
-    {
-        GameManager.OnGameOver += ResetEnemyHealth; // Subscribe to the GameManager's OnGameOver event
-    }
-
-    private void OnDisable()
-    {
-        GameManager.OnGameOver -= ResetEnemyHealth; // Unsubscribe from the GameManager's OnGameOver event
-    }
 }

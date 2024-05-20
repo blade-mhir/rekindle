@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+     [SerializeField] private HealthController healthController;
     [SerializeField] private float moveSpeed = 1f; // Base movement speed
     [SerializeField] private float fireMoveSpeed = 2.5f; // Movement speed during Fire powerup (customizable in inspector)
     [SerializeField] private float fireDuration = 5f; // Duration of Fire powerup effect (customizable in inspector)
@@ -15,8 +16,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float coffeeDuration = 5f; // Duration of Coffee powerup effect (customizable in inspector)
     [SerializeField] private GameObject coffeePowerUpObject;
     [SerializeField] private float sipUpCardMoveSpeed = 1.5f; // Movement speed during SipUpCard powerup
-    [SerializeField] private CoinManager coinManager; // Reference to the Coin Manager
     [SerializeField] private GameObject sipCardPowerUpObject;
+    [SerializeField] private GameObject inviPowerUpObject; // Reference to the invisibility power-up object
+    [SerializeField] private CoinManager coinManager; // Reference to the Coin Manager
+
 
     private bool isInvisible = false;
     private float inviDuration = 5f; // Duration of Invisibility powerup (customizable in inspector)
@@ -50,13 +53,11 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         playerControls.Enable();
-        GameManager.OnGameOver += ResetPlayerState; // Subscribe to the GameManager's OnGameOver event
     }
 
     private void OnDisable()
     {
         playerControls.Disable();
-        GameManager.OnGameOver -= ResetPlayerState; // Unsubscribe from the GameManager's OnGameOver event
     }
 
     private void Update()
@@ -73,11 +74,26 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerInput()
     {
-        movement = playerControls.Movement.Move.ReadValue<Vector2>();
+        if (playerControls != null)
+        {
+            movement = playerControls.Movement.Move.ReadValue<Vector2>();
 
-        myAnimator.SetFloat("moveX", movement.x);
-        myAnimator.SetFloat("moveY", movement.y);
+            if (myAnimator != null)
+            {
+                myAnimator.SetFloat("moveX", movement.x);
+                myAnimator.SetFloat("moveY", movement.y);
+            }
+            else
+            {
+                Debug.LogWarning("myAnimator is null");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("playerControls is null");
+        }
     }
+
 
     private void Move()
     {
@@ -167,7 +183,15 @@ public class PlayerController : MonoBehaviour
         {
             if (!CardManager.instance.IsDashCardActivated() && !CardManager.instance.IsLaserCardActivated())
             {
+                // Deactivate Dash Card and Laser Card
+                CardManager.instance.DeactivateAllCards();
+
                 ActivateInvisibility();
+                // Handle activation of invisibility power-up game object here
+                if (inviPowerUpObject != null)
+                {
+                    inviPowerUpObject.SetActive(true);
+                }
                 CardManager.instance.ActivateInviCard();
                 Destroy(collision.gameObject); // Destroy the InviCard object
             }
@@ -266,7 +290,7 @@ public class PlayerController : MonoBehaviour
     {
         // Implement your player death logic here
         Debug.Log("Player Died!"); // Placeholder for now
-        ResetPlayerState();
+        // ResetPlayerState();
     }
 
     private void UpdatePowerUp()
@@ -323,47 +347,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ResetPlayerState()
-    {
-        // Reset all player states and properties to their initial values
-        isInvisible = false;
-        isPowerUpActive = false;
-        activePowerUp = PowerUpType.None;
-        sipUpCardActive = false;
-
-        // Reset movement speed to default value
-        moveSpeed = 1f; // Base movement speed
-
-        // Deactivate all power-up objects
-        if (coffeePowerUpObject != null)
-        {
-            coffeePowerUpObject.SetActive(false);
-        }
-        if (firePowerUpObject != null)
-        {
-            firePowerUpObject.SetActive(false);
-        }
-        if (sipCardPowerUpObject != null)
-        {
-            sipCardPowerUpObject.SetActive(false);
-        }
-
-        // Reset shooting script values
-        Shooting shootingScript = GetComponent<Shooting>();
-        if (shootingScript != null)
-        {
-            shootingScript.ResetFirePowerUpValues();
-        }
-
-        // Reset animator parameters
-        myAnimator.SetFloat("moveX", 0);
-        myAnimator.SetFloat("moveY", 0);
-
-        // Reset player position to initial spawn position (optional, adjust as needed)
-        transform.position = Vector3.zero;
-
-        // Additional state reset logic can be added here
-    }
 }
 
 

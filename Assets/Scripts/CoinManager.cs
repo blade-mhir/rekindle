@@ -22,19 +22,19 @@ public class CoinManager : MonoBehaviour
         coinScoreText.text = "x " + coinScore.ToString();
     }
 
-    public void ResetCoinScore()
-    {
-        coinScore = 0;
-        UpdateScoreText();
-    }
+    // public void ResetCoinScore()
+    // {
+    //     coinScore = 0;
+    //     UpdateScoreText();
+    // }
 
-    private void OnEnable()
-    {
-        GameManager.OnGameOver += ResetCoinScore;
-    }
+    // private void OnEnable()
+    // {
+    //     GameManager.OnGameOver += ResetCoinScore;
+    // }
 
-    private void OnDisable()
-    {
-        GameManager.OnGameOver -= ResetCoinScore;
-    }
+    // private void OnDisable()
+    // {
+    //     GameManager.OnGameOver -= ResetCoinScore;
+    // }
 }

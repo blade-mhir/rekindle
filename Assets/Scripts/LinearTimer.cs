@@ -76,27 +76,27 @@ public class LinearTimer : MonoBehaviour
         }
     }
 
-    public void ResetTimer()
-    {
-        // Reset all timer-related states and properties to their initial values
-        timerStarted = false;
-        currentTime = 0f;
-        isGameOver = false;
-        Time.timeScale = 1f;
+    // public void ResetTimer()
+    // {
+    //     // Reset all timer-related states and properties to their initial values
+    //     timerStarted = false;
+    //     currentTime = 0f;
+    //     isGameOver = false;
+    //     Time.timeScale = 1f;
 
-        // Reset UI elements
-        timerImage.fillAmount = 1f;
-        gameOverText.SetActive(false);
-        victoryText.SetActive(false);
-    }
+    //     // Reset UI elements
+    //     timerImage.fillAmount = 1f;
+    //     gameOverText.SetActive(false);
+    //     victoryText.SetActive(false);
+    // }
 
-    private void OnEnable()
-    {
-        GameManager.OnGameOver += ResetTimer;
-    }
+    // private void OnEnable()
+    // {
+    //     GameManager.OnGameOver += ResetTimer;
+    // }
 
-    private void OnDisable()
-    {
-        GameManager.OnGameOver -= ResetTimer;
-    }
+    // private void OnDisable()
+    // {
+    //     GameManager.OnGameOver -= ResetTimer;
+    // }
 }

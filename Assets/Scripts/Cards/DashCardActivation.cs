@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DashCardActivation : MonoBehaviour
 {
@@ -8,8 +9,8 @@ public class DashCardActivation : MonoBehaviour
     [SerializeField] private float dashDuration = 0.2f; // Duration of the dash effect (customizable in inspector)
     [SerializeField] private float dashCooldown = 30f; // Cooldown period after using the Dash Card (customizable in inspector)
     [SerializeField] private GameObject dashPowerUpObject; // Reference to the dash power-up object
-    [SerializeField] private GameObject cooldownObject; // Reference to the cooldown indicator object
 
+    [SerializeField] private Image dashCooldownFillImage; // Reference to the fill image for cooldown
     private PlayerController playerController;
     private bool canDash = false; // Flag to check if the player can dash
     private float lastDashTime = -30f; // Time when the player last dashed
@@ -20,27 +21,24 @@ public class DashCardActivation : MonoBehaviour
         playerController = GetComponent<PlayerController>();
     }
 
-    private void OnEnable()
-    {
-        GameManager.OnGameOver += ResetDashState;
-    }
-
-    private void OnDisable()
-    {
-        GameManager.OnGameOver -= ResetDashState;
-    }
-
     private void Update()
     {
-        if (canDash && Input.GetMouseButtonDown(1) && !isDashing && Time.time >= lastDashTime + dashCooldown) // Right-click to dash
+        // Check for right mouse button input to trigger dash
+        if (canDash && Input.GetMouseButtonDown(1) && !isDashing && Time.time >= lastDashTime + dashCooldown)
         {
             StartCoroutine(Dash());
+        }
+
+        // Activate dash card when E key is pressed and the effect is not already active and not on cooldown
+        if (Input.GetKeyDown(KeyCode.E) && !CardManager.instance.IsDashCardActivated() && !CardManager.instance.IsLaserCardActivated())
+        {
+            ActivateDashCard();
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!CardManager.instance.IsInviCardActivated() && !CardManager.instance.IsLaserCardActivated() && collision.gameObject.CompareTag("DashCard"))
+        if (collision.gameObject.CompareTag("DashCard"))
         {
             CardManager.instance.ActivateDashCard();
             ActivateDashCard();
@@ -86,50 +84,30 @@ public class DashCardActivation : MonoBehaviour
         canDash = false;
         StartCoroutine(DashCooldown());
 
-        // Disable the dash power-up object
-        if (dashPowerUpObject != null)
-        {
-            dashPowerUpObject.SetActive(false);
-        }
-
         isDashing = false;
     }
 
     private IEnumerator DashCooldown()
     {
-        // Enable the cooldown indicator object
-        if (cooldownObject != null)
+        // Activate cooldown fill image
+        if (dashCooldownFillImage != null)
         {
-            cooldownObject.SetActive(true);
+            dashCooldownFillImage.gameObject.SetActive(true);
+            float fillAmount = 1f; // Start with full fill
+            float fillChangeRate = 1f / dashCooldown; // Rate at which fill decreases per second
+
+            while (fillAmount > 0f)
+            {
+                fillAmount -= fillChangeRate * Time.deltaTime;
+                dashCooldownFillImage.fillAmount = fillAmount;
+                yield return null; // Wait for the next frame
+            }
+
+            // Cooldown finished, deactivate cooldown fill image
+            dashCooldownFillImage.gameObject.SetActive(false);
         }
 
-        yield return new WaitForSeconds(dashCooldown);
-        canDash = true; // Reactivate Dash after cooldown
-
-        // Disable the cooldown indicator object
-        if (cooldownObject != null)
-        {
-            cooldownObject.SetActive(false);
-        }
-    }
-
-    public void ResetDashState()
-    {
-        // Reset dash-related states and properties to their initial values
-        canDash = false;
-        lastDashTime = -30f;
-        isDashing = false;
-
-        // Disable dash power-up object
-        if (dashPowerUpObject != null)
-        {
-            dashPowerUpObject.SetActive(false);
-        }
-
-        // Disable cooldown indicator object
-        if (cooldownObject != null)
-        {
-            cooldownObject.SetActive(false);
-        }
+        // Cooldown finished, allow activation again
+        canDash = true;
     }
 }

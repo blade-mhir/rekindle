@@ -83,24 +83,24 @@ public class PowerUpSpawner : MonoBehaviour
     }
 
     // Method to reset the spawner
-    public void ResetSpawner()
-    {
-        StopAllCoroutines(); // Stop all spawning coroutines
-        isSpawning = false;
-        foreach (var powerUp in occupiedSpawnPositions.Values)
-        {
-            Destroy(powerUp); // Destroy all spawned power-ups
-        }
-        occupiedSpawnPositions.Clear(); // Clear the dictionary
-    }
+    // public void ResetSpawner()
+    // {
+    //     StopAllCoroutines(); // Stop all spawning coroutines
+    //     isSpawning = false;
+    //     foreach (var powerUp in occupiedSpawnPositions.Values)
+    //     {
+    //         Destroy(powerUp); // Destroy all spawned power-ups
+    //     }
+    //     occupiedSpawnPositions.Clear(); // Clear the dictionary
+    // }
 
-    private void OnEnable()
-    {
-        GameManager.OnGameOver += ResetSpawner; // Subscribe to the GameManager's OnGameOver event
-    }
+    // private void OnEnable()
+    // {
+    //     GameManager.OnGameOver += ResetSpawner; // Subscribe to the GameManager's OnGameOver event
+    // }
 
-    private void OnDisable()
-    {
-        GameManager.OnGameOver -= ResetSpawner; // Unsubscribe from the GameManager's OnGameOver event
-    }
+    // private void OnDisable()
+    // {
+    //     GameManager.OnGameOver -= ResetSpawner; // Unsubscribe from the GameManager's OnGameOver event
+    // }
 }

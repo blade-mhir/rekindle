@@ -88,23 +88,23 @@ public class EnemySpawner : MonoBehaviour
     }
 
     // Method to reset the spawner
-    public void ResetSpawner()
-    {
-        // Destroy all spawned enemies
-        foreach (var enemy in spawnedEnemies)
-        {
-            Destroy(enemy);
-        }
-        spawnedEnemies.Clear(); // Clear the list of spawned enemies
-    }
+    // public void ResetSpawner()
+    // {
+    //     // Destroy all spawned enemies
+    //     foreach (var enemy in spawnedEnemies)
+    //     {
+    //         Destroy(enemy);
+    //     }
+    //     spawnedEnemies.Clear(); // Clear the list of spawned enemies
+    // }
 
-    private void OnEnable()
-    {
-        GameManager.OnGameOver += ResetSpawner; // Subscribe to the GameManager's OnGameOver event
-    }
+    // private void OnEnable()
+    // {
+    //     GameManager.OnGameOver += ResetSpawner; // Subscribe to the GameManager's OnGameOver event
+    // }
 
-    private void OnDisable()
-    {
-        GameManager.OnGameOver -= ResetSpawner; // Unsubscribe from the GameManager's OnGameOver event
-    }
+    // private void OnDisable()
+    // {
+    //     GameManager.OnGameOver -= ResetSpawner; // Unsubscribe from the GameManager's OnGameOver event
+    // }
 }

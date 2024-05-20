@@ -7,15 +7,15 @@ public class VampCardActivation : MonoBehaviour
     public static bool isVampCardActive = false;
     [SerializeField] private GameObject vampPowerUpObject; // Reference to the vamp power-up object
 
-    private void OnEnable()
-    {
-        GameManager.OnGameOver += ResetVampCardState;
-    }
+    // private void OnEnable()
+    // {
+    //     GameManager.OnGameOver += ResetVampCardState;
+    // }
 
-    private void OnDisable()
-    {
-        GameManager.OnGameOver -= ResetVampCardState;
-    }
+    // private void OnDisable()
+    // {
+    //     GameManager.OnGameOver -= ResetVampCardState;
+    // }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -36,15 +36,15 @@ public class VampCardActivation : MonoBehaviour
         }
     }
 
-    public void ResetVampCardState()
-    {
-        // Reset vamp card activation state and related properties
-        isVampCardActive = false;
+    // public void ResetVampCardState()
+    // {
+    //     // Reset vamp card activation state and related properties
+    //     isVampCardActive = false;
 
-        // Disable vamp power-up object
-        if (vampPowerUpObject != null)
-        {
-            vampPowerUpObject.SetActive(false);
-        }
-    }
+    //     // Disable vamp power-up object
+    //     if (vampPowerUpObject != null)
+    //     {
+    //         vampPowerUpObject.SetActive(false);
+    //     }
+    // }
 }

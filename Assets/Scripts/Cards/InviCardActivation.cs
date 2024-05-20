@@ -1,13 +1,15 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InviCardActivation : MonoBehaviour
 {
     [SerializeField] private float inviDuration = 5f; // Duration of the invisibility effect
     [SerializeField] private float cooldownDuration = 10f; // Cooldown duration for invisibility
+    [SerializeField] private Image inviCooldownFillImage; // Reference to the fill image for cooldown
     [SerializeField] private GameObject inviPowerUpObject; // Reference to the invisibility power-up object
-    [SerializeField] private GameObject cooldownObject; // Reference to the cooldown indicator object
     private bool isCooldown = false;
+    private bool isEffectActive = false; // Flag to track if the invisibility effect is active
     private float inviStartTime;
     private PlayerController playerController;
 
@@ -16,20 +18,10 @@ public class InviCardActivation : MonoBehaviour
         playerController = GetComponent<PlayerController>();
     }
 
-    private void OnEnable()
-    {
-        GameManager.OnGameOver += ResetInvisibilityState;
-    }
-
-    private void OnDisable()
-    {
-        GameManager.OnGameOver -= ResetInvisibilityState;
-    }
-
     private void Update()
     {
-        // Activate invisibility card only if it's not already active and not on cooldown
-        if (Input.GetKeyDown(KeyCode.E) && !playerController.IsInvisible() && !isCooldown)
+        // Activate invisibility card when E key is pressed and the effect is not already active and not on cooldown
+        if (Input.GetKeyDown(KeyCode.E) && !isEffectActive && !isCooldown)
         {
             ActivateInvisibility();
         }
@@ -37,75 +29,60 @@ public class InviCardActivation : MonoBehaviour
 
     private void ActivateInvisibility()
     {
-        if (!CardManager.instance.IsDashCardActivated() && !CardManager.instance.IsLaserCardActivated())
+        // Only activate if not already active and not on cooldown
+        if (!isEffectActive && !isCooldown)
         {
-            CardManager.instance.ActivateInviCard();
+            // Set the invisibility effect active
+            isEffectActive = true;
             playerController.SetInvisible(true);
             inviStartTime = Time.time;
-            isCooldown = true;
 
-            // Enable the invisibility power-up object
-            if (inviPowerUpObject != null)
+            // Start the effect duration coroutine
+            StartCoroutine(InvisibilityEffect());
+
+            // Activate invisibility power-up objects
+            if (inviPowerUpObject!= null)
             {
                 inviPowerUpObject.SetActive(true);
             }
-
-            // Enable the cooldown indicator object
-            if (cooldownObject != null)
-            {
-                cooldownObject.SetActive(true);
-            }
-
-            StartCoroutine(InvisibilityCooldown());
         }
+    }
+
+    private IEnumerator InvisibilityEffect()
+    {
+        yield return new WaitForSeconds(inviDuration);
+
+        // Effect duration over, deactivate invisibility
+        playerController.SetInvisible(false);
+        isEffectActive = false;
+
+        // Start cooldown coroutine
+        StartCoroutine(InvisibilityCooldown());
     }
 
     private IEnumerator InvisibilityCooldown()
     {
-        yield return new WaitForSeconds(inviDuration);
-        playerController.SetInvisible(false);
+        isCooldown = true;
 
-        // Disable the invisibility power-up object
-        if (inviPowerUpObject != null)
+        // Activate cooldown fill image
+        if (inviCooldownFillImage != null)
         {
-            inviPowerUpObject.SetActive(false);
+            inviCooldownFillImage.gameObject.SetActive(true);
+            float fillAmount = 1f; // Start with full fill
+            float fillChangeRate = 1f / cooldownDuration; // Rate at which fill decreases per second
+
+            while (fillAmount > 0f)
+            {
+                fillAmount -= fillChangeRate * Time.deltaTime;
+                inviCooldownFillImage.fillAmount = fillAmount;
+                yield return null; // Wait for the next frame
+            }
+
+            // Cooldown finished, deactivate cooldown fill image
+            inviCooldownFillImage.gameObject.SetActive(false);
         }
 
-        yield return new WaitForSeconds(cooldownDuration);
+        // Cooldown finished, allow activation again
         isCooldown = false;
-
-        // Disable the cooldown indicator object
-        if (cooldownObject != null)
-        {
-            cooldownObject.SetActive(false);
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!CardManager.instance.IsDashCardActivated() && !CardManager.instance.IsLaserCardActivated() && collision.gameObject.CompareTag("InviCard"))
-        {
-            CardManager.instance.ActivateInviCard();
-            ActivateInvisibility();
-            Destroy(collision.gameObject); // Destroy the power-up on collision
-        }
-    }
-
-    public void ResetInvisibilityState()
-    {
-        // Reset invisibility-related states and properties to their initial values
-        isCooldown = false;
-
-        // Disable invisibility power-up object
-        if (inviPowerUpObject != null)
-        {
-            inviPowerUpObject.SetActive(false);
-        }
-
-        // Disable cooldown indicator object
-        if (cooldownObject != null)
-        {
-            cooldownObject.SetActive(false);
-        }
     }
 }

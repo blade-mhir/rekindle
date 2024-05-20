@@ -21,16 +21,6 @@ public class LaserCardActivation : MonoBehaviour
         shootingScript = GetComponent<Shooting>(); // Get the Shooting script attached to the player
     }
 
-    private void OnEnable()
-    {
-        GameManager.OnGameOver += ResetLaserState;
-    }
-
-    private void OnDisable()
-    {
-        GameManager.OnGameOver -= ResetLaserState;
-    }
-
     private void Update()
     {
         // Activate laser powerup with "E" key and check cooldown
@@ -103,22 +93,4 @@ public class LaserCardActivation : MonoBehaviour
         }
     }
 
-    public void ResetLaserState()
-    {
-        // Reset laser-related states and properties to their initial values
-        isLaserActive = false;
-        isCooldownActive = false;
-
-        // Disable laser power-up object
-        if (laserPowerUpObject != null)
-        {
-            laserPowerUpObject.SetActive(false);
-        }
-
-        // Disable cooldown indicator object
-        if (cooldownObject != null)
-        {
-            cooldownObject.SetActive(false);
-        }
-    }
 }
