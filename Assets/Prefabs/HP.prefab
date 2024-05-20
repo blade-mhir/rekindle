@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 305966934531185354}
   - component: {fileID: 305966934531185355}
   - component: {fileID: 305966934531185352}
+  - component: {fileID: 8133470162787480812}
   m_Layer: 7
   m_Name: HP
   m_TagString: HP
@@ -111,3 +112,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.34879696, y: 0.31250858}
   m_EdgeRadius: 0
+--- !u!114 &8133470162787480812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305966934531185353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 891bd1aa78727234a9b59e2b24b3c348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 10
