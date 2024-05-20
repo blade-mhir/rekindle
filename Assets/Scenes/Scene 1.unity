@@ -1606,6 +1606,10 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8868522765904738652, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8868522765904738652, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
       propertyPath: m_TagString
       value: DashCard
       objectReference: {fileID: 0}
@@ -2625,6 +2629,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708121718}
   m_CullTransparentMesh: 1
+--- !u!1 &733744290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 733744291}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &733744291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733744290}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.056, y: -0.008, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1945278717}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &774431565
 GameObject:
   m_ObjectHideFlags: 0
@@ -6680,6 +6715,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1936666091}
   m_CullTransparentMesh: 1
+--- !u!1 &1945278713 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 726759075182831893, guid: 5f1a8fb7232454b43a671704db09caaa, type: 3}
+  m_PrefabInstance: {fileID: 726759074928194028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1945278717 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 726759075182831889, guid: 5f1a8fb7232454b43a671704db09caaa, type: 3}
+  m_PrefabInstance: {fileID: 726759074928194028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1945278722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945278713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 719c8b7d9a7cc874c8dbb422811a4f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 5389063902380584143, guid: 23ad712eb507e1e44a1b9909a9a18b5a, type: 3}
+  fireRate: 1
+  bulletDamage: 1
 --- !u!1 &1946949800
 GameObject:
   m_ObjectHideFlags: 0
@@ -7268,6 +7328,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SipUpCard
       objectReference: {fileID: 0}
+    - target: {fileID: 9010829104914968745, guid: 8ebaeebd667459c4882bfd05ead9a065, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9010829104914968746, guid: 8ebaeebd667459c4882bfd05ead9a065, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -7369,6 +7433,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShieldCard
       objectReference: {fileID: 0}
+    - target: {fileID: 8321454250647030163, guid: bf536be825ce80e4baeb1479c32702f6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf536be825ce80e4baeb1479c32702f6, type: 3}
 --- !u!1001 &726759074928194028
@@ -7425,6 +7493,10 @@ PrefabInstance:
     - target: {fileID: 726759075182831893, guid: 5f1a8fb7232454b43a671704db09caaa, type: 3}
       propertyPath: m_Name
       value: Demon Eye
+      objectReference: {fileID: 0}
+    - target: {fileID: 726759075182831893, guid: 5f1a8fb7232454b43a671704db09caaa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f1a8fb7232454b43a671704db09caaa, type: 3}
@@ -7483,6 +7555,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HPCard
       objectReference: {fileID: 0}
+    - target: {fileID: 6553069681547340243, guid: bf47f7e1a39ab4449a41b518595ad742, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf47f7e1a39ab4449a41b518595ad742, type: 3}
 --- !u!1001 &3628980556618845773
@@ -7495,6 +7571,10 @@ PrefabInstance:
     - target: {fileID: 5282696942661844436, guid: bd483d3f2a914e94aac5464183b95efd, type: 3}
       propertyPath: m_Name
       value: HPPotionCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 5282696942661844436, guid: bd483d3f2a914e94aac5464183b95efd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5282696942661844439, guid: bd483d3f2a914e94aac5464183b95efd, type: 3}
       propertyPath: m_RootOrder
@@ -7552,6 +7632,10 @@ PrefabInstance:
     - target: {fileID: 5119176187456497241, guid: 3c8051535723d3d4e8e53fbbd1f381c5, type: 3}
       propertyPath: m_Name
       value: VampCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 5119176187456497241, guid: 3c8051535723d3d4e8e53fbbd1f381c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5119176187456497242, guid: 3c8051535723d3d4e8e53fbbd1f381c5, type: 3}
       propertyPath: m_RootOrder
@@ -7726,6 +7810,10 @@ PrefabInstance:
     - target: {fileID: 4349472012032763074, guid: 98cb28c1f1a37314388d138c1128cb23, type: 3}
       propertyPath: m_Name
       value: InviCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349472012032763074, guid: 98cb28c1f1a37314388d138c1128cb23, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98cb28c1f1a37314388d138c1128cb23, type: 3}
@@ -8181,6 +8269,10 @@ PrefabInstance:
     - target: {fileID: 2694680238837613470, guid: 7e35355266a413547ae911b13d446f58, type: 3}
       propertyPath: m_Name
       value: LaserCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694680238837613470, guid: 7e35355266a413547ae911b13d446f58, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e35355266a413547ae911b13d446f58, type: 3}

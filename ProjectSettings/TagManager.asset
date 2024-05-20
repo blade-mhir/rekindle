@@ -19,6 +19,7 @@ TagManager:
   - DashCard
   - InviCard
   - LaserCard
+  - LaserBullet
   layers:
   - Default
   - TransparentFX
@@ -30,7 +31,7 @@ TagManager:
   - Power Up
   - Enemy
   - Card
-  - 
+  - EemyBullet
   - 
   - 
   - 
