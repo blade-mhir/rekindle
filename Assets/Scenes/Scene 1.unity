@@ -6517,8 +6517,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba2386dc7c735347acf37546e93e2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserBulletPrefab: {fileID: 7324660722402000729, guid: 0bac86c3bac28f94f859c238c48033a8, type: 3}
-  laserDuration: 10
+  laserBulletPrefab: {fileID: 0}
+  laserDuration: 50
   cooldownDuration: 30
   laserPowerUpObject: {fileID: 983292671}
   cooldownFillImage: {fileID: 774431567}
@@ -8019,9 +8019,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1331688442}
     - target: {fileID: 6408590904953596070, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 5389063902380584143, guid: a3ce4cebb7028854e901b47d35513c5b, type: 3}
+    - target: {fileID: 6408590904953596070, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
       propertyPath: laserBulletPrefab
       value: 
       objectReference: {fileID: 7324660722402000729, guid: 0bac86c3bac28f94f859c238c48033a8, type: 3}
+    - target: {fileID: 6408590904953596070, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
+      propertyPath: laserLineRenderer
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6408590904953596070, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
       propertyPath: eightPowerUpObject
       value: 
