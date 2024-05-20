@@ -7,7 +7,7 @@ public class EnemyBullet : MonoBehaviour
 
     public float Speed { get { return speed; } }
 
-        void Update()
+    void Update()
     {
         // Move the bullet based on its velocity
         transform.Translate(GetComponent<Rigidbody2D>().velocity * Time.deltaTime);
@@ -25,29 +25,36 @@ public class EnemyBullet : MonoBehaviour
         }
     }
 
-
     public void SetDamage(float damageValue)
     {
         damage = damageValue;
     }
 
-   private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collision detected with: " + other.gameObject.name); // Debug log to see which object is colliding
+        Debug.Log("Collision detected with: " + collision.gameObject.name); // Debug log to see which object is colliding
 
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Player detected!"); // Debug log to confirm player collision
             // Deal damage to the player and destroy the bullet
-            other.GetComponent<HealthController>().TakeDamage(damage);
+            HealthController healthController = collision.gameObject.GetComponent<HealthController>();
+            if (healthController != null)
+            {
+                Debug.Log("HealthController found, applying damage: " + damage);
+                healthController.TakeDamage(damage);
+            }
+            else
+            {
+                Debug.LogError("HealthController component not found on Player!");
+            }
             Destroy(gameObject);
         }
-        else if (other.CompareTag("Obstacle"))
+        else if (collision.gameObject.CompareTag("Obstacle"))
         {
             Debug.Log("Obstacle detected!"); // Debug log to confirm obstacle collision
             // Destroy the bullet if it hits an obstacle
             Destroy(gameObject);
         }
     }
-
 }

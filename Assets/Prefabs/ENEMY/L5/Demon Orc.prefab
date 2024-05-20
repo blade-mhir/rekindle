@@ -202,8 +202,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootItems:
   - itemPrefab: {fileID: 3873582752853666729, guid: 0ae45def7ecdec344a0e6ec5f287e7db, type: 3}
-    baseDropChance: 0.4
-    vampCardDropChance: 0.4
+    baseDropChance: 0.3
+    vampCardDropChance: 0.3
   - itemPrefab: {fileID: 305966934531185353, guid: 89248f113bdbf2c4a8171b584626e7f8, type: 3}
     baseDropChance: 0.05
     vampCardDropChance: 0.1

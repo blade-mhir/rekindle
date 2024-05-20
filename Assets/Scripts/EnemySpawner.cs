@@ -3,108 +3,90 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable]
-public class SpawnDetails
+namespace EnemyNamespace
 {
-    public GameObject enemyPrefab;
-    public float startTime;
-    public float endTime;
-    public int spawnCount;
-}
-
-public class EnemySpawner : MonoBehaviour
-{
-    public List<SpawnDetails> spawnDetailsList;
-    public Vector2 startPoint;
-    public Vector2 endPoint;
-    [SerializeField] private float startDelay = 0f;
-
-    private List<GameObject> spawnedEnemies = new List<GameObject>();
-
-    private void Start()
+    [System.Serializable]
+    public class SpawnDetails
     {
-        StartCoroutine(SpawnAllEnemiesWithDelay());
+        public GameObject enemyPrefab;
+        public float startTime;
+        public float endTime;
+        public int spawnCount;
     }
 
-    private IEnumerator SpawnAllEnemiesWithDelay()
+    public class EnemySpawner : MonoBehaviour
     {
-        yield return new WaitForSeconds(startDelay);
+        public List<SpawnDetails> spawnDetailsList;
+        public Vector2 startPoint;
+        public Vector2 endPoint;
+        [SerializeField] private float startDelay = 0f;
 
-        foreach (var spawnDetails in spawnDetailsList)
+        private List<GameObject> spawnedEnemies = new List<GameObject>();
+
+        private void Start()
         {
-            StartCoroutine(SpawnEnemies(spawnDetails));
-        }
-    }
-
-    private IEnumerator SpawnEnemies(SpawnDetails details)
-    {
-        float spawnWindow = details.endTime - details.startTime;
-        int spawnedCount = 0;
-
-        yield return new WaitForSeconds(details.startTime);
-
-        while (spawnedCount < details.spawnCount)
-        {
-            float randomDelay = Random.Range(0f, spawnWindow);
-            spawnWindow -= randomDelay;
-
-            Vector3 spawnPosition = new Vector3(startPoint.x, startPoint.y, 0);
-            GameObject enemy = Instantiate(details.enemyPrefab, spawnPosition, Quaternion.identity);
-            spawnedEnemies.Add(enemy);
-
-            StartCoroutine(MoveEnemyToPosition(enemy, new Vector3(endPoint.x, endPoint.y, 0)));
-
-            spawnedCount++;
-            yield return new WaitForSeconds(randomDelay);
-        }
-    }
-
-    private IEnumerator MoveEnemyToPosition(GameObject enemy, Vector3 endPosition)
-    {
-        float duration = 1.0f;
-        float elapsedTime = 0;
-        Vector3 startingPosition = enemy.transform.position;
-
-        while (elapsedTime < duration)
-        {
-            enemy.transform.position = Vector3.Lerp(startingPosition, endPosition, (elapsedTime / duration));
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            StartCoroutine(SpawnAllEnemiesWithDelay());
         }
 
-        enemy.transform.position = endPosition;
-    }
-
-    public bool HasRemainingEnemies()
-    {
-        foreach (var enemy in spawnedEnemies)
+        private IEnumerator SpawnAllEnemiesWithDelay()
         {
-            if (enemy != null)
+            yield return new WaitForSeconds(startDelay);
+
+            foreach (var spawnDetails in spawnDetailsList)
             {
-                return true;
+                StartCoroutine(SpawnEnemies(spawnDetails));
             }
         }
-        return false;
+
+        private IEnumerator SpawnEnemies(SpawnDetails details)
+        {
+            float spawnWindow = details.endTime - details.startTime;
+            int spawnedCount = 0;
+
+            yield return new WaitForSeconds(details.startTime);
+
+            while (spawnedCount < details.spawnCount)
+            {
+                float randomDelay = Random.Range(0f, spawnWindow);
+                spawnWindow -= randomDelay;
+
+                Vector3 spawnPosition = new Vector3(startPoint.x, startPoint.y, 0);
+                GameObject enemy = Instantiate(details.enemyPrefab, spawnPosition, Quaternion.identity);
+                spawnedEnemies.Add(enemy);
+
+                StartCoroutine(MoveEnemyToPosition(enemy, new Vector3(endPoint.x, endPoint.y, 0)));
+
+                spawnedCount++;
+                yield return new WaitForSeconds(randomDelay);
+            }
+        }
+
+        private IEnumerator MoveEnemyToPosition(GameObject enemy, Vector3 endPosition)
+        {
+            float duration = 1.0f;
+            float elapsedTime = 0;
+            Vector3 startingPosition = enemy.transform.position;
+
+            while (elapsedTime < duration)
+            {
+                enemy.transform.position = Vector3.Lerp(startingPosition, endPosition, (elapsedTime / duration));
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            enemy.transform.position = endPosition;
+        }
+
+        public bool HasRemainingEnemies()
+        {
+            foreach (var enemy in spawnedEnemies)
+            {
+                if (enemy != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
-
-    // Method to reset the spawner
-    // public void ResetSpawner()
-    // {
-    //     // Destroy all spawned enemies
-    //     foreach (var enemy in spawnedEnemies)
-    //     {
-    //         Destroy(enemy);
-    //     }
-    //     spawnedEnemies.Clear(); // Clear the list of spawned enemies
-    // }
-
-    // private void OnEnable()
-    // {
-    //     GameManager.OnGameOver += ResetSpawner; // Subscribe to the GameManager's OnGameOver event
-    // }
-
-    // private void OnDisable()
-    // {
-    //     GameManager.OnGameOver -= ResetSpawner; // Unsubscribe from the GameManager's OnGameOver event
-    // }
 }
