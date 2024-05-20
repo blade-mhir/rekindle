@@ -31,15 +31,6 @@ public class Shooting : MonoBehaviour
         currentBulletPrefab = bulletPrefab; // Set the default bullet prefab
     }
 
-    // private void OnEnable()
-    // {
-    //     GameManager.OnGameOver += ResetShootingState;
-    // }
-
-    // private void OnDisable()
-    // {
-    //     GameManager.OnGameOver -= ResetShootingState;
-    // }
 
     private void Update()
     {
@@ -248,30 +239,6 @@ public class Shooting : MonoBehaviour
         bulletForce = baseBulletForce;
     }
 
-//     public void ResetShootingState()
-//     {
-//         // Reset all shooting-related states and properties to their initial values
-//         isPowerUpActive = false;
-//         activePowerUp = "";
-//         nextFireTime = 0f;
-
-//         // Reset fire rate and bullet force to their default values
-//         fireRate = baseFireRate;
-//         bulletForce = baseBulletForce;
-
-//         // Deactivate all power-up objects
-//         if (shotgunPowerUpObject != null)
-//         {
-//             shotgunPowerUpObject.SetActive(false);
-//         }
-//         if (eightPowerUpObject != null)
-//         {
-//             eightPowerUpObject.SetActive(false);
-//         }
-
-//         // Reset current bullet prefab to the default bullet prefab
-//         currentBulletPrefab = bulletPrefab;
-//     }
 }
 
 
