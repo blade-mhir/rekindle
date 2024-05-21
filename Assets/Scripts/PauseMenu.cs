@@ -58,7 +58,7 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("MainMenuSceneName"); // Replace with your main menu scene name
+        SceneManager.LoadScene("MainMenu"); // Replace with your main menu scene name
         Time.timeScale = 1f; // Ensure time is unpaused even if paused before
 
         // Unmute audio (optional)

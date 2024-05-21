@@ -3118,7 +3118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 633.9, y: 80.90001}
+  m_AnchoredPosition: {x: 633.9, y: 67}
   m_SizeDelta: {x: 115, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &983292673
@@ -6277,7 +6277,7 @@ MonoBehaviour:
   dashDistance: 7
   dashSpeed: 20
   dashDuration: 10
-  dashCooldown: 10
+  dashCooldown: 8
   dashPowerUpObject: {fileID: 1691465080}
   dashCooldownFillImage: {fileID: 1268820850}
 --- !u!114 &1865082035
@@ -6293,7 +6293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inviDuration: 5
-  cooldownDuration: 5
+  cooldownDuration: 15
   inviCooldownFillImage: {fileID: 1649597375}
 --- !u!114 &1865082044
 MonoBehaviour:
@@ -6307,9 +6307,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba2386dc7c735347acf37546e93e2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserBulletPrefab: {fileID: 1070562810416105511, guid: 820c61c5b62524a4e93159aba6096c14, type: 3}
-  laserDuration: 10
-  cooldownDuration: 5
+  laserBulletPrefab: {fileID: 5594410934785790203, guid: 3904b5d89be2ae84097bd1596608c6f0, type: 3}
+  laserDuration: 12
+  cooldownDuration: 25
   laserPowerUpObject: {fileID: 983292671}
   cooldownFillImage: {fileID: 774431567}
 --- !u!114 &1865082046
@@ -8259,7 +8259,7 @@ PrefabInstance:
     - target: {fileID: 6408590904953596070, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
       propertyPath: laserBulletPrefab
       value: 
-      objectReference: {fileID: 1070562810416105511, guid: 820c61c5b62524a4e93159aba6096c14, type: 3}
+      objectReference: {fileID: 5594410934785790203, guid: 3904b5d89be2ae84097bd1596608c6f0, type: 3}
     - target: {fileID: 6408590904953596070, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
       propertyPath: eightPowerUpObject
       value: 
