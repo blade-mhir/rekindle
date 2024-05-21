@@ -68,7 +68,11 @@ public class GameOverMenu : MonoBehaviour
 
             gameOverUI.SetActive(false);
 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            // Load the scene at Level 1 
+            SceneManager.LoadScene(1);
+
+            //Load Scene at Present Level
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
             OnGameRestart?.Invoke();
         }
