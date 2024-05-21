@@ -7682,7 +7682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4964981807777269485, guid: 8d57ade84b8a6834a83237682fde6f34, type: 3}
       propertyPath: spawnDetailsList.Array.data[5].spawnCount
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4964981807777269485, guid: 8d57ade84b8a6834a83237682fde6f34, type: 3}
       propertyPath: spawnDetailsList.Array.data[7].spawnCount
@@ -7924,7 +7924,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5352066700492814040, guid: dbcb5153c2cdc23499fc484f9e960a44, type: 3}
       propertyPath: spawnDetailsList.Array.data[6].spawnCount
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5352066700492814040, guid: dbcb5153c2cdc23499fc484f9e960a44, type: 3}
       propertyPath: spawnDetailsList.Array.data[7].spawnCount
@@ -8044,8 +8044,16 @@ PrefabInstance:
       value: 7.84
       objectReference: {fileID: 0}
     - target: {fileID: 6020392789389970705, guid: c7793352af9baae49b82ec04af4c8b69, type: 3}
+      propertyPath: spawnDetailsList.Array.data[3].endTime
+      value: 87
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020392789389970705, guid: c7793352af9baae49b82ec04af4c8b69, type: 3}
       propertyPath: spawnDetailsList.Array.data[4].endTime
       value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020392789389970705, guid: c7793352af9baae49b82ec04af4c8b69, type: 3}
+      propertyPath: spawnDetailsList.Array.data[3].startTime
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6020392789389970705, guid: c7793352af9baae49b82ec04af4c8b69, type: 3}
       propertyPath: spawnDetailsList.Array.data[4].startTime
@@ -8053,15 +8061,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6020392789389970705, guid: c7793352af9baae49b82ec04af4c8b69, type: 3}
       propertyPath: spawnDetailsList.Array.data[2].spawnCount
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6020392789389970705, guid: c7793352af9baae49b82ec04af4c8b69, type: 3}
       propertyPath: spawnDetailsList.Array.data[3].spawnCount
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6020392789389970705, guid: c7793352af9baae49b82ec04af4c8b69, type: 3}
       propertyPath: spawnDetailsList.Array.data[4].spawnCount
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6020392789389970705, guid: c7793352af9baae49b82ec04af4c8b69, type: 3}
       propertyPath: spawnDetailsList.Array.data[0].enemyPrefab
@@ -8591,7 +8599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8287727191689348287, guid: d1f5ed4174b9b5843b5b935189350c3e, type: 3}
       propertyPath: spawnDetailsList.Array.data[5].spawnCount
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8287727191689348287, guid: d1f5ed4174b9b5843b5b935189350c3e, type: 3}
       propertyPath: spawnDetailsList.Array.data[6].spawnCount
