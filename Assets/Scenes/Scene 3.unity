@@ -1180,6 +1180,10 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8868522765904738652, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8868522765904738652, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
       propertyPath: m_TagString
       value: DashCard
       objectReference: {fileID: 0}
@@ -3785,7 +3789,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PAUSE
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7336,6 +7340,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShieldCard
       objectReference: {fileID: 0}
+    - target: {fileID: 8321454250647030163, guid: bf536be825ce80e4baeb1479c32702f6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf536be825ce80e4baeb1479c32702f6, type: 3}
 --- !u!1001 &2441650631242452540
@@ -7397,6 +7405,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HPCard
       objectReference: {fileID: 0}
+    - target: {fileID: 6553069681547340243, guid: bf47f7e1a39ab4449a41b518595ad742, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf47f7e1a39ab4449a41b518595ad742, type: 3}
 --- !u!1001 &3628980556618845773
@@ -7413,6 +7425,10 @@ PrefabInstance:
     - target: {fileID: 5282696942661844436, guid: bd483d3f2a914e94aac5464183b95efd, type: 3}
       propertyPath: m_Name
       value: HPPotionCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 5282696942661844436, guid: bd483d3f2a914e94aac5464183b95efd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5282696942661844437, guid: bd483d3f2a914e94aac5464183b95efd, type: 3}
       propertyPath: m_Size.x
@@ -7482,6 +7498,10 @@ PrefabInstance:
     - target: {fileID: 5119176187456497241, guid: 3c8051535723d3d4e8e53fbbd1f381c5, type: 3}
       propertyPath: m_Name
       value: VampCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 5119176187456497241, guid: 3c8051535723d3d4e8e53fbbd1f381c5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5119176187456497242, guid: 3c8051535723d3d4e8e53fbbd1f381c5, type: 3}
       propertyPath: m_RootOrder
@@ -7584,6 +7604,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner1
       objectReference: {fileID: 0}
+    - target: {fileID: 4964981807777269483, guid: 8d57ade84b8a6834a83237682fde6f34, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4964981807777269485, guid: 8d57ade84b8a6834a83237682fde6f34, type: 3}
       propertyPath: endPoint.x
       value: -6.22
@@ -7660,6 +7684,10 @@ PrefabInstance:
     - target: {fileID: 4349472012032763074, guid: 98cb28c1f1a37314388d138c1128cb23, type: 3}
       propertyPath: m_Name
       value: InviCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349472012032763074, guid: 98cb28c1f1a37314388d138c1128cb23, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4349472012032763075, guid: 98cb28c1f1a37314388d138c1128cb23, type: 3}
       propertyPath: m_Size.x
@@ -7738,6 +7766,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner3
       objectReference: {fileID: 0}
+    - target: {fileID: 5352066699488590966, guid: dbcb5153c2cdc23499fc484f9e960a44, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5352066700492814040, guid: dbcb5153c2cdc23499fc484f9e960a44, type: 3}
       propertyPath: endPoint.x
       value: 0.39
@@ -7770,6 +7802,10 @@ PrefabInstance:
     - target: {fileID: 6020392789389970703, guid: c7793352af9baae49b82ec04af4c8b69, type: 3}
       propertyPath: m_Name
       value: EnemySpawner4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020392789389970703, guid: c7793352af9baae49b82ec04af4c8b69, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6020392789389970704, guid: c7793352af9baae49b82ec04af4c8b69, type: 3}
       propertyPath: m_RootOrder
@@ -8188,6 +8224,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserCard
       objectReference: {fileID: 0}
+    - target: {fileID: 2694680238837613470, guid: 7e35355266a413547ae911b13d446f58, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2694680238837613471, guid: 7e35355266a413547ae911b13d446f58, type: 3}
       propertyPath: m_Size.x
       value: 1.1617006
@@ -8220,6 +8260,10 @@ PrefabInstance:
     - target: {fileID: 8287727191689348281, guid: d1f5ed4174b9b5843b5b935189350c3e, type: 3}
       propertyPath: m_Name
       value: EnemySpawner2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287727191689348281, guid: d1f5ed4174b9b5843b5b935189350c3e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8287727191689348286, guid: d1f5ed4174b9b5843b5b935189350c3e, type: 3}
       propertyPath: m_RootOrder

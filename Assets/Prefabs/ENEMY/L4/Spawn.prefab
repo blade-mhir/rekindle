@@ -175,9 +175,9 @@ MonoBehaviour:
   damagePerInterval: 1
   damageInterval: 0.5
   minX: -7.07
-  maxX: 7.36
+  maxX: 7.31
   minY: -5.86
-  maxY: 6.92
+  maxY: 6.96
 --- !u!114 &2556024767803558367
 MonoBehaviour:
   m_ObjectHideFlags: 0

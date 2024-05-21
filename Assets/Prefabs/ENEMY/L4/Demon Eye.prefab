@@ -177,9 +177,9 @@ MonoBehaviour:
   damagePerInterval: 1
   damageInterval: 0.5
   minX: -7.07
-  maxX: 7.36
+  maxX: 7.31
   minY: -5.86
-  maxY: 6.92
+  maxY: 6.96
 --- !u!114 &1628400319581258665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 719c8b7d9a7cc874c8dbb422811a4f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 5389063902380584143, guid: 23ad712eb507e1e44a1b9909a9a18b5a, type: 3}
+  bulletPrefab: {fileID: 5389063902380584143, guid: 851c08a4ef8ca8d4c807e9c9605ee2f3, type: 3}
   fireRate: 0.5
   bulletDamage: 1
 --- !u!1 &1628400320785192463

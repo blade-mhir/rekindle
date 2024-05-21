@@ -174,6 +174,10 @@ MonoBehaviour:
   attackRange: 100
   damagePerInterval: 1
   damageInterval: 0.5
+  minX: -7.35
+  maxX: 9.353
+  minY: -8.931
+  maxY: 7.07
 --- !u!114 &4227209651479032980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   coinValue: 10
+  healthBarFill: {fileID: 0}
 --- !u!114 &4227209651479032979
 MonoBehaviour:
   m_ObjectHideFlags: 0
