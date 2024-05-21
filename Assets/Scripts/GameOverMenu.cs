@@ -14,6 +14,8 @@ public class GameOverMenu : MonoBehaviour
     public HealthController healthController; // Reference to the HealthController script
     public static event System.Action OnGameRestart;
 
+    public int continueSceneIndex; // Scene index for continue button
+
     private bool isGameOver = false;
 
     private void Start()
@@ -86,8 +88,8 @@ public class GameOverMenu : MonoBehaviour
 
     public void OnContinueButtonClick()
     {
-        // Load Scene 2
-        SceneManager.LoadScene(2);
+        // Load the scene with the specified index
+        SceneManager.LoadScene(continueSceneIndex);
     }
 
     public void Quit()
