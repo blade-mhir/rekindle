@@ -7924,6 +7924,22 @@ PrefabInstance:
       value: LaserCard
       objectReference: {fileID: 0}
     - target: {fileID: 6408590904953596065, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
+      propertyPath: maxX
+      value: 6.921
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408590904953596065, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
+      propertyPath: maxY
+      value: 5.852
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408590904953596065, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
+      propertyPath: minX
+      value: -6.247
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408590904953596065, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
+      propertyPath: minY
+      value: -7.096
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408590904953596065, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
       propertyPath: lootBag
       value: 
       objectReference: {fileID: 6021732700542068911, guid: 2442617d80f50fc43b90cc53e79098b3, type: 3}
@@ -7981,11 +7997,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6408590904953596066, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.38
+      value: 6.921
       objectReference: {fileID: 0}
     - target: {fileID: 6408590904953596066, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.76
+      value: -7.357
       objectReference: {fileID: 0}
     - target: {fileID: 6408590904953596066, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
       propertyPath: m_LocalPosition.z

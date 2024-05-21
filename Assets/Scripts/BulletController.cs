@@ -7,6 +7,12 @@ public class BulletController : MonoBehaviour
     public int damage = 1; // Damage value
     private int direction = 1; // Default direction (right)
 
+    [SerializeField] private float minX = -6.52f; // Min X boundary for bullet (customizable in inspector)
+    [SerializeField] private float maxX = 7.20f;  // Max X boundary for bullet (customizable in inspector)
+    [SerializeField] private float minY = -7.5f;  // Min Y boundary for bullet (customizable in inspector)
+    [SerializeField] private float maxY = 6.17f;  // Max Y boundary for bullet (customizable in inspector)
+
+
     // Method to set the bullet direction
     public void SetDirection(int newDirection)
     {
@@ -22,13 +28,13 @@ public class BulletController : MonoBehaviour
         transform.Translate(GetComponent<Rigidbody2D>().velocity * Time.deltaTime);
 
         // Check if bullet goes beyond X position and destroy
-        if (transform.position.x < -6.52f || transform.position.x > 7.20f)
+        if (transform.position.x < minX || transform.position.x > maxX)
         {
             Destroy(gameObject);
         }
 
         // Check if bullet goes beyond Y position and destroy
-        if (transform.position.y < -7.5f || transform.position.y > 6.17f)
+        if (transform.position.y < minY || transform.position.y > maxY)
         {
             Destroy(gameObject);
         }
