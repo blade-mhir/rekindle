@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794337abbd49496459ecf3dc1cd7b658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 100
   coinValue: 1000
   healthBarFill: {fileID: 0}
 --- !u!114 &7342884097224910911
