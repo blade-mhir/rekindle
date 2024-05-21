@@ -28,13 +28,13 @@ public class CoinManager : MonoBehaviour
         UpdateScoreText();
     }
 
-    // private void OnEnable()
-    // {
-    //     GameManager.OnGameOver += ResetCoinScore;
-    // }
+    private void OnEnable()
+    {
+        GameOverMenu.OnGameRestart += ResetCoinScore;
+    }
 
-    // private void OnDisable()
-    // {
-    //     GameManager.OnGameOver -= ResetCoinScore;
-    // }
+    private void OnDisable()
+    {
+       GameOverMenu.OnGameRestart -= ResetCoinScore;
+    }
 }

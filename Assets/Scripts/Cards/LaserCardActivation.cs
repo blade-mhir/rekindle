@@ -86,8 +86,8 @@ public class LaserCardActivation : MonoBehaviour
         {
             CardManager.instance.ActivateLaserCard();
             ActivateLaserPowerUp();
-            collision.gameObject.SetActive(false);
-            // Destroy(collision.gameObject); // Destroy the power-up on collision
+            // collision.gameObject.SetActive(false);
+            Destroy(collision.gameObject); // Destroy the power-up on collision
         }
     }
 }

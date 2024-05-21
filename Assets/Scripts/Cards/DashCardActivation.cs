@@ -23,6 +23,7 @@ public class DashCardActivation : MonoBehaviour
 
     private void Update()
     {
+        print (CardManager.instance.IsDashCardActivated());
         // Check for right mouse button input to trigger dash
         if (canDash && Input.GetMouseButtonDown(1) && !isDashing && Time.time >= lastDashTime + dashCooldown)
         {
@@ -32,13 +33,13 @@ public class DashCardActivation : MonoBehaviour
         // Activate dash card when E key is pressed and the effect is not already active and not on cooldown
         if (Input.GetKeyDown(KeyCode.E) && CardManager.instance.IsDashCardActivated())
         {
-            print("activating dash");
             ActivateDashCard();
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        print("collided");
         if (collision.gameObject.CompareTag("DashCard"))
         {
             print(CardManager.instance.IsInviCardActivated());
@@ -46,9 +47,10 @@ public class DashCardActivation : MonoBehaviour
             {
                 CardManager.instance.ActivateDashCard();
                 ActivateDashCard();
-                collision.gameObject.SetActive(false);
+                // collision.gameObject.SetActive(false);
+                Destroy(collision.gameObject); // Destroy the power-up on collision
             }
-            // Destroy(collision.gameObject); // Destroy the power-up on collision
+            
         }
     }
 

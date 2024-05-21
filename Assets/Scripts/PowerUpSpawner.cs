@@ -48,8 +48,7 @@ public class PowerUpSpawner : MonoBehaviour
 
         if (occupiedSpawnPositions.ContainsKey(spawnPoint))
         {
-            occupiedSpawnPositions[spawnPoint].SetActive(false);
-            // Destroy(occupiedSpawnPositions[spawnPoint]);
+            Destroy(occupiedSpawnPositions[spawnPoint]);
             occupiedSpawnPositions.Remove(spawnPoint);
         }
     }
