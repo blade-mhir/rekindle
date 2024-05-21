@@ -1065,9 +1065,7 @@ MonoBehaviour:
   gameOverSound: {fileID: 0}
   coinManager: {fileID: 565484309}
   playerController: {fileID: 0}
-  enemySpawners: []
   cardDurations: []
-  powerUpSpawners: []
   finalScoreText: {fileID: 826432993}
   healthController: {fileID: 6408590904269706836}
 --- !u!114 &260744880
@@ -1615,15 +1613,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8868522765904738653, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
       propertyPath: m_Size.x
-      value: 1.3721583
+      value: 1.1017458
       objectReference: {fileID: 0}
     - target: {fileID: 8868522765904738653, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
       propertyPath: m_Size.y
-      value: 1.92
+      value: 1.8766518
       objectReference: {fileID: 0}
     - target: {fileID: 8868522765904738653, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
       propertyPath: m_Offset.x
-      value: 0.013920903
+      value: 0.0064094067
+      objectReference: {fileID: 0}
+    - target: {fileID: 8868522765904738653, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.021674186
       objectReference: {fileID: 0}
     - target: {fileID: 8868522765904738653, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -7400,6 +7402,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: HPPotionCard
       objectReference: {fileID: 0}
+    - target: {fileID: 5282696942661844437, guid: bd483d3f2a914e94aac5464183b95efd, type: 3}
+      propertyPath: m_Size.x
+      value: 1.1543252
+      objectReference: {fileID: 0}
+    - target: {fileID: 5282696942661844437, guid: bd483d3f2a914e94aac5464183b95efd, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0048577487
+      objectReference: {fileID: 0}
     - target: {fileID: 5282696942661844439, guid: bd483d3f2a914e94aac5464183b95efd, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -7618,6 +7628,22 @@ PrefabInstance:
     - target: {fileID: 4349472012032763074, guid: 98cb28c1f1a37314388d138c1128cb23, type: 3}
       propertyPath: m_Name
       value: InviCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349472012032763075, guid: 98cb28c1f1a37314388d138c1128cb23, type: 3}
+      propertyPath: m_Size.x
+      value: 1.1041582
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349472012032763075, guid: 98cb28c1f1a37314388d138c1128cb23, type: 3}
+      propertyPath: m_Size.y
+      value: 1.8333032
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349472012032763075, guid: 98cb28c1f1a37314388d138c1128cb23, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.0076156855
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349472012032763075, guid: 98cb28c1f1a37314388d138c1128cb23, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.043348283
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98cb28c1f1a37314388d138c1128cb23, type: 3}
@@ -8073,6 +8099,22 @@ PrefabInstance:
     - target: {fileID: 2694680238837613470, guid: 7e35355266a413547ae911b13d446f58, type: 3}
       propertyPath: m_Name
       value: LaserCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694680238837613471, guid: 7e35355266a413547ae911b13d446f58, type: 3}
+      propertyPath: m_Size.x
+      value: 1.1617006
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694680238837613471, guid: 7e35355266a413547ae911b13d446f58, type: 3}
+      propertyPath: m_Size.y
+      value: 1.8288016
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694680238837613471, guid: 7e35355266a413547ae911b13d446f58, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.034966886
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694680238837613471, guid: 7e35355266a413547ae911b13d446f58, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.045599252
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e35355266a413547ae911b13d446f58, type: 3}
