@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
      [SerializeField] private HealthController healthController;
-    [SerializeField] private float moveSpeed = 1f; // Base movement speed
+    [SerializeField] private float moveSpeed = 5f; // Base movement speed
     [SerializeField] private float fireMoveSpeed = 2.5f; // Movement speed during Fire powerup (customizable in inspector)
     [SerializeField] private float fireDuration = 5f; // Duration of Fire powerup effect (customizable in inspector)
     [SerializeField] private float increasedFireRate = 0.5f; // Desired fire rate during Fire powerup (adjustable)
@@ -346,7 +346,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            moveSpeed = 1f; // Reset to base move speed
+            moveSpeed = 5f; // Reset to base move speed
         }
     }
 
