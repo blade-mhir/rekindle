@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using EnemyNamespace; // Add this line
 
 public class LinearTimer : MonoBehaviour
 {

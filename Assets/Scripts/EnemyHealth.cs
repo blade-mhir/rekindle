@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -10,6 +10,10 @@ public class EnemyHealth : MonoBehaviour
     private CoinManager coinManager;
     private LootBag lootBag;
     private Animator animator;
+    [SerializeField] private Image healthBarFill; // Optional health bar fill image
+
+    public int MaxHealth => maxHealth; // Public getter for maxHealth
+    public int CurrentHealth => currentHealth; // Public getter for currentHealth
 
     private void Awake()
     {
@@ -17,11 +21,13 @@ public class EnemyHealth : MonoBehaviour
         coinManager = FindObjectOfType<CoinManager>();
         lootBag = GetComponent<LootBag>();
         animator = GetComponent<Animator>();
+        UpdateHealthBar(); // Initialize the health bar
     }
 
     public void TakeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
+        UpdateHealthBar(); // Update the health bar when taking damage
 
         if (currentHealth <= 0)
         {
@@ -73,4 +79,11 @@ public class EnemyHealth : MonoBehaviour
         return coinValue;
     }
 
+    private void UpdateHealthBar()
+    {
+        if (healthBarFill != null)
+        {
+            healthBarFill.fillAmount = (float)currentHealth / maxHealth;
+        }
+    }
 }

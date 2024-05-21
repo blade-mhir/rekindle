@@ -203,6 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca2345014c6ec234991e5eb5479f858f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthController: {fileID: 0}
   moveSpeed: 5
   fireMoveSpeed: 9
   fireDuration: 6
@@ -213,8 +214,9 @@ MonoBehaviour:
   coffeeDuration: 8
   coffeePowerUpObject: {fileID: 0}
   sipUpCardMoveSpeed: 1.5
-  coinManager: {fileID: 0}
   sipCardPowerUpObject: {fileID: 0}
+  inviPowerUpObject: {fileID: 0}
+  coinManager: {fileID: 0}
 --- !u!114 &6408590904953596070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,10 +251,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 6408590904953596065}
-  gameOverObject: {fileID: 0}
+  gameOverMenu: {fileID: 0}
   maxHealth: 10
-  healthPowerUpAmount: 1
   maxShield: 2
+  healthPowerUpAmount: 1
   healthBarGameObject: {fileID: 0}
   healthBarImage: {fileID: 0}
   shieldBarGameObject: {fileID: 0}
@@ -261,9 +263,11 @@ MonoBehaviour:
   newHealthBarImage: {fileID: 0}
   newShieldBarGameObject: {fileID: 0}
   newShieldBarImage: {fileID: 0}
-  hPotionCardGameObject: {fileID: 0}
   hPCardGameObject: {fileID: 0}
   shieldCardGameObject: {fileID: 0}
+  hPotionCardGameObject: {fileID: 0}
+  hpotionEffect1: {fileID: 0}
+  hpotionEffect2: {fileID: 0}
 --- !u!114 &5979424525617461184
 MonoBehaviour:
   m_ObjectHideFlags: 0

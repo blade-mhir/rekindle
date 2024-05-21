@@ -202,8 +202,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootItems:
   - itemPrefab: {fileID: 3873582752853666729, guid: 0ae45def7ecdec344a0e6ec5f287e7db, type: 3}
-    baseDropChance: 0.5
-    vampCardDropChance: 0.5
+    baseDropChance: 0.3
+    vampCardDropChance: 0.3
   - itemPrefab: {fileID: 305966934531185353, guid: 89248f113bdbf2c4a8171b584626e7f8, type: 3}
-    baseDropChance: 0.2
-    vampCardDropChance: 0.5
+    baseDropChance: 0.05
+    vampCardDropChance: 0.1
+  - itemPrefab: {fileID: 8868522765904738652, guid: ef9da9e35d207664cb54444266a9cfb4, type: 3}
+    baseDropChance: 0.15
+    vampCardDropChance: 0.15
+  - itemPrefab: {fileID: 5396022151795736595, guid: f54c7cbabca1c04429e2cdfbc5b1e81a, type: 3}
+    baseDropChance: 0.1
+    vampCardDropChance: 0.1
+  - itemPrefab: {fileID: 8955968480050883333, guid: 1ce0595cb32adf54bb4750069b6dff1c, type: 3}
+    baseDropChance: 0.15
+    vampCardDropChance: 0.15
+  - itemPrefab: {fileID: 6410689861849741162, guid: 08189161f5a52c941a9a1c6a4d3ffc1b, type: 3}
+    baseDropChance: 0.1
+    vampCardDropChance: 0.1
