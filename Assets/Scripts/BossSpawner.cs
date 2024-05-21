@@ -22,11 +22,12 @@ namespace BossNamespace
         private HashSet<SpawnDetails> spawnedDetails = new HashSet<SpawnDetails>(); // Track which spawn details have been used
 
         private List<GameObject> spawnedEnemies = new List<GameObject>();
+        [SerializeField] private GameObject victoryMenu; // Reference to the Victory Menu GameObject
 
         private void Start()
         {
             if (boss != null)
-            {
+                        {
                 bossHealth = boss.GetComponent<EnemyHealth>();
             }
 
@@ -49,6 +50,11 @@ namespace BossNamespace
                 }
 
                 yield return new WaitForSeconds(1f); // Check every second
+            }
+
+            if (bossHealth.CurrentHealth <= 0)
+            {
+                ShowVictoryMenu();
             }
         }
 
@@ -118,6 +124,14 @@ namespace BossNamespace
         private void OnDisable()
         {
             GameOverMenu.OnGameRestart -= ResetSpawner; // Unsubscribe from the GameManager's OnGameOver event
+        }
+
+        private void ShowVictoryMenu()
+        {
+            if (victoryMenu != null)
+            {
+                victoryMenu.SetActive(true);
+            }
         }
     }
 }

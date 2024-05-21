@@ -130,8 +130,8 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!58 &4015444365295939795
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -164,6 +164,10 @@ MonoBehaviour:
   attackRange: 100
   damagePerInterval: 1
   damageInterval: 1
+  minX: -6.25
+  maxX: 6.92
+  minY: -7.11
+  maxY: 5.93
 --- !u!114 &4015444365295939792
 MonoBehaviour:
   m_ObjectHideFlags: 0
