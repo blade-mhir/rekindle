@@ -10,7 +10,6 @@ public class LaserCardActivation : MonoBehaviour
     [SerializeField] private GameObject laserPowerUpObject; // Reference to the laser power-up object
     [SerializeField] private Image cooldownFillImage; // Reference to the cooldown fill image
 
-
     private bool isLaserActive = false; // Flag for laser powerup state
     private float laserStartTime;
     private bool isCooldownActive = false;
@@ -21,6 +20,10 @@ public class LaserCardActivation : MonoBehaviour
     private void Start()
     {
         shootingScript = GetComponent<Shooting>(); // Get the Shooting script attached to the player
+        if (cooldownFillImage != null)
+        {
+            cooldownFillImage.fillAmount = 0f; // Ensure the cooldown fill image is initially empty
+        }
     }
 
     private void Update()
@@ -40,16 +43,15 @@ public class LaserCardActivation : MonoBehaviour
 
     private void ActivateLaserPowerUp()
     {
-        isLaserActive = true;
-        laserStartTime = Time.time;
-
-        shootingScript.SetLaserBulletPrefab(laserBulletPrefab);
-
         // Enable the laser power-up object
         if (laserPowerUpObject != null)
         {
             laserPowerUpObject.SetActive(true);
         }
+        isLaserActive = true;
+        laserStartTime = Time.time;
+
+        shootingScript.SetLaserBulletPrefab(laserBulletPrefab);
 
         // Start cooldown coroutine
         StartCoroutine(CooldownCoroutine());
@@ -71,13 +73,19 @@ public class LaserCardActivation : MonoBehaviour
         {
             float timeSinceCooldownStart = Time.time - cooldownStartTime;
             float cooldownFillAmount = Mathf.Clamp01(timeSinceCooldownStart / cooldownDuration);
-            cooldownFillImage.fillAmount = 1f - cooldownFillAmount;
+            if (cooldownFillImage != null)
+            {
+                cooldownFillImage.fillAmount = 1f - cooldownFillAmount;
+            }
 
             yield return null; // Wait for the next frame
         }
 
         isCooldownActive = false;
-        cooldownFillImage.fillAmount = 0f; // Reset cooldown fill image
+        if (cooldownFillImage != null)
+        {
+            cooldownFillImage.fillAmount = 0f; // Reset cooldown fill image
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -86,7 +94,6 @@ public class LaserCardActivation : MonoBehaviour
         {
             CardManager.instance.ActivateLaserCard();
             ActivateLaserPowerUp();
-            // collision.gameObject.SetActive(false);
             Destroy(collision.gameObject); // Destroy the power-up on collision
         }
     }

@@ -10,11 +10,6 @@ public class GameOverMenu : MonoBehaviour
     public GameObject gameOverUI; // Reference to the Game Over UI object
     public AudioSource gameOverSound; // Reference to the AudioSource for the Game Over sound
     public CoinManager coinManager; // Reference to the CoinManager script
-
-    public PlayerController playerController;
-
-    public CardDuration[] cardDurations;
-
     public TMP_Text finalScoreText; // Reference to a TextMesh Pro TMP_Text component to display the final score
     public HealthController healthController; // Reference to the HealthController script
     public static event System.Action OnGameRestart;
@@ -24,7 +19,6 @@ public class GameOverMenu : MonoBehaviour
     private void Start()
     {
         gameOverUI.SetActive(false); // Ensure the game over UI is hidden initially
-        playerController = FindObjectOfType<PlayerController>();
     }
 
     public void ShowGameOverMenu()
@@ -53,32 +47,28 @@ public class GameOverMenu : MonoBehaviour
 
         // Display the final score
         finalScoreText.text = "Score: " + finalScore.ToString();
-        cardDurations = FindObjectsOfType<CardDuration>();
+
+        // Store final score for the next scene
+        PlayerPrefs.SetInt("FinalScore", finalScore);
     }
 
     public void Restart()
     {
-
         if (isGameOver) // Only proceed if game over
         {
             // Unfreeze the game
             Time.timeScale = 1f;
-    
+
             if (healthController != null)
             {
                 healthController.ResetHealthState();
             }
-
-            CardManager.instance.DeactivateAllCards();
-           
-            // playerController.ResetPlayerProperties();
 
             gameOverUI.SetActive(false);
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
             OnGameRestart?.Invoke();
-
         }
     }
 
@@ -94,6 +84,11 @@ public class GameOverMenu : MonoBehaviour
         }
     }
 
+    public void OnContinueButtonClick()
+    {
+        // Load Scene 2
+        SceneManager.LoadScene(2);
+    }
 
     public void Quit()
     {
