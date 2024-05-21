@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; // Include this for UI components
 
 namespace BossNamespace
 {
@@ -23,11 +24,12 @@ namespace BossNamespace
 
         private List<GameObject> spawnedEnemies = new List<GameObject>();
         [SerializeField] private GameObject victoryMenu; // Reference to the Victory Menu GameObject
+        [SerializeField] private Image healthBar; // Reference to the Health Bar Image
 
         private void Start()
         {
             if (boss != null)
-                        {
+            {
                 bossHealth = boss.GetComponent<EnemyHealth>();
             }
 
@@ -38,11 +40,17 @@ namespace BossNamespace
         {
             while (bossHealth != null && bossHealth.CurrentHealth > 0)
             {
-                float healthPercentage = (float)bossHealth.CurrentHealth / bossHealth.MaxHealth * 100;
+                float healthPercentage = (float)bossHealth.CurrentHealth / bossHealth.MaxHealth;
+
+                // Update the health bar
+                if (healthBar != null)
+                {
+                    healthBar.fillAmount = healthPercentage;
+                }
 
                 foreach (var spawnDetails in spawnDetailsList)
                 {
-                    if (healthPercentage <= spawnDetails.bossHealthBeforeSpawn && !spawnedDetails.Contains(spawnDetails))
+                    if (healthPercentage <= spawnDetails.bossHealthBeforeSpawn / 100f && !spawnedDetails.Contains(spawnDetails))
                     {
                         StartCoroutine(SpawnEnemies(spawnDetails));
                         spawnedDetails.Add(spawnDetails);
@@ -102,8 +110,8 @@ namespace BossNamespace
             }
             return false;
         }
-         
-         // Method to reset the spawner
+
+        // Method to reset the spawner
         public void ResetSpawner()
         {
             print("Resetting Spawner");
@@ -135,4 +143,3 @@ namespace BossNamespace
         }
     }
 }
-

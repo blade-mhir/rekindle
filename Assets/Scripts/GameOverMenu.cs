@@ -92,6 +92,9 @@ public class GameOverMenu : MonoBehaviour
 
     public void OnContinueButtonClick()
     {
+        // Unfreeze the game
+        Time.timeScale = 1f;
+
         // Load the scene with the specified index
         SceneManager.LoadScene(continueSceneIndex);
     }

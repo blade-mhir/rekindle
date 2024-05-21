@@ -1868,7 +1868,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &655525415
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7322,6 +7322,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 364590114059665674, guid: a456f561868c0de449d7cdba94443397, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 655525416}
     - target: {fileID: 364590114059665674, guid: a456f561868c0de449d7cdba94443397, type: 3}
       propertyPath: victoryMenu
       value: 
