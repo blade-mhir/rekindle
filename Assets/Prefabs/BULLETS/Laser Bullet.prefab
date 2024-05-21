@@ -122,6 +122,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
+  minX: -6.52
+  maxX: 7.2
+  minY: -7.5
+  maxY: 6.17
 --- !u!58 &7788996947024441367
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -29,7 +29,7 @@ public class LaserCardActivation : MonoBehaviour
     private void Update()
     {
         // Activate laser powerup with "E" key
-        if (Input.GetKeyDown(KeyCode.E) && !isCooldownActive && CardManager.instance.IsDashCardActivated())
+        if (Input.GetKeyDown(KeyCode.E) && !isCooldownActive && CardManager.instance.IsLaserCardActivated())
         {
             ActivateLaserPowerUp();
         }
@@ -54,7 +54,6 @@ public class LaserCardActivation : MonoBehaviour
         shootingScript.SetLaserBulletPrefab(laserBulletPrefab);
 
         // Start cooldown coroutine
-        StartCoroutine(CooldownCoroutine());
     }
 
     private void DeactivateLaserPowerUp()
@@ -62,30 +61,51 @@ public class LaserCardActivation : MonoBehaviour
         isLaserActive = false;
 
         shootingScript.ResetBulletPrefab();
+        StartCoroutine(CooldownCoroutine());
+    
     }
 
     private IEnumerator CooldownCoroutine()
     {
         isCooldownActive = true;
-        cooldownStartTime = Time.time;
 
-        while (Time.time < cooldownStartTime + cooldownDuration)
+        if (cooldownFillImage != null)
         {
-            float timeSinceCooldownStart = Time.time - cooldownStartTime;
-            float cooldownFillAmount = Mathf.Clamp01(timeSinceCooldownStart / cooldownDuration);
-            if (cooldownFillImage != null)
+            cooldownFillImage.gameObject.SetActive(true);
+            float fillAmount = 1f;
+            float fillChangeRate = 1f / cooldownDuration;
+            // cooldownFillImage.fillAmount = 1f - cooldownFillAmount;
+
+            while (fillAmount > 0)
             {
-                cooldownFillImage.fillAmount = 1f - cooldownFillAmount;
+                fillAmount -= fillChangeRate * Time.deltaTime;
+                cooldownFillImage.fillAmount = fillAmount;
+                yield return null;
             }
 
-            yield return null; // Wait for the next frame
+            cooldownFillImage.gameObject.SetActive(false);
         }
 
         isCooldownActive = false;
-        if (cooldownFillImage != null)
-        {
-            cooldownFillImage.fillAmount = 0f; // Reset cooldown fill image
-        }
+        //cooldownStartTime = Time.time;
+
+        // while (Time.time < cooldownStartTime + cooldownDuration)
+        // {
+        //     float timeSinceCooldownStart = Time.time - cooldownStartTime;
+        //     float cooldownFillAmount = Mathf.Clamp01(timeSinceCooldownStart / cooldownDuration);
+        //     if (cooldownFillImage != null)
+        //     {
+        //         cooldownFillImage.fillAmount = 1f - cooldownFillAmount;
+        //     }
+
+        //     yield return null; // Wait for the next frame
+        // }
+
+        // isCooldownActive = false;
+        // if (cooldownFillImage != null)
+        // {
+        //     cooldownFillImage.fillAmount = 0f; // Reset cooldown fill image
+        // }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -93,7 +113,10 @@ public class LaserCardActivation : MonoBehaviour
         if (!CardManager.instance.IsDashCardActivated() && !CardManager.instance.IsInviCardActivated() && collision.gameObject.CompareTag("LaserCard"))
         {
             CardManager.instance.ActivateLaserCard();
-            ActivateLaserPowerUp();
+            if (laserPowerUpObject != null)
+            {
+                laserPowerUpObject.SetActive(true);
+            }
             Destroy(collision.gameObject); // Destroy the power-up on collision
         }
     }
