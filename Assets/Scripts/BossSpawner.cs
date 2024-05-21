@@ -21,6 +21,8 @@ namespace BossNamespace
         private EnemyHealth bossHealth; // Reference to the Boss's health component
         private HashSet<SpawnDetails> spawnedDetails = new HashSet<SpawnDetails>(); // Track which spawn details have been used
 
+        private List<GameObject> spawnedEnemies = new List<GameObject>();
+
         private void Start()
         {
             if (boss != null)
@@ -58,6 +60,7 @@ namespace BossNamespace
             {
                 Vector3 spawnPosition = new Vector3(details.startPoint.x, details.startPoint.y, 0);
                 GameObject enemy = Instantiate(details.enemyPrefab, spawnPosition, Quaternion.identity);
+                spawnedEnemies.Add(enemy);
 
                 StartCoroutine(MoveEnemyToPosition(enemy, new Vector3(details.endPoint.x, details.endPoint.y, 0)));
 
@@ -81,5 +84,41 @@ namespace BossNamespace
 
             enemy.transform.position = endPosition;
         }
+
+        public bool HasRemainingEnemies()
+        {
+            foreach (var enemy in spawnedEnemies)
+            {
+                if (enemy != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+         
+         // Method to reset the spawner
+        public void ResetSpawner()
+        {
+            print("Resetting Spawner");
+            // Destroy all spawned enemies
+            foreach (var enemy in spawnedEnemies)
+            {
+                Destroy(enemy);
+            }
+            spawnedEnemies.Clear(); // Clear the list of spawned enemies
+            spawnDetailsList.Clear();
+        }
+
+        private void OnEnable()
+        {
+            GameOverMenu.OnGameRestart += ResetSpawner; // Subscribe to the GameManager's OnGameOver event
+        }
+
+        private void OnDisable()
+        {
+            GameOverMenu.OnGameRestart -= ResetSpawner; // Unsubscribe from the GameManager's OnGameOver event
+        }
     }
 }
+
