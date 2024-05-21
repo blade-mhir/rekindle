@@ -639,6 +639,7 @@ MonoBehaviour:
   coinManager: {fileID: 565484309}
   finalScoreText: {fileID: 1653308658}
   healthController: {fileID: 6408590904269706836}
+  continueSceneIndex: 4
 --- !u!114 &260744880
 MonoBehaviour:
   m_ObjectHideFlags: 0

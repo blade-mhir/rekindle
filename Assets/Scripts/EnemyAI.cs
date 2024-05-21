@@ -9,10 +9,11 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float damagePerInterval = 1f;
     [SerializeField] private float damageInterval = 1f;
 
-    public static float minX = -6.25f;
-    public static float maxX = 6.92f;
-    public static float minY = -7.11f;
-    public static float maxY = 5.93f;
+    [Header("Movement Boundaries")]
+    public float minX = -6.25f;
+    public float maxX = 6.92f;
+    public float minY = -7.11f;
+    public float maxY = 5.93f;
 
     private Transform playerTransform;
     private Rigidbody2D rb;
@@ -30,7 +31,7 @@ public class EnemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerController = playerTransform.GetComponent<PlayerController>();
 
-         // Debug statement to check if playerTransform is assigned
+        // Debug statement to check if playerTransform is assigned
         if (playerTransform == null)
         {
             Debug.LogError("Player transform not found!");

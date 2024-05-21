@@ -1304,6 +1304,7 @@ MonoBehaviour:
   coinManager: {fileID: 565484309}
   finalScoreText: {fileID: 1671677403}
   healthController: {fileID: 6408590904269706836}
+  continueSceneIndex: 3
 --- !u!114 &260744880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8001,7 +8002,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6408590904953596066, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.28
       objectReference: {fileID: 0}
     - target: {fileID: 6408590904953596066, guid: 27e2f44c97c2fae48b81ff0fafc4b68f, type: 3}
       propertyPath: m_LocalPosition.z
