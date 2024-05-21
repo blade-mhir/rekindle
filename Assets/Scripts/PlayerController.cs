@@ -31,10 +31,11 @@ public class PlayerController : MonoBehaviour
     private Animator myAnimator;
     private SpriteRenderer mySpriteRender;
 
-    private float minX = -6.25f;
-    private float maxX = 6.92f;
-    private float minY = -7.11f;
-    private float maxY = 5.93f;
+    [SerializeField] private float minX = -6.25f; // Min X boundary (customizable in inspector)
+    [SerializeField] private float maxX = 6.92f;  // Max X boundary (customizable in inspector)
+    [SerializeField] private float minY = -7.11f; // Min Y boundary (customizable in inspector)
+    [SerializeField] private float maxY = 5.93f;  // Max Y boundary (customizable in inspector)
+    
     private bool isPowerUpActive = false; // Flag for active powerup
     private PowerUpType activePowerUp; // Type of active powerup (Coffee or Fire)
     private float powerUpStartTime; // Time when the powerup was activated
