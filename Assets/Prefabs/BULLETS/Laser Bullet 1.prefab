@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5594410934785790201}
   - component: {fileID: 5594410934785790202}
   m_Layer: 0
-  m_Name: Laser Bullet
+  m_Name: Laser Bullet 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
-  minX: -6.52
-  maxX: 7.2
-  minY: -7.5
-  maxY: 6.17
+  minX: -6.356
+  maxX: 7.061
+  minY: -7.357
+  maxY: 6.048
