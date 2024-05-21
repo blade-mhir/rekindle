@@ -201,7 +201,7 @@ public class HealthController : MonoBehaviour
             hasHealthPotion = true; // Player now has a health potion
             CardCollectionManager.Instance.CollectCard("HPotionCard");
             // collision.gameObject.SetActive(false);
-            // Destroy(collision.gameObject); // Destroy the health potion object
+             Destroy(collision.gameObject); // Destroy the health potion object
             if (hPotionCardGameObject != null)
             {
                 hPotionCardGameObject.SetActive(true); // Activate health potion card game object
