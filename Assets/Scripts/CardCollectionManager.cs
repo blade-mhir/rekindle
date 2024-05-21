@@ -14,11 +14,11 @@ public class CardCollectionManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -40,19 +40,19 @@ public class CardCollectionManager : MonoBehaviour
         return collectedCards.Count >= cardLimit;
     }
 
-    // public void ResetCardCollection()
-    // {
-    //     // Reset collected cards to empty
-    //     collectedCards.Clear();
-    // }
+    public void ResetCardCollection()
+    {
+        // Reset collected cards to empty
+        collectedCards.Clear();
+    }
 
-    // private void OnEnable()
-    // {
-    //     GameManager.OnGameOver += ResetCardCollection;
-    // }
+    private void OnEnable()
+    {
+        GameOverMenu.OnGameRestart += ResetCardCollection;
+    }
 
-    // private void OnDisable()
-    // {
-    //     GameManager.OnGameOver -= ResetCardCollection;
-    // }
+    private void OnDisable()
+    {
+        GameOverMenu.OnGameRestart -= ResetCardCollection;
+    }
 }

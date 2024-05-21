@@ -17,16 +17,16 @@ public class CoinManager : MonoBehaviour
         UpdateScoreText();
     }
 
-    private void UpdateScoreText()
+    public void UpdateScoreText()
     {
         coinScoreText.text = "x " + coinScore.ToString();
     }
 
-    // public void ResetCoinScore()
-    // {
-    //     coinScore = 0;
-    //     UpdateScoreText();
-    // }
+    public void ResetCoinScore()
+    {
+        coinScore = 0;
+        UpdateScoreText();
+    }
 
     // private void OnEnable()
     // {

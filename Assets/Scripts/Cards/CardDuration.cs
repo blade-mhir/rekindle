@@ -19,6 +19,12 @@ public class CardDuration : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         // Destroy the prefab
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        // Destroy(gameObject);
+    }
+
+    public void ShowCards() 
+    {
+        gameObject.SetActive(true);
     }
 }

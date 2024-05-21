@@ -20,14 +20,16 @@ public class InviCardActivation : MonoBehaviour
     private void Update()
     {
         // Activate invisibility card when E key is pressed and the effect is not already active and not on cooldown
-        if (Input.GetKeyDown(KeyCode.E) && !isEffectActive && !isCooldown)
+        if (Input.GetKeyDown(KeyCode.E) && CardManager.instance.IsInviCardActivated() && !isEffectActive && !isCooldown)
         {
+             print("activating invisibility");
             ActivateInvisibility();
         }
     }
 
     private void ActivateInvisibility()
     {
+        print("activating invisibility");
         // Only activate if not already active and not on cooldown
         if (!isEffectActive && !isCooldown)
         {

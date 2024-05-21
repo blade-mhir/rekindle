@@ -76,27 +76,36 @@ public class LinearTimer : MonoBehaviour
         }
     }
 
-    // public void ResetTimer()
-    // {
-    //     // Reset all timer-related states and properties to their initial values
-    //     timerStarted = false;
-    //     currentTime = 0f;
-    //     isGameOver = false;
-    //     Time.timeScale = 1f;
+    public void ResetTimer()
+    {
+        // Reset all timer-related states and properties to their initial values
+        timerStarted = false;
+        currentTime = 0f;
+        isGameOver = false;
+        Time.timeScale = 1f;
 
-    //     // Reset UI elements
-    //     timerImage.fillAmount = 1f;
-    //     gameOverText.SetActive(false);
-    //     victoryText.SetActive(false);
-    // }
+        // Reset UI elements
+        timerImage.fillAmount = 1f;
+        gameOverText.SetActive(false);
+        victoryText.SetActive(false);
 
-    // private void OnEnable()
-    // {
-    //     GameManager.OnGameOver += ResetTimer;
-    // }
+        EnemySpawner[] spawners = FindObjectsOfType<EnemySpawner>();
+        foreach (EnemySpawner spawner in spawners)
+        {
+            enemySpawners.Add(spawner);
+        }
 
-    // private void OnDisable()
-    // {
-    //     GameManager.OnGameOver -= ResetTimer;
-    // }
+        // Start the timer after the delay
+        StartCoroutine(StartTimerWithDelay());
+    }
+
+    private void OnEnable()
+    {
+        GameOverMenu.OnGameRestart += ResetTimer;
+    }
+
+    private void OnDisable()
+    {
+        GameOverMenu.OnGameRestart -= ResetTimer;
+    }
 }

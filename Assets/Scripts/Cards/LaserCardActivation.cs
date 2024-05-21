@@ -26,7 +26,7 @@ public class LaserCardActivation : MonoBehaviour
     private void Update()
     {
         // Activate laser powerup with "E" key
-        if (Input.GetKeyDown(KeyCode.E) && !isCooldownActive)
+        if (Input.GetKeyDown(KeyCode.E) && !isCooldownActive && CardManager.instance.IsDashCardActivated())
         {
             ActivateLaserPowerUp();
         }
@@ -86,7 +86,8 @@ public class LaserCardActivation : MonoBehaviour
         {
             CardManager.instance.ActivateLaserCard();
             ActivateLaserPowerUp();
-            Destroy(collision.gameObject); // Destroy the power-up on collision
+            collision.gameObject.SetActive(false);
+            // Destroy(collision.gameObject); // Destroy the power-up on collision
         }
     }
 }

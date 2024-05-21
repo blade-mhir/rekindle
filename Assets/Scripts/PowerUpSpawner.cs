@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 public class PowerUpSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] powerUpPrefabs;
-    [SerializeField] private float[] spawnProbabilities;
-    [SerializeField] private Vector2[] spawnPositions;
+    [SerializeField] public GameObject[] powerUpPrefabs;
+    [SerializeField] public float[] spawnProbabilities;
+    [SerializeField] public Vector2[] spawnPositions;
     [SerializeField] private float powerUpDuration = 8f;
     [SerializeField] private float spawnInterval = 15f;
     [SerializeField] private float startDelay = 0f;
 
-    private Dictionary<Vector2, GameObject> occupiedSpawnPositions = new Dictionary<Vector2, GameObject>();
+    public Dictionary<Vector2, GameObject> occupiedSpawnPositions = new Dictionary<Vector2, GameObject>();
     private bool isSpawning = false;
 
     private void Start()
@@ -48,7 +48,8 @@ public class PowerUpSpawner : MonoBehaviour
 
         if (occupiedSpawnPositions.ContainsKey(spawnPoint))
         {
-            Destroy(occupiedSpawnPositions[spawnPoint]);
+            occupiedSpawnPositions[spawnPoint].SetActive(false);
+            // Destroy(occupiedSpawnPositions[spawnPoint]);
             occupiedSpawnPositions.Remove(spawnPoint);
         }
     }
@@ -83,24 +84,24 @@ public class PowerUpSpawner : MonoBehaviour
     }
 
     // Method to reset the spawner
-    // public void ResetSpawner()
-    // {
-    //     StopAllCoroutines(); // Stop all spawning coroutines
-    //     isSpawning = false;
-    //     foreach (var powerUp in occupiedSpawnPositions.Values)
-    //     {
-    //         Destroy(powerUp); // Destroy all spawned power-ups
-    //     }
-    //     occupiedSpawnPositions.Clear(); // Clear the dictionary
-    // }
+    public void ResetSpawner()
+    {
+        StopAllCoroutines(); // Stop all spawning coroutines
+        isSpawning = false;
+        foreach (var powerUp in occupiedSpawnPositions.Values)
+        {
+            Destroy(powerUp); // Destroy all spawned power-ups
+        }
+        occupiedSpawnPositions.Clear(); // Clear the dictionary
+    }
 
-    // private void OnEnable()
-    // {
-    //     GameManager.OnGameOver += ResetSpawner; // Subscribe to the GameManager's OnGameOver event
-    // }
+    private void OnEnable()
+    {
+        GameOverMenu.OnGameRestart += ResetSpawner; // Subscribe to the GameManager's OnGameOver event
+    }
 
-    // private void OnDisable()
-    // {
-    //     GameManager.OnGameOver -= ResetSpawner; // Unsubscribe from the GameManager's OnGameOver event
-    // }
+    private void OnDisable()
+    {
+        GameOverMenu.OnGameRestart -= ResetSpawner; // Unsubscribe from the GameManager's OnGameOver event
+    }
 }

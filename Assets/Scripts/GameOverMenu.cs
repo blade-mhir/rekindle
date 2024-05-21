@@ -1,20 +1,34 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
 
 public class GameOverMenu : MonoBehaviour
 {
+    public static GameOverMenu instance;
     public GameObject gameOverUI; // Reference to the Game Over UI object
     public AudioSource gameOverSound; // Reference to the AudioSource for the Game Over sound
     public CoinManager coinManager; // Reference to the CoinManager script
+
+    public PlayerController playerController;
+
+    public EnemySpawner[] enemySpawners;
+    public CardDuration[] cardDurations;
+    public PowerUpSpawner[] powerUpSpawners;
+
     public TMP_Text finalScoreText; // Reference to a TextMesh Pro TMP_Text component to display the final score
     public HealthController healthController; // Reference to the HealthController script
+    public static event System.Action OnGameRestart;
 
     private bool isGameOver = false;
 
     private void Start()
     {
         gameOverUI.SetActive(false); // Ensure the game over UI is hidden initially
+        playerController = FindObjectOfType<PlayerController>();
+        enemySpawners = FindObjectsOfType<EnemySpawner>();
+        powerUpSpawners = FindObjectsOfType<PowerUpSpawner>();
     }
 
     public void ShowGameOverMenu()
@@ -43,23 +57,48 @@ public class GameOverMenu : MonoBehaviour
 
         // Display the final score
         finalScoreText.text = "Score: " + finalScore.ToString();
+        cardDurations = FindObjectsOfType<CardDuration>();
     }
 
     public void Restart()
     {
+
         if (isGameOver) // Only proceed if game over
         {
             // Unfreeze the game
             Time.timeScale = 1f;
-
-            // Reset the health and shield state
+    
             if (healthController != null)
             {
                 healthController.ResetHealthState();
             }
 
-            // Reload the current scene
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            coinManager.ResetCoinScore();
+            CardManager.instance.DeactivateAllCards();
+
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            GameObject[] coins = GameObject.FindGameObjectsWithTag("Coin");
+            GameObject[] hearts = GameObject.FindGameObjectsWithTag("HP");
+
+
+            foreach (GameObject coin in coins)
+            {
+                Destroy(coin);
+            }
+
+            foreach(GameObject heart in hearts)
+            {
+                Destroy(heart);
+            }
+           
+            playerController.ResetPlayerProperties();
+
+            gameOverUI.SetActive(false);
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+            OnGameRestart?.Invoke();
+
         }
     }
 

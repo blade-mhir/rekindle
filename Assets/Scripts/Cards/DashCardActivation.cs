@@ -30,8 +30,9 @@ public class DashCardActivation : MonoBehaviour
         }
 
         // Activate dash card when E key is pressed and the effect is not already active and not on cooldown
-        if (Input.GetKeyDown(KeyCode.E) && !CardManager.instance.IsDashCardActivated() && !CardManager.instance.IsLaserCardActivated())
+        if (Input.GetKeyDown(KeyCode.E) && CardManager.instance.IsDashCardActivated())
         {
+            print("activating dash");
             ActivateDashCard();
         }
     }
@@ -40,9 +41,14 @@ public class DashCardActivation : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("DashCard"))
         {
-            CardManager.instance.ActivateDashCard();
-            ActivateDashCard();
-            Destroy(collision.gameObject); // Destroy the power-up on collision
+            print(CardManager.instance.IsInviCardActivated());
+            if (!CardManager.instance.IsInviCardActivated() && !CardManager.instance.IsLaserCardActivated())
+            {
+                CardManager.instance.ActivateDashCard();
+                ActivateDashCard();
+                collision.gameObject.SetActive(false);
+            }
+            // Destroy(collision.gameObject); // Destroy the power-up on collision
         }
     }
 

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class SpawnDetails
 {
     public GameObject enemyPrefab;
+
     public float startTime;
     public float endTime;
     public int spawnCount;
@@ -17,9 +18,10 @@ public class EnemySpawner : MonoBehaviour
     public List<SpawnDetails> spawnDetailsList;
     public Vector2 startPoint;
     public Vector2 endPoint;
-    [SerializeField] private float startDelay = 0f;
+   
+    [SerializeField] private float startDelay = 10f;
 
-    private List<GameObject> spawnedEnemies = new List<GameObject>();
+    public List<GameObject> spawnedEnemies = new List<GameObject>();
 
     private void Start()
     {
@@ -61,18 +63,25 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator MoveEnemyToPosition(GameObject enemy, Vector3 endPosition)
     {
-        float duration = 1.0f;
-        float elapsedTime = 0;
-        Vector3 startingPosition = enemy.transform.position;
-
-        while (elapsedTime < duration)
+        if (enemy != null) 
         {
-            enemy.transform.position = Vector3.Lerp(startingPosition, endPosition, (elapsedTime / duration));
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+            float duration = 1.0f;
+            float elapsedTime = 0;
+            Vector3 startingPosition = enemy.transform.position;
 
-        enemy.transform.position = endPosition;
+            while (elapsedTime < duration)
+            {
+                if (enemy != null) 
+                {
+                    enemy.transform.position = Vector3.Lerp(startingPosition, endPosition, (elapsedTime / duration));
+                    elapsedTime += Time.deltaTime;
+                    yield return null;
+                }
+            }
+
+            enemy.transform.position = endPosition;
+        }
+       
     }
 
     public bool HasRemainingEnemies()
@@ -88,23 +97,25 @@ public class EnemySpawner : MonoBehaviour
     }
 
     // Method to reset the spawner
-    // public void ResetSpawner()
-    // {
-    //     // Destroy all spawned enemies
-    //     foreach (var enemy in spawnedEnemies)
-    //     {
-    //         Destroy(enemy);
-    //     }
-    //     spawnedEnemies.Clear(); // Clear the list of spawned enemies
-    // }
+    public void ResetSpawner()
+    {
+        print("Resetting Spawner");
+        // Destroy all spawned enemies
+        foreach (var enemy in spawnedEnemies)
+        {
+            Destroy(enemy);
+        }
+        spawnedEnemies.Clear(); // Clear the list of spawned enemies
+        spawnDetailsList.Clear();
+    }
 
-    // private void OnEnable()
-    // {
-    //     GameManager.OnGameOver += ResetSpawner; // Subscribe to the GameManager's OnGameOver event
-    // }
+    private void OnEnable()
+    {
+        GameOverMenu.OnGameRestart += ResetSpawner; // Subscribe to the GameManager's OnGameOver event
+    }
 
-    // private void OnDisable()
-    // {
-    //     GameManager.OnGameOver -= ResetSpawner; // Unsubscribe from the GameManager's OnGameOver event
-    // }
+    private void OnDisable()
+    {
+        GameOverMenu.OnGameRestart -= ResetSpawner; // Unsubscribe from the GameManager's OnGameOver event
+    }
 }

@@ -14,6 +14,8 @@ public class HealthController : MonoBehaviour
     [SerializeField] private Image healthBarImage; // Assign the health bar image in the Inspector
     [SerializeField] private GameObject shieldBarGameObject; // Assign the ShieldBar GameObject in the Inspector
     [SerializeField] private Image shieldBarImage; // Assign the shield bar image in the Inspector
+   [SerializeField]  private Image currentShieldBarImage;
+   [SerializeField] private Image currentHealthBarImage;
     [SerializeField] private GameObject newHealthBarGameObject; // Assign the new HealthBar GameObject in the Inspector
     [SerializeField] private Image newHealthBarImage; // Assign the new HealthBar Image in the Inspector
     [SerializeField] private GameObject newShieldBarGameObject; // Assign the new ShieldBar GameObject in the Inspector
@@ -73,11 +75,14 @@ public class HealthController : MonoBehaviour
         // Activate health bar and shield bar images
         if (healthBarImage != null)
         {
-            healthBarImage.gameObject.SetActive(true);
+            healthBarImage.gameObject.SetActive(true); 
+            healthBarImage.fillAmount = currentHealth / maxHealth;
+
         }
         if (shieldBarImage != null)
         {
             shieldBarImage.gameObject.SetActive(true);
+            shieldBarImage.fillAmount = currentShield / maxShield;
         }
 
         // Deactivate new health and shield bar game objects initially
@@ -179,7 +184,7 @@ public class HealthController : MonoBehaviour
             // Optionally: Add logic to disable collision with specific tags or give feedback
             return;
         }
-
+  
         if (collision.gameObject.tag == "HP")
         {
             if (currentShield == 0 && currentHealth < maxHealth)
@@ -195,7 +200,8 @@ public class HealthController : MonoBehaviour
         {
             hasHealthPotion = true; // Player now has a health potion
             CardCollectionManager.Instance.CollectCard("HPotionCard");
-            Destroy(collision.gameObject); // Destroy the health potion object
+            // collision.gameObject.SetActive(false);
+            // Destroy(collision.gameObject); // Destroy the health potion object
             if (hPotionCardGameObject != null)
             {
                 hPotionCardGameObject.SetActive(true); // Activate health potion card game object
@@ -218,7 +224,8 @@ public class HealthController : MonoBehaviour
             {
                 IncreaseBaseMaxHealth();
                 CardCollectionManager.Instance.CollectCard("HPCard");
-                Destroy(collision.gameObject); // Destroy the HP Card object
+                collision.gameObject.SetActive(false);
+                // Destroy(collision.gameObject); // Destroy the HP Card object
                 if (hPCardGameObject != null)
                 {
                     hPCardGameObject.SetActive(true); // Activate HP card game object
@@ -230,8 +237,9 @@ public class HealthController : MonoBehaviour
             if (CardCollectionManager.Instance.CanCollectCard("ShieldCard"))
             {
                 IncreaseBaseMaxShield();
+                collision.gameObject.SetActive(false);
                 CardCollectionManager.Instance.CollectCard("ShieldCard");
-                Destroy(collision.gameObject); // Destroy the Shield Card object
+                // Destroy(collision.gameObject); // Destroy the Shield Card object
                 if (shieldCardGameObject != null)
                 {
                     shieldCardGameObject.SetActive(true); // Activate shield card game object
@@ -312,17 +320,65 @@ public class HealthController : MonoBehaviour
     }
 
     // Call this method when the game restarts to reset health and shield
-    public void ResetHealthState()
-    {
-        maxHealth = 3f; // Reset base maximum health
-        maxShield = 2f; // Reset base maximum shield
-        currentHealth = maxHealth;
-        currentShield = maxShield;
-        hasHealthPotion = false;
+ public void ResetHealthState()
+{
+    InitializeHealthAndShield(); // Initialize health and shield variables
 
-        // Reset UI elements to their initial state
-        InitializeHealthAndShield();
-        UpdateHealthBar();
-        UpdateShieldBar();
+    maxHealth = 3f; // Reset base maximum health
+    maxShield = 2f; // Reset base maximum shield
+    currentHealth = maxHealth;
+    currentShield = maxShield;
+    hasHealthPotion = false;
+
+   
+    // Activate health bar and shield bar game objects if they are not active
+    if (healthBarGameObject != null)
+    {
+        healthBarGameObject.SetActive(true);
     }
+    if (shieldBarGameObject != null )
+    {
+        shieldBarGameObject.SetActive(true);
+    }
+
+    // Activate health bar and shield bar images if they are not active
+    if (healthBarImage != null )
+    {
+        healthBarImage = currentHealthBarImage;
+        healthBarImage.gameObject.SetActive(true);
+    }
+    if (shieldBarImage != null)
+    {
+        shieldBarImage = currentShieldBarImage;
+        shieldBarImage.gameObject.SetActive(true);
+    }
+
+    // Deactivate new health and shield bar game objects
+    if (newHealthBarGameObject != null)
+    {
+        newHealthBarGameObject.SetActive(false);
+        newHealthBarImage.gameObject.SetActive(false);
+    }
+    if (newShieldBarGameObject != null)
+    {
+        newShieldBarGameObject.SetActive(false);
+        newShieldBarImage.gameObject.SetActive(false);
+    }
+
+   // Update UI elements to reflect the reset state
+    UpdateHealthBar();
+    UpdateShieldBar();
+}   
+
+
+    private void OnEnable()
+    {
+        GameOverMenu.OnGameRestart += ResetHealthState; // Subscribe to the GameManager's OnGameOver event
+    }
+
+    private void OnDisable()
+    {
+        GameOverMenu.OnGameRestart -= ResetHealthState; // Unsubscribe from the GameManager's OnGameOver event
+    }
+
 }
