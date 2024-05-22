@@ -20,6 +20,7 @@ TagManager:
   - InviCard
   - LaserCard
   - LaserBullet
+  - Audio
   layers:
   - Default
   - TransparentFX
